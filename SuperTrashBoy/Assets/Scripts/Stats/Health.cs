@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField] float startingHealth = 100f;
 
     private float maxHealth;
-    private float currentHealth;
+    public float currentHealth;
 
     public event Action<float> onTakeDamage;
     public event Action<float> onHeal;
