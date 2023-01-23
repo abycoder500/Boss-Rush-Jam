@@ -25,7 +25,9 @@ public class InputManager : MonoBehaviour
         {
             instance = this;
         }
-        playerControls = new PlayerControls();    
+        playerControls = new PlayerControls();
+
+        Cursor.visible = false;
     }
 
     private void OnEnable() 
@@ -51,6 +53,16 @@ public class InputManager : MonoBehaviour
     public bool IsJumping()
     {
         return playerControls.Player.Jump.triggered;
+    }
+
+    public bool IsCrouching()
+    {
+        return playerControls.Player.Crouch.triggered;
+    }
+
+    public bool IsAttacking()
+    {
+        return playerControls.Player.Attack.triggered;
     }
 
 

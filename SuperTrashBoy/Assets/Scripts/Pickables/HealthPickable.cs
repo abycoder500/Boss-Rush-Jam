@@ -12,6 +12,6 @@ public class HealthPickable : Pickable
 
         Health playerHealth = player.GetComponent<Health>();
 
-        if(playerHealth.TryHeal(healAmount)) Destroy(this.gameObject);
+        if(playerHealth.TryHeal(healAmount)) base.Collect();
     }
 }

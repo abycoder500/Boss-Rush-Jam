@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3501365158643847426}
   - component: {fileID: 3501365158643847429}
+  - component: {fileID: 1285989871001272716}
   m_Layer: 0
   m_Name: HealthPickable
   m_TagString: Untagged
@@ -46,7 +47,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactWithPlayerOnly: 1
+  lifeTime: -1
+  OnPicked:
+    m_PersistentCalls:
+      m_Calls: []
   healAmount: 10
+--- !u!135 &1285989871001272716
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3501365158643847427}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3501365159041506095
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +76,6 @@ GameObject:
   - component: {fileID: 3501365159041506094}
   - component: {fileID: 3501365159041506067}
   - component: {fileID: 3501365159041506064}
-  - component: {fileID: 3501365159041506065}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -131,16 +148,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3501365159041506065
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3501365159041506095}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
