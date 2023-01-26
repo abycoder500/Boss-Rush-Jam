@@ -1,17 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Melee Weapon", menuName = "SuperTrashBoy/Melee Weapon", order = 0)]
 public class MeleeWeapon : Weapon
 {
-    [SerializeField] private AnimationClip attackAnimation;
-    [SerializeField] private float damage;
+    [SerializeField] private float hitBoxActivationTime;
+    [SerializeField] private float hitBoxDeactivationTime;
+    [SerializeField] private float attackEndTime; 
+    [SerializeField] private HitBox hitBox;
 
-    public override void Attack(GameObject instigator)
+    private void Start() 
     {
-        HitBox hitBox = GetWeaponPrefab().GetComponent<HitBox>();
+        hitBox.gameObject.SetActive(false);    
+    }
 
-        hitBox.ActivateHitBox(true, instigator, damage);
+    public override void Attack(GameObject instigator, Action AttackFinished)
+    {
+        hitBox.SetupHitBox(instigator, damage);
+        StartCoroutine(HitBoxRoutine(AttackFinished));  
+    }
+
+    private IEnumerator HitBoxRoutine(Action AttackFinished)
+    {
+        yield return new WaitForSeconds(hitBoxActivationTime);
+        hitBox.gameObject.SetActive(true);
+        yield return new WaitForSeconds(hitBoxDeactivationTime - hitBoxActivationTime);
+        hitBox.gameObject.SetActive(false);
+        yield return new WaitForSeconds(attackEndTime - hitBoxDeactivationTime - hitBoxActivationTime);
+        AttackFinished();
     }
 }

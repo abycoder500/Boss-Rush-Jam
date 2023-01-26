@@ -10,6 +10,8 @@ public class Fighter : MonoBehaviour
     private Weapon equippedWeapon;
     private List<Weapon> weapons;
 
+    private bool isAttacking = false;
+
     private void Start() 
     {
         EquipWeapon(startingWeapon);
@@ -17,14 +19,27 @@ public class Fighter : MonoBehaviour
 
     public void Attack()
     {
-        equippedWeapon.Attack(this.gameObject);
+        if(isAttacking) return;
+        isAttacking = true;
+        equippedWeapon.Attack(this.gameObject, AttackFinished);
     }
 
     public void EquipWeapon(Weapon weapon)
     {
-        equippedWeapon = weapon;
-        GameObject weaponModel = weapon.GetWeaponPrefab();
-        if (weaponModel != null) Instantiate(weapon.GetWeaponPrefab(), weaponLocation);
+        if (weapon != null) 
+        {
+            equippedWeapon  = Instantiate(weapon, weaponLocation);
+        }
+    }
+
+    public bool IsAttackingMelee()
+    {
+        return isAttacking && equippedWeapon as MeleeWeapon;
+    }
+
+    private void AttackFinished()
+    {
+        isAttacking = false;
     }
         
 }
