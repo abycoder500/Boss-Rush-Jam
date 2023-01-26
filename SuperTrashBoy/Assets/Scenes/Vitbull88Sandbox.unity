@@ -1356,18 +1356,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 449903485977829619, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_Height
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 449903485977829619, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 449903485977829619, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_Center.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6522571950693075493, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
       propertyPath: m_Name
       value: DummyBoss
@@ -1416,29 +1404,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6522571950693075495, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: projectileDetectionRange
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571950693075495, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: playerAttackDetectionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571950882939406, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_LocalScale.x
+    - target: {fileID: 6522571951791476490, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
+      propertyPath: phase2DashDuration
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571950882939406, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571950882939406, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571950882939406, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}

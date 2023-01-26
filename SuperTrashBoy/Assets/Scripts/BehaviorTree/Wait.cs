@@ -7,18 +7,16 @@ namespace SuperTrashBoy.BehaviorTrees
     {
         float timeToWait;
         float timer = 0f;
-        float timeStep;
 
-        public Wait(string n, float waitTime, float ts)
+        public Wait(string n, float waitTime)
         {
             name = n;
             timeToWait = waitTime;
-            timeStep = ts;
         }
 
         public override Status Process()
         {
-            timer += timeStep;
+            timer += Time.deltaTime;
             //Debug.Log(name + "Waited for " + timer + " s");
             if (timer >= timeToWait)
             {
