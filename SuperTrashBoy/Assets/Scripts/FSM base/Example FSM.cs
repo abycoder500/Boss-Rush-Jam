@@ -31,7 +31,7 @@ public class ExampleFSM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void HandleState()
@@ -64,7 +64,7 @@ public class ExampleFSM : MonoBehaviour
         while (valid == false)
         {
             //Make sure not to do the same attack twice
-            int nextAttack = Random.Range(0, 1);
+            int nextAttack = Random.Range(0, 2);
             if (nextAttack != (int)mCurrentState)
             {
                 valid = true;
