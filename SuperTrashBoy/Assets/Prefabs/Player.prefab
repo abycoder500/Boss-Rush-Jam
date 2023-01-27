@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc65c1c20454be488064902b167154a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 11400000, guid: 3c381096ea2dea84b8ccc2fa0e277928, type: 2}
+  startingWeapon: {fileID: 3968808342921753416, guid: 75472ad4ff229a7429e94c9b6639f644, type: 3}
   weaponLocation: {fileID: 5236077590746596156}
 --- !u!1 &1230060695433249723
 GameObject:

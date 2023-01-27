@@ -1,15 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : ScriptableObject
+public abstract class Weapon: MonoBehaviour
 {
-    [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] protected AnimationClip attackAnimation;
+    [SerializeField] protected float damage;
 
-    public abstract void Attack(GameObject instigator);
-
-    public GameObject GetWeaponPrefab()
-    {
-        return weaponPrefab;
-    }
+    public abstract void Attack(GameObject instigator, Action AttackFinished);
 }

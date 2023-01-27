@@ -1,12 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ranged Weapon", menuName = "SuperTrashBoy/Ranged Weapon", order = 0)]
 public class RangedWeapon : Weapon
 {
-    public override void Attack(GameObject instigator)
+    [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private Projectile projectilePrefab;
+    [SerializeField] private float launchForce = 10f;
+    [SerializeField] private float timeBetweenAttacks = 2f;
+
+    public override void Attack(GameObject instigator, Action AttackFinished)
     {
-        throw new System.NotImplementedException();
+        Projectile projectile = Instantiate(projectilePrefab, projectileSpawnPoint);
+        projectile.transform.parent = null;
+        projectile.Launch(launchForce * transform.forward, damage, instigator, this);
+        StartCoroutine(ResetAttack(AttackFinished));
+    }
+
+    private IEnumerator ResetAttack(Action AttackFinished)
+    {
+        yield return new WaitForSeconds(timeBetweenAttacks);
+        AttackFinished();
     }
 }
