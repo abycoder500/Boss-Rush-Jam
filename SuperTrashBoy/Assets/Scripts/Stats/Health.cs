@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     private float maxHealth;
     public float currentHealth;
 
-    public event Action<float> onTakeDamage;
+    public event Action<float, Transform> onTakeDamage;
     public event Action<float> onHeal;
     public event Action onDie;
 
@@ -28,10 +28,10 @@ public class Health : MonoBehaviour
         return currentHealth;
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(float damageAmount, Transform damager)
     {
         currentHealth = Mathf.Max(0f, currentHealth - damageAmount);
-        onTakeDamage?.Invoke(damageAmount);
+        onTakeDamage?.Invoke(damageAmount, damager);
 
         if (currentHealth <= 0f) 
         {

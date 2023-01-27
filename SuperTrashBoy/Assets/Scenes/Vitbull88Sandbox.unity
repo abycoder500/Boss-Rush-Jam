@@ -1242,6 +1242,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1734583249786532142, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: knockBackAngle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734583249786532142, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: knockBackForce
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3252099569264577379, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1290,7 +1298,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2462959610905901545, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
 --- !u!1001 &3501365160312681777
 PrefabInstance:
@@ -1403,10 +1412,6 @@ PrefabInstance:
     - target: {fileID: 6522571950693075494, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6522571951791476490, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
-      propertyPath: phase2DashDuration
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}

@@ -6,6 +6,8 @@ using System;
 
 public class DummyBT : BTUser
 {
+    [SerializeField] private ParticleSystem rageParticles = null;
+    [SerializeField] private Animator animator;
     [SerializeField] private int numberOfHitsToLeaveIdle = 5;
     [SerializeField] private int rageLevelToAdvanceStage1 = 3;
     [SerializeField] private int rageLevelToAdvanceStage2 = 4;
@@ -37,6 +39,7 @@ public class DummyBT : BTUser
     protected override void Start()
     {
         playerFighter = player.GetComponent<Fighter>();
+        rageParticles.gameObject.SetActive(false);
 
         base.Start();
 
@@ -164,6 +167,11 @@ public class DummyBT : BTUser
         dummyFighter.GetHitBox().onHit += ResetRage;    
     }
 
+    private void OnDisable() 
+    {
+        dummyFighter.GetHitBox().onHit -= ResetRage;    
+    }
+
     private Node.Status StayIdle()
     {
         Debug.Log(hitReceivedCounter.GetHitReceivedNumber());
@@ -199,19 +207,21 @@ public class DummyBT : BTUser
             isHitAfterSpin = true;
             dummyFighter.AdvanceStage();
         }
-        rage = 0;
+        ResetRage();
         return Node.Status.SUCCESS;
     }
 
     private Node.Status CheckForIncomingRangeAttack()
     {
+        dummyFighter.LookPlayer(false);
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, projectileDetectionRange, Vector3.down, 0f);
         foreach (RaycastHit hit in hits)
         {
             if(hit.transform.TryGetComponent<Projectile>(out Projectile projectile))
             {
                 Destroy(projectile.gameObject);
-                rage = 0;
+                animator.SetTrigger("Protect");
+                ResetRage();
             }
         }
         return Node.Status.SUCCESS;
@@ -219,13 +229,15 @@ public class DummyBT : BTUser
 
     private Node.Status CheckForMeleeAttack()
     {
+        dummyFighter.LookPlayer(false);
         Debug.Log("waiting");
         if(playerFighter.IsAttackingMelee())
         {
             if(IsPlayerWithinRange(playerAttackDetectionRange))
             {
                 Debug.Log("Keep Player From Attacking");
-                rage = 0;
+                animator.SetTrigger("Protect");
+                ResetRage();
             }
         }
         return Node.Status.SUCCESS;
@@ -237,6 +249,7 @@ public class DummyBT : BTUser
         {
             dummyFighter.JumpForwardAttack(playerLocation - transform.position);
             isAttacking = true;
+            dummyFighter.LookPlayer(true);
             return Node.Status.RUNNING;
         }
         else
@@ -255,6 +268,7 @@ public class DummyBT : BTUser
         if(!isAttacking) 
         {
             dummyFighter.StepAway(transform.position - playerLocation);
+            dummyFighter.LookPlayer(true);
             isAttacking = true;
             hitReceivedCounter.ResetHits();
             return Node.Status.RUNNING;
@@ -266,7 +280,7 @@ public class DummyBT : BTUser
                 if(hitReceivedCounter.GetHitReceivedNumber() >= 1)
                 {
                     hitReceivedCounter.ResetHits();
-                    rage ++;
+                    Enrage();
                     return Node.Status.FAILURE;
                 }
                 return Node.Status.RUNNING;
@@ -283,6 +297,7 @@ public class DummyBT : BTUser
     {
         if(!isAttacking) 
         {
+            dummyFighter.LookPlayer(true);
             dummyFighter.DashAttack(playerLocation - transform.position);
             isAttacking = true;
             return Node.Status.RUNNING;
@@ -293,13 +308,21 @@ public class DummyBT : BTUser
             else
             {
                 isAttacking = false;
-                rage ++;
+                if(dummyFighter.HasHitPlayer())
+                {
+                    dummyFighter.ResetHitPlayer();
+                    ResetRage();
+                }
+                else
+                {
+                    Enrage();
+                }
                 return Node.Status.SUCCESS;
             }
         }
     }
 
-     private Node.Status ClubAttack()
+    private Node.Status ClubAttack()
     {
         if(!isAttacking) 
         {
@@ -313,7 +336,7 @@ public class DummyBT : BTUser
             else
             {
                 isAttacking = false;
-                rage ++;
+                Enrage();
                 return Node.Status.SUCCESS;
             }
         }
@@ -325,18 +348,25 @@ public class DummyBT : BTUser
         {
             dummyFighter.SpinAttack(playerLocation - transform.position);
             isAttacking = true;
+            animator.SetBool("Spin", true);
             return Node.Status.RUNNING;
         }
         else
         {
             if(dummyFighter.IsAttacking()) 
             {
+                if(dummyFighter.HasHitPlayer())
+                {
+                    dummyFighter.ResetHitPlayer();
+                    ResetRage();
+                }
                 return Node.Status.RUNNING;
             }
             else
             {
                 isAttacking = false;
                 hitReceivedCounter.ResetHits();
+                animator.SetBool("Spin", false);
                 return Node.Status.SUCCESS;
             }
         }
@@ -344,7 +374,31 @@ public class DummyBT : BTUser
 
     private void ResetRage(GameObject playerObject)
     {
-        if(playerObject == player) rage = 0;
+        if(playerObject == player) ResetRage();
+    }
+
+    private void Enrage()
+    {
+        rage++;
+        rageParticles.gameObject.SetActive(true);
+        if(rage == 1)
+        {
+            rageParticles.startSpeed = 1f;
+        }
+        if(rage == 2)
+        {
+            rageParticles.startSpeed = 5f;
+        }
+        if(rage == 3)
+        {
+            rageParticles.startSpeed = 15f;
+        }
+    }
+
+    private void ResetRage()
+    {
+        rage = 0;
+        rageParticles.gameObject.SetActive(false);
     }
 
 }

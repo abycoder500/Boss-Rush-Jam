@@ -6,6 +6,7 @@ public class Fighter : MonoBehaviour
 {
     [SerializeField] private Weapon startingWeapon;
     [SerializeField] private Transform weaponLocation;
+    [SerializeField] private Animator animator;
   
     private Weapon equippedWeapon;
     private List<Weapon> weapons;
@@ -22,6 +23,7 @@ public class Fighter : MonoBehaviour
         if(isAttacking) return;
         isAttacking = true;
         equippedWeapon.Attack(this.gameObject, AttackFinished);
+        animator.SetTrigger("Attack");
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -29,6 +31,7 @@ public class Fighter : MonoBehaviour
         if (weapon != null) 
         {
             equippedWeapon  = Instantiate(weapon, weaponLocation);
+            animator.runtimeAnimatorController = equippedWeapon.GetAnimatorOverride();
         }
     }
 

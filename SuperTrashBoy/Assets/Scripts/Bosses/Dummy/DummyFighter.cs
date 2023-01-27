@@ -5,6 +5,8 @@ using UnityEngine;
 public class DummyFighter : MonoBehaviour
 {
     [SerializeField] HitBox clubHitBox;
+    [SerializeField] Animator animator;
+    [SerializeField] float lookRotationVelocity = 1f;
     [Header("Jump attack settings")]
     [SerializeField] AnimationCurve jumpAttackCurve;
     [SerializeField] float jumpHeight;
@@ -14,11 +16,16 @@ public class DummyFighter : MonoBehaviour
     [SerializeField] float phase2JumpAttackHorizontalVelocity;
     [SerializeField] float phase3JumpTimeLength;
     [SerializeField] float phase3JumpAttackHorizontalVelocity;
+    [SerializeField] float clubBehindBackTimeFraction = 0.1f;
+    [SerializeField] float clubAttackTimeFraction = 0.8f;
+    [SerializeField] float jumpAttackDamage = 10f;
     [Space]
     [Space]
 
     [Header("Dash Attack Settings")]
     //[SerializeField] AnimationCurve stepBackCurve;
+    [SerializeField] HitBox dashAttackHitBox;
+    [SerializeField] float dashAttackDamage;
     [SerializeField] float phase1StepAwayTimeLength = 1f;
     [SerializeField] float phase1StepAwayVelocity = 3f;
     [SerializeField] float phase1DashDuration = 3f;
@@ -53,10 +60,15 @@ public class DummyFighter : MonoBehaviour
     private CharacterController controller;
     private bool isAttacking = false;
     private bool isJumping = false;
+    private bool isJumpClubBehind = false;
+    private bool isJumpClubUsed = false;
     private bool isDashing = false;
     private bool isStepping = false;
     private bool isSpinning = false;
     private bool isUsingClub = false;
+
+    private bool lookAtPlayer = false;
+    private bool hitPlayer = false;
 
     private float jumpTimeLength;
     private float jumpAttackHorizontalVelocity;
@@ -92,11 +104,13 @@ public class DummyFighter : MonoBehaviour
         stepAwayVelocity = phase1StepAwayVelocity;    
 
         clubHitBox.gameObject.SetActive(false);
+        dashAttackHitBox.gameObject.SetActive(false);
     }
 
     private void Update() 
     {
-        Debug.Log(isSpinning);
+        if(lookAtPlayer) LookPlayer(true);
+
         if(isAttacking) attackTimer += Time.deltaTime;
 
         if (isJumping)
@@ -105,6 +119,21 @@ public class DummyFighter : MonoBehaviour
             movementVelocity.y = jumpAttackCurve.Evaluate(time) * jumpHeight;
             movementVelocity.x = moveDirection.x * jumpAttackHorizontalVelocity;
             movementVelocity.z = moveDirection.z * jumpAttackHorizontalVelocity;
+            if(time > clubBehindBackTimeFraction && !isJumpClubBehind)
+            {
+                isJumpClubBehind = true;
+                animator.SetTrigger("ClubBack");
+                clubHitBox.SetupHitBox(this.gameObject, jumpAttackDamage);
+                clubHitBox.gameObject.SetActive(true);
+  
+            }
+            if(time > clubAttackTimeFraction && !isJumpClubUsed)
+            {
+                isJumpClubUsed = true;
+                animator.SetTrigger("ClubAttack");
+                clubHitBox.gameObject.SetActive(true);
+  
+            }
             if (time > 1f)
             {
                 isJumping = false;
@@ -112,6 +141,9 @@ public class DummyFighter : MonoBehaviour
                 AttackFinished();
                 movementVelocity.x = 0f;
                 movementVelocity.z = 0f;
+                isJumpClubUsed = false;
+                isJumpClubBehind = false;
+                Invoke("DeactivateHitBox", 0.2f);
             }
         }
 
@@ -132,11 +164,13 @@ public class DummyFighter : MonoBehaviour
 
         if (isDashing)
         {
+            StartCoroutine(DashRoutine());
             float time = attackTimer / dashDuration;
             movementVelocity.x = moveDirection.x * dashVelocity;
             movementVelocity.z = moveDirection.z * dashVelocity;
-            if (time > 1f)
+            if (time > 1f || hitPlayer)
             {
+                dashAttackHitBox.gameObject.SetActive(false);
                 isDashing = false;
                 attackTimer = 0f;
                 AttackFinished();
@@ -147,19 +181,22 @@ public class DummyFighter : MonoBehaviour
 
         if(isSpinning)
         {
+            //LookPlayer(false);
             float time = attackTimer / spinAttackTimeLength;
             Vector3 direction = player.transform.position - transform.position;
             direction.y = 0f;
             direction.Normalize();
             movementVelocity.x = direction.x * spinAttackVelocity;
             movementVelocity.z = direction.z * spinAttackVelocity;
-            if (time > 1f)
+            if (time > 1f || hitPlayer)
             {
                 isSpinning = false;
                 attackTimer = 0f;
                 AttackFinished();
                 movementVelocity.x = 0f;
                 movementVelocity.z = 0f;
+                clubHitBox.onHit -= HitPlayer;
+                clubHitBox.gameObject.SetActive(false);
             }
         }
 
@@ -178,16 +215,44 @@ public class DummyFighter : MonoBehaviour
         controller.Move(movementVelocity * Time.deltaTime);
     }
 
+    private void DeactivateHitBox()
+    {
+        clubHitBox.gameObject.SetActive(false);
+    }
+
     private IEnumerator ClubRoutine()
     {
         clubHitBox.SetupHitBox(this.gameObject, clubAttackDamage);
         clubHitBox.gameObject.SetActive(false);
+        lookAtPlayer = true;
+        animator.SetTrigger("ClubBack");
         yield return new WaitForSeconds(hitboxActivationTime);
+        animator.SetTrigger("ClubAttack");
         clubHitBox.gameObject.SetActive(true);
+        lookAtPlayer = false;
         yield return new WaitForSeconds(hitboxDeactivationTime-hitboxActivationTime);
         clubHitBox.gameObject.SetActive(false);
         yield return new WaitForSeconds(clubAttackTimeLength - hitboxDeactivationTime-hitboxActivationTime);
         AttackFinished();
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        dashAttackHitBox.SetupHitBox(this.gameObject, dashAttackDamage);
+        dashAttackHitBox.gameObject.SetActive(true);
+        dashAttackHitBox.onHit += HitPlayer;
+        yield return new WaitForSeconds(dashDuration);
+        dashAttackHitBox.gameObject.SetActive(false);
+        dashAttackHitBox.onHit -= HitPlayer;
+    }
+
+    public void LookPlayer(bool immediate)
+    {
+        Vector3 lookDirection = (player.transform.position - transform.position).normalized;
+        lookDirection.y = 0f;
+        lookDirection.Normalize();
+        if(immediate) transform.forward = lookDirection;
+        else transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime*lookRotationVelocity);
     }
 
     public void JumpForwardAttack(Vector3 direction)
@@ -220,6 +285,9 @@ public class DummyFighter : MonoBehaviour
     public void SpinAttack(Vector3 direction)
     {
         if(isAttacking) return;
+        clubHitBox.SetupHitBox(this.gameObject, 10f);
+        clubHitBox.gameObject.SetActive(true);
+        clubHitBox.onHit += HitPlayer;
         isAttacking = true;
         isSpinning = true;
     }
@@ -271,5 +339,23 @@ public class DummyFighter : MonoBehaviour
     public HitBox GetHitBox()
     {
         return clubHitBox;
+    }
+
+    private void HitPlayer(GameObject hit)
+    {
+        if(hit == player)
+        {
+            hitPlayer = true;
+        }
+    }
+
+    public void ResetHitPlayer()
+    {
+        hitPlayer = false;
+    }
+
+    public bool HasHitPlayer()
+    {
+        return hitPlayer;
     }
 }

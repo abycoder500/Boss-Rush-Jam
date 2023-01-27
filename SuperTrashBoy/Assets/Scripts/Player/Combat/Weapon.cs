@@ -5,8 +5,13 @@ using UnityEngine;
 
 public abstract class Weapon: MonoBehaviour
 {
-    [SerializeField] protected AnimationClip attackAnimation;
+    [SerializeField] protected AnimatorOverrideController attackAnimationOverride;
     [SerializeField] protected float damage;
 
     public abstract void Attack(GameObject instigator, Action AttackFinished);
+
+    public AnimatorOverrideController GetAnimatorOverride()
+    {
+        return attackAnimationOverride;
+    }
 }

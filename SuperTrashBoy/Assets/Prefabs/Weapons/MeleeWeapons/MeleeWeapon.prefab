@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f83f182d2e78e514cbd4a0da026b981a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAnimation: {fileID: 0}
+  attackAnimationOverride: {fileID: 22100000, guid: 1e502fa30ff7e824db1af4b4edc29165, type: 2}
   damage: 10
-  hitBoxActivationTime: 0.5
-  hitBoxDeactivationTime: 1.5
-  attackEndTime: 2.5
+  hitBoxActivationTime: 0.02
+  hitBoxDeactivationTime: 0.18
+  attackEndTime: 0.25
   hitBox: {fileID: 5622765291455684613}
 --- !u!1001 &5104170300644071986
 PrefabInstance:

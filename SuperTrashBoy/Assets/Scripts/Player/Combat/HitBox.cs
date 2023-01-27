@@ -29,7 +29,7 @@ public class HitBox : MonoBehaviour
 
         if (other.TryGetComponent<Health>(out Health targetHealth))
         {
-            targetHealth.TakeDamage(damage);
+            targetHealth.TakeDamage(damage, instigator.transform);
             Debug.Log("attacked!");
             gameObject.SetActive(false);
             onHit?.Invoke(other.gameObject);

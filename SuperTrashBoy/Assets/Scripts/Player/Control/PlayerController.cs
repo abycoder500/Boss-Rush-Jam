@@ -6,14 +6,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float knockBackDuration = 0.4f;
     private CharacterController controller;
     private Fighter fighter;
     private Mover mover;
+    private Health health;
     private Vector3 playerVelocity;
 
     private InputManager inputManager;
     
     private bool isGrounded;
+    private bool knocked = false;
+
     private Transform cameraTransform;
 
     private void Awake()
@@ -21,6 +25,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         mover = GetComponent<Mover>();
         fighter = GetComponent<Fighter>();
+        health = GetComponent<Health>();
     }
     
     private void Start() 
@@ -29,14 +34,35 @@ public class PlayerController : MonoBehaviour
         cameraTransform = Camera.main.transform;
     }
 
+    private void OnEnable() 
+    {
+        health.onTakeDamage += TakeKnockBack;    
+    }
+
     void Update()
     {
-        mover.Move(inputManager, cameraTransform);
+        mover.Move(inputManager, cameraTransform, knocked);
 
+        if(knocked) return;
         if(inputManager.IsJumping()) mover.Jump();
         if(inputManager.IsCrouching()) mover.Crouch();
         if(inputManager.IsAttacking()) fighter.Attack();
 
         mover.ApplyGravity();
+    }
+
+    private void TakeKnockBack(float damage, Transform damager)
+    {
+        Debug.Log("Knock");
+        knocked = true;
+        Vector3 knockBackDirection = transform.position - damager.position;
+        mover.TakeKnockBack(knockBackDirection);
+        Invoke("ResetKnockBack", knockBackDuration);
+    }
+
+    private void ResetKnockBack()
+    {
+        mover.Stop();
+        knocked = false;
     }
 }

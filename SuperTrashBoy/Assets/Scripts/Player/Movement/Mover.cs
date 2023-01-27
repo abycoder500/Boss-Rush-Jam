@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class Mover : MonoBehaviour
     [SerializeField] private float jumpTimeLength = 1f;
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float crouchAmountFraction = 0.5f;
+    [SerializeField] private float knockBackForce = 10f;
+    [SerializeField] private double knockBackAngle = 30f;
 
     [SerializeField] AnimationCurve jumpCurve;
 
@@ -64,9 +67,10 @@ public class Mover : MonoBehaviour
         controller.Move(movementVelocity * Time.deltaTime);
     }
 
-    public void Move(InputManager inputManager, Transform cameraTransform)
+    public void Move(InputManager inputManager, Transform cameraTransform, bool knocked)
     {
         playerBody.forward = cameraTransform.forward;
+        if(knocked) return;
         isGrounded = controller.isGrounded;
 
         if (isGrounded && movementVelocity.y < 0 && !isJumping)
@@ -132,5 +136,20 @@ public class Mover : MonoBehaviour
             controller.center = new Vector3(controller.center.x, controller.center.y - (startControllerHeight - controller.height) / 2, controller.center.z);
             controller.height = startControllerHeight * (1 - crouchAmountFraction);
         }
+    }
+
+    public void TakeKnockBack(Vector3 direction)
+    {
+        Vector3 knockbackDir = direction;
+        knockbackDir.y = 0f;
+        knockbackDir.Normalize();
+        knockbackDir.y = (float)Math.Sin(knockBackAngle * Mathf.PI / 180);
+        movementVelocity = knockBackForce*knockbackDir;
+    }
+
+      public void Stop()
+    {
+        movementVelocity.x = 0f;
+        movementVelocity.z = 0f;
     }
 }
