@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField] float startingHealth = 100f;
+    [SerializeField] bool dieOnOneHit = false;
 
     private float maxHealth;
     public float currentHealth;
@@ -33,10 +34,11 @@ public class Health : MonoBehaviour
         currentHealth = Mathf.Max(0f, currentHealth - damageAmount);
         onTakeDamage?.Invoke(damageAmount, damager);
 
-        if (currentHealth <= 0f) 
+        if (currentHealth <= 0f || dieOnOneHit) 
         {
             onDie?.Invoke();
             OnDeath?.Invoke();
+            gameObject.SetActive(false);
         }
     }
 

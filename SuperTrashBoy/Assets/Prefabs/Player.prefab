@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab97b51d31b0728458de02b9a42ec20f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockBackDuration: 0.4
 --- !u!114 &1230060694310951529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
+  dieOnOneHit: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -169,6 +171,8 @@ MonoBehaviour:
   jumpTimeLength: 0.5
   gravityValue: -29.43
   crouchAmountFraction: 0.5
+  knockBackForce: 12
+  knockBackAngle: 5
   jumpCurve:
     serializedVersion: 2
     m_Curve:

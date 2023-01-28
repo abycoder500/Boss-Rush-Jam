@@ -5100,7 +5100,7 @@ MonoBehaviour:
   clubAttackTimeFraction: 0.8
   jumpAttackDamage: 10
   dashAttackHitBox: {fileID: 898350563316896220}
-  dashAttackDamage: 0
+  dashAttackDamage: 10
   phase1StepAwayTimeLength: 1
   phase1StepAwayVelocity: 3
   phase1DashDuration: 3

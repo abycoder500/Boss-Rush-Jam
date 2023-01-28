@@ -14,16 +14,15 @@ public class TrashPile : MonoBehaviour
     {
         for (int i = 0; i < numberOfHealthSpawn; i++)
         {
-            HealthPickable instance = Instantiate(healthPickablePrefab);
-            Rigidbody rb = instance.GetComponent<Rigidbody>();
+            HealthPickable instance = Instantiate(healthPickablePrefab, transform.position, Quaternion.identity);
 
-            float xdir = Random.Range(0, 1);
-            float zdir = Random.Range(0, 1);
+            float xdir = Random.Range(0f, 1f);
+            float zdir = Random.Range(0f, 1f);
             float ydir = Mathf.Sin(verticalSpawnAngle * Mathf.PI / 180f);
-
             Vector3 spawnDir = new Vector3(xdir,ydir,zdir);
             spawnDir.Normalize();
-            rb.AddForce(spawnForce * spawnDir);
+            Debug.Log(spawnDir);
+            instance.Spawn(spawnForce * spawnDir);
         }     
     }
 }
