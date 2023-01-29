@@ -155,17 +155,17 @@ public class DummyBT : BTUser
         launchAndHitSequence.AddChild(launchBarrel);
         launchAndHitSequence.AddChild(findPlayerLocation);
 
-        //stage1AttackSelector.AddChild(jumpAttackSequence);
-        //stage1AttackSelector.AddChild(dashAttackSequence);
-        stage1AttackSelector.AddChild(launchAndHitSequence);
+        stage1AttackSelector.AddChild(jumpAttackSequence);
+        stage1AttackSelector.AddChild(dashAttackSequence);
+        //stage1AttackSelector.AddChild(launchAndHitSequence);
 
-        //stage2AttackSelector.AddChild(jumpAttackSequence);
+        stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
         stage2AttackSelector.AddChild(clubAttackSequence);
 
-        //stage3AttackSelector.AddChild(jumpAttackSequence);
-        //stage3AttackSelector.AddChild(dashAttackSequence);
-        //stage3AttackSelector.AddChild(clubAttackSequence);
+        stage3AttackSelector.AddChild(jumpAttackSequence);
+        stage3AttackSelector.AddChild(dashAttackSequence);
+        stage3AttackSelector.AddChild(clubAttackSequence);
         stage3AttackSelector.AddChild(launchAndHitSequence);
 
         stage1AttacksLoop.AddChild(checkForPlayerAttacks);
