@@ -8,6 +8,9 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float startingHealth = 100f;
     [SerializeField] bool dieOnOneHit = false;
+    [SerializeField] bool canBeHitByPlayer = true;
+
+    private GameObject player;
 
     private float maxHealth;
     public float currentHealth;
@@ -21,7 +24,9 @@ public class Health : MonoBehaviour
     void Start()
     {
         maxHealth = startingHealth;
-        currentHealth = maxHealth;        
+        currentHealth = maxHealth;  
+
+        player = GameObject.FindGameObjectWithTag("Player");      
     }
 
     public float GetCurrentHealth()
@@ -29,8 +34,10 @@ public class Health : MonoBehaviour
         return currentHealth;
     }
 
-    public void TakeDamage(float damageAmount, Transform damager)
+    public bool TryTakeDamage(float damageAmount, Transform damager)
     {
+        if(!canBeHitByPlayer && damager.gameObject == player) return false;
+
         currentHealth = Mathf.Max(0f, currentHealth - damageAmount);
         onTakeDamage?.Invoke(damageAmount, damager);
 
@@ -40,6 +47,7 @@ public class Health : MonoBehaviour
             OnDeath?.Invoke();
             gameObject.SetActive(false);
         }
+        return true;
     }
 
     public bool TryHeal(float healAmount)

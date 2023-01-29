@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -445,6 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -561,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -677,6 +680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -793,6 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -909,6 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1123,6 +1129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1239,6 +1246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 0
+  canBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1468,6 +1476,10 @@ PrefabInstance:
     - target: {fileID: 6522571950693075494, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522571950693075495, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
+      propertyPath: rageLevelToAdvanceStage1
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}

@@ -11,6 +11,7 @@ public class DummyBT : BTUser
     [SerializeField] private int numberOfHitsToLeaveIdle = 5;
     [SerializeField] private int rageLevelToAdvanceStage1 = 3;
     [SerializeField] private int rageLevelToAdvanceStage2 = 4;
+    [SerializeField] private int rageLevelToAdvanceStage3 = 5;
     [SerializeField] private float projectileDetectionRange = 2f;
     [SerializeField] private float playerAttackDetectionRange = 2f;
     [SerializeField] private float waitTimeBetweenAttacks = 5f;
@@ -25,9 +26,11 @@ public class DummyBT : BTUser
     private bool isHitAfterSpin = false;
 
     private BehaviorTree stage1DependencyCondition = new BehaviorTree("Stage1 dep");
-    private BehaviorTree stage2DependencyCondition = new BehaviorTree("Stage1 dep");
+    private BehaviorTree stage2DependencyCondition = new BehaviorTree("Stage2 dep");
+    private BehaviorTree stage3DependencyCondition = new BehaviorTree("Stage3 dep");
     private BehaviorTree waitForAttackDependency = new BehaviorTree("Wait for attack dep");
     private BehaviorTree checkForHitAfterSpinTree = new BehaviorTree("Check for hit during spin");
+
     protected override void Awake() 
     {
         base.Awake();
@@ -105,21 +108,38 @@ public class DummyBT : BTUser
         //STAGE 2
         
         //Stage1 condition 
-        Leaf Stage2RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage2));
+        Leaf Stage2RageOverComeLimit = new Leaf("Stage 2 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage2));
         stage2DependencyCondition.AddChild(Stage2RageOverComeLimit);
   
-        Loop stage2Loop = new Loop("Stage 1 loop", checkForHitAfterSpinTree);
-        Loop stage2AttacksLoop = new Loop("Stage 1 attacks loop", stage2DependencyCondition);
+        Loop stage2Loop = new Loop("Stage 2 loop", checkForHitAfterSpinTree);
+        Loop stage2AttacksLoop = new Loop("Stage 2 attacks loop", stage2DependencyCondition);
 
         Sequence clubAttackSequence = new Sequence("club attackSequence");
         Leaf clubAttack = new Leaf("Club attack", ClubAttack);
 
-        RSelector stage2AttackSelector = new RSelector("Stage1 attack selector");
+        RSelector stage2AttackSelector = new RSelector("Stage2 attack selector");
 
-       
+
         //-----------------------------------------------------------------------------------------------------------
 
-      
+        //STAGE 3
+
+        //Stage1 condition 
+        Leaf Stage3RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage3));
+        stage3DependencyCondition.AddChild(Stage3RageOverComeLimit);
+
+        Loop stage3Loop = new Loop("Stage 3 loop", checkForHitAfterSpinTree);
+        Loop stage3AttacksLoop = new Loop("Stage 3 attacks loop", stage3DependencyCondition);
+
+        Sequence launchAndHitSequence = new Sequence("launch and hit attackSequence");
+        Leaf launchBarrel = new Leaf("Launch and hit attack", LaunchBarrel);
+
+        RSelector stage3AttackSelector = new RSelector("Stage3 attack selector");
+
+
+        //-----------------------------------------------------------------------------------------------------------
+
+
         //Build tree--------------------------------------------------------------------------------------------------------
         jumpAttackSequence.AddChild(findPlayerLocation);
         jumpAttackSequence.AddChild(jumpAttack);
@@ -132,12 +152,21 @@ public class DummyBT : BTUser
         clubAttackSequence.AddChild(findPlayerLocation);
         clubAttackSequence.AddChild(clubAttack);
 
-        stage1AttackSelector.AddChild(jumpAttackSequence);
-        stage1AttackSelector.AddChild(dashAttackSequence);
+        launchAndHitSequence.AddChild(launchBarrel);
+        launchAndHitSequence.AddChild(findPlayerLocation);
 
-        stage2AttackSelector.AddChild(jumpAttackSequence);
+        //stage1AttackSelector.AddChild(jumpAttackSequence);
+        //stage1AttackSelector.AddChild(dashAttackSequence);
+        stage1AttackSelector.AddChild(launchAndHitSequence);
+
+        //stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
         stage2AttackSelector.AddChild(clubAttackSequence);
+
+        //stage3AttackSelector.AddChild(jumpAttackSequence);
+        //stage3AttackSelector.AddChild(dashAttackSequence);
+        //stage3AttackSelector.AddChild(clubAttackSequence);
+        stage3AttackSelector.AddChild(launchAndHitSequence);
 
         stage1AttacksLoop.AddChild(checkForPlayerAttacks);
         stage1AttacksLoop.AddChild(stage1AttackSelector);
@@ -145,15 +174,22 @@ public class DummyBT : BTUser
         stage2AttacksLoop.AddChild(checkForPlayerAttacks);
         stage2AttacksLoop.AddChild(stage2AttackSelector);
 
+        stage3AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage3AttacksLoop.AddChild(stage3AttackSelector);
+
         stage1Loop.AddChild(stage1AttacksLoop);
         stage1Loop.AddChild(spinSequence);
 
         stage2Loop.AddChild(stage2AttacksLoop);
         stage2Loop.AddChild(spinSequence);
 
+        stage3Loop.AddChild(stage3AttacksLoop);
+        stage3Loop.AddChild(spinSequence);
+
         mainSequence.AddChild(stayIdle);
         mainSequence.AddChild(stage1Loop);
         mainSequence.AddChild(stage2Loop);
+        mainSequence.AddChild(stage3Loop);
 
         bt.AddChild(mainSequence);
 
@@ -340,6 +376,34 @@ public class DummyBT : BTUser
                 return Node.Status.SUCCESS;
             }
         }
+    }
+
+    private Node.Status LaunchBarrel()
+    {
+        if (!isAttacking)
+        {
+            dummyFighter.LaunchBarrel();
+            isAttacking = true;
+            return Node.Status.RUNNING;
+        }
+        else
+        {
+            if (hitReceivedCounter.GetHitReceivedNumber() >= 1) 
+            {
+                Enrage();
+                hitReceivedCounter.ResetHits();
+                dummyFighter.DontHitBarrel();
+                isAttacking = false;
+                return Node.Status.SUCCESS;
+            }
+            if (dummyFighter.IsAttacking()) return Node.Status.RUNNING;
+            else 
+            {
+                isAttacking = false;
+                return Node.Status.SUCCESS;
+            }
+        }
+        
     }
 
     private Node.Status Spin()

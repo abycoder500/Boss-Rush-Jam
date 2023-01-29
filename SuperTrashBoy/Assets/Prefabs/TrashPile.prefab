@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   dieOnOneHit: 1
+  canBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:

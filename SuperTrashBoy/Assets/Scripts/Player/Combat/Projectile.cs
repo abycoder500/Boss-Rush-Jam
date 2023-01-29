@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 
         if(other.gameObject.TryGetComponent<Health>(out Health health))
         {
-            health.TakeDamage(damage, instigator.transform);
+            health.TryTakeDamage(damage, instigator.transform);
             Debug.Log("Hit!");
         }
 

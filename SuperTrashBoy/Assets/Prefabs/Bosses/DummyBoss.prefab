@@ -5026,8 +5026,9 @@ MonoBehaviour:
   rageParticles: {fileID: 8400866889793175973}
   animator: {fileID: 2240185744142053734}
   numberOfHitsToLeaveIdle: 1
-  rageLevelToAdvanceStage1: 3
-  rageLevelToAdvanceStage2: 4
+  rageLevelToAdvanceStage1: 1
+  rageLevelToAdvanceStage2: 1
+  rageLevelToAdvanceStage3: 5
   projectileDetectionRange: 6
   playerAttackDetectionRange: 10
   waitTimeBetweenAttacks: 2
@@ -5045,6 +5046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clubHitBox: {fileID: 4245313419004934061}
+  barrelPrefab: {fileID: 3055966481888553634, guid: 80063f571ada02441b85d59622d2c16e, type: 3}
+  barrelSpawnPoint: {fileID: 1512666690861360673}
   animator: {fileID: 2240185744142053734}
   lookRotationVelocity: 7
   jumpAttackCurve:
@@ -5119,6 +5122,8 @@ MonoBehaviour:
   hitboxActivationTime: 0.5
   hitboxDeactivationTime: 2.5
   clubAttackDamage: 10
+  barrelLaunchForce: 10
+  barrelHitForce: 20
 --- !u!1 &6522571950882939405
 GameObject:
   m_ObjectHideFlags: 0
@@ -5155,6 +5160,7 @@ Transform:
   - {fileID: 6629175172174490964}
   - {fileID: 898350563316896218}
   - {fileID: 8571044873497005568}
+  - {fileID: 1512666690861360673}
   m_Father: {fileID: 6522571950693075494}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5339,6 +5345,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8064986692734533085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1512666690861360673}
+  m_Layer: 0
+  m_Name: BarrelSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1512666690861360673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064986692734533085}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.429, y: 0, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6522571950882939406}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &336118464318483435
 PrefabInstance:
   m_ObjectHideFlags: 0

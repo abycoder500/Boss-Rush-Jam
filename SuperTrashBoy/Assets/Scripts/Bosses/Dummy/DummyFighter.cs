@@ -5,6 +5,8 @@ using UnityEngine;
 public class DummyFighter : MonoBehaviour
 {
     [SerializeField] HitBox clubHitBox;
+    [SerializeField] GameObject barrelPrefab;
+    [SerializeField] Transform barrelSpawnPoint;
     [SerializeField] Animator animator;
     [SerializeField] float lookRotationVelocity = 1f;
     [Header("Jump attack settings")]
@@ -48,7 +50,7 @@ public class DummyFighter : MonoBehaviour
     [Space]
     [Space]
 
-     [Header("Club Attack Settings")]
+    [Header("Club Attack Settings")]
     //[SerializeField] AnimationCurve stepBackCurve;
     [SerializeField] float clubAttackTimeLength = 3f;
     [SerializeField] float hitboxActivationTime = 0.5f;
@@ -56,6 +58,12 @@ public class DummyFighter : MonoBehaviour
     [SerializeField] float clubAttackDamage = 3f;
     [Space]
     [Space]
+
+    [Header("Barrel Hit Attack Settings")]
+    [SerializeField] float barrelLaunchForce = 10f;
+    [SerializeField] float barrelHitForce = 20f;
+    [SerializeField] float hitBarrelWaitTime = 1f;
+    [SerializeField] float barrelLifeTime = 5f;
 
     private CharacterController controller;
     private bool isAttacking = false;
@@ -66,6 +74,7 @@ public class DummyFighter : MonoBehaviour
     private bool isStepping = false;
     private bool isSpinning = false;
     private bool isUsingClub = false;
+    private bool hitBarrel = true;
 
     private bool lookAtPlayer = false;
     private bool hitPlayer = false;
@@ -341,6 +350,18 @@ public class DummyFighter : MonoBehaviour
         return clubHitBox;
     }
 
+    public void LaunchBarrel()
+    {
+        if(isAttacking) return;
+        hitBarrel = true;
+        isAttacking = true;
+        GameObject barrel = Instantiate(barrelPrefab, barrelSpawnPoint.position, Quaternion.identity);
+        Destroy(barrel, barrelLifeTime);
+        Rigidbody rb = barrel.GetComponent<Rigidbody>();
+        rb.AddForce(barrelLaunchForce * Vector3.up, ForceMode.Impulse);
+        StartCoroutine(HitBarrelRoutine(rb));
+    }
+
     private void HitPlayer(GameObject hit)
     {
         if(hit == player)
@@ -357,5 +378,23 @@ public class DummyFighter : MonoBehaviour
     public bool HasHitPlayer()
     {
         return hitPlayer;
+    }
+
+    public void DontHitBarrel()
+    {
+        hitBarrel = false;
+    }
+
+    private IEnumerator HitBarrelRoutine(Rigidbody barrelRB)
+    {
+        yield return new WaitForSeconds(hitBarrelWaitTime);
+        if(!hitBarrel)
+        {
+            hitBarrel = true;
+            isAttacking = false;
+            yield break;
+        }
+        barrelRB.AddForceAtPosition(barrelHitForce * transform.forward, barrelRB.transform.position + Vector3.down * 0.2f, ForceMode.Impulse);  
+        isAttacking = false; 
     }
 }
