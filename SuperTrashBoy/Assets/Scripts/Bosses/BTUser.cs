@@ -10,6 +10,7 @@ public class BTUser : MonoBehaviour
 
     protected GameObject player;
     protected Vector3 playerLocation;
+    protected bool paused;
 
     protected BehaviorTree bt;
     public BehaviorState state = BehaviorState.IDLE;
@@ -28,6 +29,7 @@ public class BTUser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(paused) return;
         if(status != Node.Status.SUCCESS) status = bt.Process();
     }
 
@@ -42,5 +44,10 @@ public class BTUser : MonoBehaviour
     protected bool IsPlayerWithinRange(float range)
     {
         return Vector3.Distance(playerLocation,transform.position) <= range;
+    }
+
+    public void Pause(bool pause)
+    {
+        paused = pause;
     }
 }

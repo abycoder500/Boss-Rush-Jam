@@ -5397,13 +5397,15 @@ MonoBehaviour:
   rageParticles: {fileID: 8400866889793175973}
   animator: {fileID: 2240185744142053734}
   numberOfHitsToLeaveIdle: 1
-  rageLevelToAdvanceStage1: 5
-  rageLevelToAdvanceStage2: 1
+  rageLevelToAdvanceStage1: 3
+  rageLevelToAdvanceStage2: 4
   rageLevelToAdvanceStage3: 5
+  enrageTimeLength: 1
   projectileDetectionRange: 6
   playerAttackDetectionRange: 10
   waitTimeBetweenAttacks: 2
   waitTimeAfterSpin: 3
+  distanceToTriggerMoveToPlayerAttack: 5
 --- !u!114 &6522571951791476490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5497,6 +5499,10 @@ MonoBehaviour:
   barrelHitForce: 20
   hitBarrelWaitTime: 1
   barrelLifeTime: 5
+  moveTowardsPlayerAttackVelocity: 20
+  distanceToPlayerToAttack: 4
+  moveTowardsPlayerAttackDuration: 0.5
+  moveAttackDamage: 10
 --- !u!1 &6522571950882939405
 GameObject:
   m_ObjectHideFlags: 0

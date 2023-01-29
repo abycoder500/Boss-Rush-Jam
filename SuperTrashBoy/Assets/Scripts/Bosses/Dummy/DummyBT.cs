@@ -12,10 +12,12 @@ public class DummyBT : BTUser
     [SerializeField] private int rageLevelToAdvanceStage1 = 3;
     [SerializeField] private int rageLevelToAdvanceStage2 = 4;
     [SerializeField] private int rageLevelToAdvanceStage3 = 5;
+    [SerializeField] private float enrageTimeLength = 1f;
     [SerializeField] private float projectileDetectionRange = 2f;
     [SerializeField] private float playerAttackDetectionRange = 2f;
     [SerializeField] private float waitTimeBetweenAttacks = 5f;
     [SerializeField] private float waitTimeAfterSpin = 3f;
+    [SerializeField] private float distanceToTriggerMoveToPlayerAttack = 10f;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
@@ -59,7 +61,11 @@ public class DummyBT : BTUser
         Leaf checkHitAfterSpin = new Leaf("Check hit after spin", CheckHitAfterSpin);
         Leaf spin = new Leaf("spin attack", Spin);
 
+        Leaf checkPlayerDistanceLessThan = new Leaf("Check Player Distance", () => IsPlayerDistanceLessThan(distanceToTriggerMoveToPlayerAttack));
+        Leaf moveTowardsPlayerAttack = new Leaf("Move towards Player Attack", MoveTowardsPlayerAttack);
+
         Sequence spinSequence = new Sequence("Spin sequence");
+        Selector checkForPlayerDistanceSelector = new Selector("Check for player distance");
 
         Loop checkForPlayerAttacks = new Loop("Check for player attack", waitForAttackDependency);
         
@@ -74,6 +80,10 @@ public class DummyBT : BTUser
         spinSequence.AddChild(spin);
         spinSequence.AddChild(waitAfterSpin);
         spinSequence.AddChild(checkHitAfterSpin);
+
+        checkForPlayerDistanceSelector.AddChild(checkPlayerDistanceLessThan);
+        checkForPlayerDistanceSelector.AddChild(moveTowardsPlayerAttack);
+        checkForPlayerDistanceSelector.AddChild(checkForPlayerAttacks);
         //---------------------------------------------------------------------------------------------
 
 
@@ -157,7 +167,6 @@ public class DummyBT : BTUser
 
         stage1AttackSelector.AddChild(jumpAttackSequence);
         stage1AttackSelector.AddChild(dashAttackSequence);
-        //stage1AttackSelector.AddChild(launchAndHitSequence);
 
         stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
@@ -169,12 +178,18 @@ public class DummyBT : BTUser
         stage3AttackSelector.AddChild(launchAndHitSequence);
 
         stage1AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage1AttacksLoop.AddChild(findPlayerLocation);
+        stage1AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage1AttacksLoop.AddChild(stage1AttackSelector);
 
         stage2AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage2AttacksLoop.AddChild(findPlayerLocation);
+        stage2AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage2AttacksLoop.AddChild(stage2AttackSelector);
 
         stage3AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage3AttacksLoop.AddChild(findPlayerLocation);
+        stage3AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage3AttacksLoop.AddChild(stage3AttackSelector);
 
         stage1Loop.AddChild(stage1AttacksLoop);
@@ -223,6 +238,19 @@ public class DummyBT : BTUser
     {
         if(rage >= limit) return Node.Status.FAILURE;
         return Node.Status.SUCCESS;
+    }
+
+    private Node.Status IsPlayerDistanceLessThan(float range)
+    {
+        Debug.Log("check distance");
+        if (Vector3.Distance(playerLocation, transform.position) < range)
+        {
+            return Node.Status.SUCCESS;
+        }
+        else
+        {
+            return Node.Status.FAILURE;
+        }
     }
 
     private Node.Status HitAfterSpin()
@@ -295,6 +323,25 @@ public class DummyBT : BTUser
             {
                 isAttacking = false;
                 return Node.Status.SUCCESS;
+            }
+        }
+    }
+    private Node.Status MoveTowardsPlayerAttack()
+    {
+        if (!isAttacking)
+        {
+            dummyFighter.MoveTowardsPlayerAttack();
+            isAttacking = true;
+            dummyFighter.LookPlayer(true);
+            return Node.Status.RUNNING;
+        }
+        else
+        {
+            if (dummyFighter.IsAttacking()) return Node.Status.RUNNING;
+            else
+            {
+                isAttacking = false;
+                return Node.Status.FAILURE;
             }
         }
     }
@@ -445,6 +492,7 @@ public class DummyBT : BTUser
     {
         rage++;
         rageParticles.gameObject.SetActive(true);
+        StartCoroutine(ResetEnrage());
         if(rage == 1)
         {
             rageParticles.startSpeed = 1f;
@@ -463,6 +511,15 @@ public class DummyBT : BTUser
     {
         rage = 0;
         rageParticles.gameObject.SetActive(false);
+    }
+
+    private IEnumerator ResetEnrage()
+    {
+        Pause(true);
+        animator.SetTrigger("Enrage");
+        dummyFighter.LookPlayer(true);
+        yield return new WaitForSeconds(enrageTimeLength);
+        Pause(false);
     }
 
 }

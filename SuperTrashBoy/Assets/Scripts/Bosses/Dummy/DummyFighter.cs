@@ -65,6 +65,14 @@ public class DummyFighter : MonoBehaviour
     [SerializeField] float hitBarrelWaitTime = 1f;
     [SerializeField] float barrelLifeTime = 5f;
 
+    [Header("Move Towards Player Attack Settings")]
+    [SerializeField] float moveTowardsPlayerAttackVelocity = 20;
+    [SerializeField] float distanceToPlayerToAttack = 2f;
+    [SerializeField] float moveTowardsPlayerAttackDuration = 0.5f;
+    [SerializeField] float moveAttackDamage = 10f;
+
+
+
     private CharacterController controller;
     private bool isAttacking = false;
     private bool isJumping = false;
@@ -75,6 +83,8 @@ public class DummyFighter : MonoBehaviour
     private bool isSpinning = false;
     private bool isUsingClub = false;
     private bool hitBarrel = true;
+    private bool isMovingTowardsPlayer = false;
+    private bool isAttackingAfterMoving = false;
 
     private bool lookAtPlayer = false;
     private bool hitPlayer = false;
@@ -215,6 +225,42 @@ public class DummyFighter : MonoBehaviour
             StartCoroutine(ClubRoutine());
         }
 
+        if(isMovingTowardsPlayer)
+        {
+            Vector3 direction = player.transform.position - transform.position;
+            LookPlayer(true);
+            direction.y = 0f;
+            direction.Normalize();
+            movementVelocity.x = direction.x * moveTowardsPlayerAttackVelocity;
+            movementVelocity.z = direction.z * moveTowardsPlayerAttackVelocity;
+            if(Vector3.Distance(transform.position, player.transform.position) <= distanceToPlayerToAttack)
+            {
+                animator.SetTrigger("MoveToPlayerAttack");
+                movementVelocity.x = 0f;
+                movementVelocity.z = 0f;
+                clubHitBox.SetupHitBox(this.gameObject, moveAttackDamage);
+                clubHitBox.gameObject.SetActive(true);
+                attackTimer = 0f;
+                isMovingTowardsPlayer = false;
+                isAttackingAfterMoving = true;
+            }
+        }
+
+        if(isAttackingAfterMoving)
+        {
+            float time = attackTimer / moveTowardsPlayerAttackDuration;
+            if (time > 1f)
+            {
+                isAttackingAfterMoving = false;
+                attackTimer = 0f;
+                AttackFinished();
+                movementVelocity.x = 0f;
+                movementVelocity.z = 0f;
+                Debug.Log("Finish");
+                clubHitBox.gameObject.SetActive(false);
+            }
+        }
+
         movementVelocity.y += -9.81f * Time.deltaTime;
         if (controller.isGrounded && movementVelocity.y < 0 && !isJumping)
         {
@@ -262,6 +308,13 @@ public class DummyFighter : MonoBehaviour
         lookDirection.Normalize();
         if(immediate) transform.forward = lookDirection;
         else transform.forward = Vector3.Lerp(transform.forward, lookDirection, Time.deltaTime*lookRotationVelocity);
+    }
+
+    public void MoveTowardsPlayerAttack()
+    {
+        if(isAttacking) return;
+        isAttacking = true;
+        isMovingTowardsPlayer = true;
     }
 
     public void JumpForwardAttack(Vector3 direction)

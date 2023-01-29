@@ -23,12 +23,14 @@ public class HitBox : MonoBehaviour
 
         if (other.TryGetComponent<HitReceivedCounter>(out HitReceivedCounter counter))
         {
+            Debug.Log("hit");
             counter.Hit();
             if(other.GetComponent<Health>() == null) gameObject.SetActive(false);
         }
 
         if (other.TryGetComponent<Health>(out Health targetHealth))
         {
+            Debug.Log("Health");
             if(targetHealth.TryTakeDamage(damage, instigator.transform));
             gameObject.SetActive(false);
             onHit?.Invoke(other.gameObject);
