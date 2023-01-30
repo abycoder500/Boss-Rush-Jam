@@ -152,4 +152,9 @@ public class Mover : MonoBehaviour
         movementVelocity.x = 0f;
         movementVelocity.z = 0f;
     }
+
+    public Vector3 GetVelocity()
+    {
+        return movementVelocity;
+    }
 }

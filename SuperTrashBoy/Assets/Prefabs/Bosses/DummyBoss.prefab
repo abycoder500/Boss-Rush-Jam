@@ -5396,7 +5396,8 @@ MonoBehaviour:
   status: 1
   rageParticles: {fileID: 8400866889793175973}
   animator: {fileID: 2240185744142053734}
-  numberOfHitsToLeaveIdle: 1
+  enterTimeDuration: 2.2
+  numberOfHitsToLeaveIdle: 3
   rageLevelToAdvanceStage1: 3
   rageLevelToAdvanceStage2: 4
   rageLevelToAdvanceStage3: 5
@@ -5404,8 +5405,9 @@ MonoBehaviour:
   projectileDetectionRange: 6
   playerAttackDetectionRange: 10
   waitTimeBetweenAttacks: 2
+  waitTimeBeforeSpin: 1
   waitTimeAfterSpin: 3
-  distanceToTriggerMoveToPlayerAttack: 5
+  distanceToTriggerMoveToPlayerAttack: 15
 --- !u!114 &6522571951791476490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5465,9 +5467,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 15
-  phase1JumpTimeLength: 2
-  phase1JumpAttackHorizontalVelocity: 3
+  jumpHeight: 80
+  phase1JumpTimeLength: 0.6
+  phase1JumpAttackHorizontalVelocity: 6
   phase2JumpTimeLength: 1
   phase2JumpAttackHorizontalVelocity: 5
   phase3JumpTimeLength: 1
@@ -5475,12 +5477,105 @@ MonoBehaviour:
   clubBehindBackTimeFraction: 0.1
   clubAttackTimeFraction: 0.8
   jumpAttackDamage: 10
+  stepBackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0020980835
+      value: 0.5070801
+      inSlope: 12.376885
+      outSlope: 12.376885
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09893752
+    - serializedVersion: 3
+      time: 0.08683941
+      value: 1.000109
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8
+      value: 0
+      inSlope: -0.0038764477
+      outSlope: -0.0038764477
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.125
+      outSlope: 7.125
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.06289308
+    - serializedVersion: 3
+      time: 0.2
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -20.250017
+      outSlope: -20.250017
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06289302
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   dashAttackHitBox: {fileID: 898350563316896220}
   dashAttackDamage: 10
   phase1StepAwayTimeLength: 1
-  phase1StepAwayVelocity: 3
+  phase1StepAwayVelocity: 10
   phase1DashDuration: 3
-  phase1DashVelocity: 8
+  phase1DashVelocity: 15
   phase2StepAwayTimeLength: 0.5
   phase2StepAwayVelocity: 5
   phase2DashDuration: 2
@@ -5500,7 +5595,7 @@ MonoBehaviour:
   hitBarrelWaitTime: 1
   barrelLifeTime: 5
   moveTowardsPlayerAttackVelocity: 20
-  distanceToPlayerToAttack: 4
+  distanceToPlayerToAttack: 8
   moveTowardsPlayerAttackDuration: 0.5
   moveAttackDamage: 10
 --- !u!1 &6522571950882939405

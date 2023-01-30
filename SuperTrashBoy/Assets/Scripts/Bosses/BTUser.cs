@@ -50,4 +50,16 @@ public class BTUser : MonoBehaviour
     {
         paused = pause;
     }
+
+    public void Pause(float time)
+    {
+        StartCoroutine(PauseRoutine(time));
+    }
+
+    private IEnumerator PauseRoutine(float time)
+    {
+        paused = true;
+        yield return new WaitForSeconds(time);
+        paused = false;
+    }
 }

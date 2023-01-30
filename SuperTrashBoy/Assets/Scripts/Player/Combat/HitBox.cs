@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HitBox : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class HitBox : MonoBehaviour
     private float damage;
 
     public event Action<GameObject> onHit;
+    public UnityEvent OnHit;
 
     public void SetupHitBox(GameObject instigator, float damage)
     {
@@ -31,10 +33,12 @@ public class HitBox : MonoBehaviour
         if (other.TryGetComponent<Health>(out Health targetHealth))
         {
             Debug.Log("Health");
-            if(targetHealth.TryTakeDamage(damage, instigator.transform));
-            gameObject.SetActive(false);
-            onHit?.Invoke(other.gameObject);
+            if(targetHealth.TryTakeDamage(damage, instigator.transform))
+            {
+                gameObject.SetActive(false);
+                onHit?.Invoke(other.gameObject);
+                OnHit?.Invoke();
+            }
         }
-        
     }
 }

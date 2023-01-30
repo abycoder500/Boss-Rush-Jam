@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         mover.ApplyGravity();
     }
 
-    private void TakeKnockBack(float damage, Transform damager)
+    public void TakeKnockBack(float damage, Transform damager)
     {
         Debug.Log("Knock");
         knocked = true;

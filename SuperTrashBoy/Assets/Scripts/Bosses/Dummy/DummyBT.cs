@@ -8,6 +8,7 @@ public class DummyBT : BTUser
 {
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private Animator animator;
+    [SerializeField] private float enterTimeDuration = 2f;
     [SerializeField] private int numberOfHitsToLeaveIdle = 5;
     [SerializeField] private int rageLevelToAdvanceStage1 = 3;
     [SerializeField] private int rageLevelToAdvanceStage2 = 4;
@@ -16,16 +17,21 @@ public class DummyBT : BTUser
     [SerializeField] private float projectileDetectionRange = 2f;
     [SerializeField] private float playerAttackDetectionRange = 2f;
     [SerializeField] private float waitTimeBetweenAttacks = 5f;
+    [SerializeField] private float waitTimeBeforeSpin = 1f;
     [SerializeField] private float waitTimeAfterSpin = 3f;
     [SerializeField] private float distanceToTriggerMoveToPlayerAttack = 10f;
+    [SerializeField] private float shieldTime = 0.4f;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
     private DummyFighter dummyFighter;
 
     private int rage = 0;
+    private float enterTimer = 0f;
     private bool isAttacking = false;
     private bool isHitAfterSpin = false;
+    private bool isIdleSetUp = false;
+    private bool entranceTriggered = false;
 
     private BehaviorTree stage1DependencyCondition = new BehaviorTree("Stage1 dep");
     private BehaviorTree stage2DependencyCondition = new BehaviorTree("Stage2 dep");
@@ -51,6 +57,7 @@ public class DummyBT : BTUser
         //Common stuff---------------------------------------------------------------------------
         Wait waitForNextAttack = new Wait("Wait to attack", waitTimeBetweenAttacks);
         Wait waitAfterSpin = new Wait("Wait after spin", waitTimeAfterSpin);
+        Wait waitBeforeSpin = new Wait("Wait after spin", waitTimeBeforeSpin);
         Inverter waitForNextAttackInverter = new Inverter("Wait inverter");
 
         Leaf findPlayerLocation = new Leaf("Find Player Location", FindPlayerLocation);
@@ -60,7 +67,7 @@ public class DummyBT : BTUser
         Leaf hitAfterSpin = new Leaf("Check hit during spin", HitAfterSpin);
         Leaf checkHitAfterSpin = new Leaf("Check hit after spin", CheckHitAfterSpin);
         Leaf spin = new Leaf("spin attack", Spin);
-
+        Leaf playRageBeforeSpin = new Leaf("Rage before spin", EnrageBeforeSpin);
         Leaf checkPlayerDistanceLessThan = new Leaf("Check Player Distance", () => IsPlayerDistanceLessThan(distanceToTriggerMoveToPlayerAttack));
         Leaf moveTowardsPlayerAttack = new Leaf("Move towards Player Attack", MoveTowardsPlayerAttack);
 
@@ -77,6 +84,8 @@ public class DummyBT : BTUser
         waitForAttackDependency.AddChild(waitForNextAttackInverter);
         checkForHitAfterSpinTree.AddChild(hitAfterSpin);
 
+        spinSequence.AddChild(playRageBeforeSpin);
+        spinSequence.AddChild(waitBeforeSpin);
         spinSequence.AddChild(spin);
         spinSequence.AddChild(waitAfterSpin);
         spinSequence.AddChild(checkHitAfterSpin);
@@ -93,6 +102,7 @@ public class DummyBT : BTUser
 
         //IDLE STAGE
         Leaf stayIdle = new Leaf("Stay Idle at start", StayIdle);
+        Leaf enter = new Leaf("Enter animation", Enter);
         
         //-----------------------------------------------------------------------------------------------------------
         //STAGE 1
@@ -142,7 +152,7 @@ public class DummyBT : BTUser
         Loop stage3AttacksLoop = new Loop("Stage 3 attacks loop", stage3DependencyCondition);
 
         Sequence launchAndHitSequence = new Sequence("launch and hit attackSequence");
-        Leaf launchBarrel = new Leaf("Launch and hit attack", LaunchBarrel);
+        Leaf launchBin = new Leaf("Launch and hit attack", LaunchBin);
 
         RSelector stage3AttackSelector = new RSelector("Stage3 attack selector");
 
@@ -162,11 +172,12 @@ public class DummyBT : BTUser
         clubAttackSequence.AddChild(findPlayerLocation);
         clubAttackSequence.AddChild(clubAttack);
 
-        launchAndHitSequence.AddChild(launchBarrel);
+        launchAndHitSequence.AddChild(launchBin);
         launchAndHitSequence.AddChild(findPlayerLocation);
 
         stage1AttackSelector.AddChild(jumpAttackSequence);
         stage1AttackSelector.AddChild(dashAttackSequence);
+        //stage1AttackSelector.AddChild(launchAndHitSequence);
 
         stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
@@ -202,6 +213,7 @@ public class DummyBT : BTUser
         stage3Loop.AddChild(spinSequence);
 
         mainSequence.AddChild(stayIdle);
+        mainSequence.AddChild(enter);
         mainSequence.AddChild(stage1Loop);
         mainSequence.AddChild(stage2Loop);
         mainSequence.AddChild(stage3Loop);
@@ -225,12 +237,47 @@ public class DummyBT : BTUser
 
     private Node.Status StayIdle()
     {
+        if(!isIdleSetUp)
+        {
+            isIdleSetUp = true;
+            hitReceivedCounter.onHit += PlayHitAnimationAtIdle;
+        }
         Debug.Log(hitReceivedCounter.GetHitReceivedNumber());
         if (hitReceivedCounter.GetHitReceivedNumber() < numberOfHitsToLeaveIdle)
         {
             return Node.Status.RUNNING;
-        } 
+        }
+        hitReceivedCounter.onHit -= PlayHitAnimationAtIdle; 
         hitReceivedCounter.ResetHits();
+        return Node.Status.SUCCESS;
+    }
+
+    private void PlayHitAnimationAtIdle()
+    {
+        animator.SetTrigger("HitOnIdle");
+    }
+
+    private Node.Status EnrageBeforeSpin()
+    {
+        animator.SetTrigger("EnrageBeforeSpin");
+        return Node.Status.SUCCESS;
+    }
+
+    private Node.Status Enter()
+    {
+        if(!entranceTriggered)
+        {
+            animator.SetTrigger("Enter");
+            entranceTriggered = true;
+            player.GetComponent<PlayerController>().TakeKnockBack(0f, transform);
+        }
+        if(enterTimer <= enterTimeDuration)
+        {
+            dummyFighter.LookPlayer(false);
+            enterTimer += Time.deltaTime;
+            return Node.Status.RUNNING;
+        }
+        enterTimer = 0f;
         return Node.Status.SUCCESS;
     }
 
@@ -302,6 +349,9 @@ public class DummyBT : BTUser
                 Debug.Log("Keep Player From Attacking");
                 animator.SetTrigger("Protect");
                 ResetRage();
+                Pause(shieldTime);
+                player.GetComponent<PlayerController>().TakeKnockBack(0f,this.transform);
+                return Node.Status.SUCCESS; 
             }
         }
         return Node.Status.SUCCESS;
@@ -350,6 +400,7 @@ public class DummyBT : BTUser
     {
         if(!isAttacking) 
         {
+            animator.SetTrigger("StepAwayPosition");
             dummyFighter.StepAway(transform.position - playerLocation);
             dummyFighter.LookPlayer(true);
             isAttacking = true;
@@ -380,6 +431,7 @@ public class DummyBT : BTUser
     {
         if(!isAttacking) 
         {
+            animator.SetTrigger("DashPosition");
             dummyFighter.LookPlayer(true);
             dummyFighter.DashAttack(playerLocation - transform.position);
             isAttacking = true;
@@ -394,6 +446,7 @@ public class DummyBT : BTUser
                 if(dummyFighter.HasHitPlayer())
                 {
                     dummyFighter.ResetHitPlayer();
+                    animator.SetTrigger("BackToIdle");
                     ResetRage();
                 }
                 else
@@ -425,7 +478,7 @@ public class DummyBT : BTUser
         }
     }
 
-    private Node.Status LaunchBarrel()
+    private Node.Status LaunchBin()
     {
         if (!isAttacking)
         {

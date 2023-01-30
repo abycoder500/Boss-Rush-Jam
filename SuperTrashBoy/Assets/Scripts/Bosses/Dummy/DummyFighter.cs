@@ -25,7 +25,8 @@ public class DummyFighter : MonoBehaviour
     [Space]
 
     [Header("Dash Attack Settings")]
-    //[SerializeField] AnimationCurve stepBackCurve;
+    [SerializeField] AnimationCurve stepBackCurve;
+    [SerializeField] AnimationCurve dashCurve;
     [SerializeField] HitBox dashAttackHitBox;
     [SerializeField] float dashAttackDamage;
     [SerializeField] float phase1StepAwayTimeLength = 1f;
@@ -64,6 +65,7 @@ public class DummyFighter : MonoBehaviour
     [SerializeField] float barrelHitForce = 20f;
     [SerializeField] float hitBarrelWaitTime = 1f;
     [SerializeField] float barrelLifeTime = 5f;
+    [SerializeField] float barrelDamage = 10f;
 
     [Header("Move Towards Player Attack Settings")]
     [SerializeField] float moveTowardsPlayerAttackVelocity = 20;
@@ -169,8 +171,8 @@ public class DummyFighter : MonoBehaviour
         if(isStepping)
         {
             float time = attackTimer / stepAwayTimeLength;
-            movementVelocity.x = moveDirection.x * stepAwayVelocity;
-            movementVelocity.z = moveDirection.z * stepAwayVelocity;
+            movementVelocity.x = moveDirection.x * stepAwayVelocity * stepBackCurve.Evaluate(time);
+            movementVelocity.z = moveDirection.z * stepAwayVelocity * stepBackCurve.Evaluate(time);
             if (time > 1f)
             {
                 isStepping = false;
@@ -185,8 +187,8 @@ public class DummyFighter : MonoBehaviour
         {
             StartCoroutine(DashRoutine());
             float time = attackTimer / dashDuration;
-            movementVelocity.x = moveDirection.x * dashVelocity;
-            movementVelocity.z = moveDirection.z * dashVelocity;
+            movementVelocity.x = moveDirection.x * dashVelocity * dashCurve.Evaluate(time);
+            movementVelocity.z = moveDirection.z * dashVelocity * dashCurve.Evaluate(time);
             if (time > 1f || hitPlayer)
             {
                 dashAttackHitBox.gameObject.SetActive(false);
@@ -409,6 +411,9 @@ public class DummyFighter : MonoBehaviour
         hitBarrel = true;
         isAttacking = true;
         GameObject barrel = Instantiate(barrelPrefab, barrelSpawnPoint.position, Quaternion.identity);
+        HitBox hitbox = barrel.GetComponentInChildren<HitBox>();
+        hitbox.SetupHitBox(this.gameObject, barrelDamage);
+        hitbox.gameObject.SetActive(true);
         Destroy(barrel, barrelLifeTime);
         Rigidbody rb = barrel.GetComponent<Rigidbody>();
         rb.AddForce(barrelLaunchForce * Vector3.up, ForceMode.Impulse);
@@ -447,7 +452,13 @@ public class DummyFighter : MonoBehaviour
             isAttacking = false;
             yield break;
         }
-        barrelRB.AddForceAtPosition(barrelHitForce * transform.forward, barrelRB.transform.position + Vector3.down * 0.2f, ForceMode.Impulse);  
+        Vector3 direction;
+        direction = player.transform.position - transform.position;
+        Vector3 playerVelocity = player.GetComponent<Mover>().GetVelocity();
+        direction += playerVelocity * Time.deltaTime;
+        direction.y = 0f;
+        direction.Normalize();
+        barrelRB.AddForceAtPosition(barrelHitForce * direction, barrelRB.transform.position + Vector3.down * 0.2f, ForceMode.Impulse);  
         isAttacking = false; 
     }
 }
