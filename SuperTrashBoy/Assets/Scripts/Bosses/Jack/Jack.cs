@@ -10,6 +10,11 @@ public class Jack : MonoBehaviour
     public int hammerChance = 100;
     public int spitChance = 100;
     public int timeWeightingValue = 300; //Higher values mean longer gaps between attacks
+    [Range(0f, 100f)]
+    public float closeThreshold = 10f; //Range less than which the player is considered close
+    [Range(0f, 100f)]
+    public float farThreshold = 80f;   //Range greater than which the player is considered far
+    public float distanceWeighting = 1.5f;  //Amount by which distance will effect the attack chosen
 
 
     private bool mInAttack = false;
@@ -112,9 +117,12 @@ public class Jack : MonoBehaviour
         float playerDistance = GetDistanceFromPlayer();
 
         //Roll for hammer
-        //TODO: Add in player distance to calculations
         float hammerProb = hammerChance;
         hammerProb = hammerProb * (timeWeightingValue/mTimeSinceLastAttack);
+        if (playerDistance < closeThreshold)
+            hammerProb /= distanceWeighting;
+        else if (playerDistance > farThreshold)
+            hammerProb *= distanceWeighting;
         if (Random.Range(0, hammerProb) < 1) //Roll for the attack
         {
             mCurrentState = states.hammerSwing;
@@ -125,6 +133,10 @@ public class Jack : MonoBehaviour
         //Roll for barrels
         float barrelProb = barrelChance;
         barrelProb = barrelProb * (timeWeightingValue / mTimeSinceLastAttack);
+        if (playerDistance < closeThreshold)
+            barrelProb *= distanceWeighting;
+        else if (playerDistance > farThreshold)
+            barrelProb /= distanceWeighting;
         if (Random.Range(0, barrelProb) < 1) //Roll for the attack
         {
             mCurrentState = states.throwingBarrels;
