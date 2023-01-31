@@ -6,6 +6,17 @@ public class Jack : MonoBehaviour
 {
     //This class should be spawned in knowing what phase it is in. A new instance of the boss is spawned for every main phase.
 
+    //Hitboxes
+    public HitBox waveHitbox;
+    public GameObject wave;
+    public float waveDamage;
+
+    //Materials for coloured attacks:
+    public Material redAttack;
+    public Material blueAttack;
+    public Material yellowAttack;
+    public Material purpleAttack;
+
     public int barrelChance = 100;  //Higher values are less likely
     public int hammerChance = 100;
     public int spitChance = 100;
@@ -78,7 +89,7 @@ public class Jack : MonoBehaviour
                 break;
 
             case states.hammerSwing:
-                mCurrentState = states.neutral;
+                HammerAttack();
                 Debug.Log("Hammer Swing");
                 break;
 
@@ -157,6 +168,8 @@ public class Jack : MonoBehaviour
         //If we've not hit any of the rolls, stay in movement, just return
     }
 
+    //Helper functions
+
     public void SetDamageTaken()
     {
         mHasTakenDamage = true;
@@ -176,6 +189,34 @@ public class Jack : MonoBehaviour
     {
         float distance = Vector3.Magnitude(player.transform.position - transform.position);
         return distance;
+    }
+
+    //Attack functions
+
+    private void HammerAttack()
+    {
+        if (!mInAttack)
+        {
+            //Set up
+            mInAttack = true;
+        }
+
+        wave.SetActive(true);
+        waveHitbox.SetupHitBox(gameObject, waveDamage);
+        //Set attack colour
+        MeshRenderer[] rend = wave.gameObject.GetComponentsInChildren<MeshRenderer>();
+        foreach (var render in rend)
+        {
+            if (render.gameObject != gameObject)
+                render.material = redAttack;
+        }
+
+        if (true)
+        {
+            //Leaving the state
+            mInAttack = false;
+            mCurrentState = states.neutral;
+        }
     }
 
 
