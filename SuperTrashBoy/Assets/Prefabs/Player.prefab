@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1230060695433249724}
-  maxMovementSpeed: 30
-  maxCrouchSpeed: 10
+  maxMovementSpeed: 15
+  maxCrouchSpeed: 7
   acceleration: 5
   deceleration: 10
   jumpHeight: 15

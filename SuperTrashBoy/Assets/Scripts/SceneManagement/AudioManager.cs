@@ -5,6 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioClip introMusic = null;
+    [SerializeField] AudioClip dummyMusic = null;
 
     AudioSource audioSource;
 
@@ -15,8 +16,19 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMenuMusic()
     {
-        if(introMusic == null) return;
-        audioSource.clip = introMusic;
+        PlayMusic(introMusic, true);
+    }
+
+    public void PlayDummyBossMusic()
+    {
+        PlayMusic(dummyMusic, true);
+    }
+
+    private void PlayMusic(AudioClip audio, bool loop)
+    {
+        if (audio == null) return;
+        audioSource.clip = audio;
+        audioSource.loop = loop;
         audioSource.Play();
     }
 }

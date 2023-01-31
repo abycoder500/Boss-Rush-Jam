@@ -21,13 +21,17 @@ public class DummyBT : BTUser
     [SerializeField] private float waitTimeAfterSpin = 3f;
     [SerializeField] private float distanceToTriggerMoveToPlayerAttack = 10f;
     [SerializeField] private float shieldTime = 0.4f;
+    [SerializeField] private float timeOnGroundAfterSpin = 2.5f;
+    [SerializeField] private float waitToBeHitTime = 2f;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
     private DummyFighter dummyFighter;
+    private AudioManager audioManager;
 
     private int rage = 0;
     private float enterTimer = 0f;
+    private float waitToBeHitTimer = 0f;
     private bool isAttacking = false;
     private bool isHitAfterSpin = false;
     private bool isIdleSetUp = false;
@@ -45,6 +49,7 @@ public class DummyBT : BTUser
 
         hitReceivedCounter = GetComponent<HitReceivedCounter>();    
         dummyFighter = GetComponent<DummyFighter>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     protected override void Start()
@@ -63,6 +68,7 @@ public class DummyBT : BTUser
         Leaf findPlayerLocation = new Leaf("Find Player Location", FindPlayerLocation);
         Leaf checkForRangeAttack = new Leaf("Check for range attack", CheckForIncomingRangeAttack);
         Leaf checkForMeleeAttack = new Leaf("Check for melee attack", CheckForMeleeAttack);
+        Leaf resetHits = new Leaf("Reset hits", ResetHitCounter);
 
         Leaf hitAfterSpin = new Leaf("Check hit during spin", HitAfterSpin);
         Leaf checkHitAfterSpin = new Leaf("Check hit after spin", CheckHitAfterSpin);
@@ -108,8 +114,9 @@ public class DummyBT : BTUser
         //STAGE 1
         
         //Stage1 condition 
-        Leaf Stage1RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage1));
-        stage1DependencyCondition.AddChild(Stage1RageOverComeLimit);
+        Leaf stage1RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage1));
+        Leaf waitToBeHitAfterJumpAttack = new Leaf("Wait after jump", () => WaitToBeHit(waitToBeHitTime));
+        stage1DependencyCondition.AddChild(stage1RageOverComeLimit);
   
         Loop stage1Loop = new Loop("Stage 1 loop", checkForHitAfterSpinTree);
         Loop stage1AttacksLoop = new Loop("Stage 1 attacks loop", stage1DependencyCondition);
@@ -163,6 +170,8 @@ public class DummyBT : BTUser
         //Build tree--------------------------------------------------------------------------------------------------------
         jumpAttackSequence.AddChild(findPlayerLocation);
         jumpAttackSequence.AddChild(jumpAttack);
+        jumpAttackSequence.AddChild(resetHits);
+        jumpAttackSequence.AddChild(waitToBeHitAfterJumpAttack);
 
         dashAttackSequence.AddChild(findPlayerLocation);
         dashAttackSequence.AddChild(stepAway);
@@ -268,6 +277,7 @@ public class DummyBT : BTUser
         if(!entranceTriggered)
         {
             animator.SetTrigger("Enter");
+            audioManager.PlayDummyBossMusic();
             entranceTriggered = true;
             player.GetComponent<PlayerController>().TakeKnockBack(0f, transform);
         }
@@ -285,6 +295,31 @@ public class DummyBT : BTUser
     {
         if(rage >= limit) return Node.Status.FAILURE;
         return Node.Status.SUCCESS;
+    }
+
+    private Node.Status ResetHitCounter()
+    {
+        hitReceivedCounter.ResetHits();
+        return Node.Status.SUCCESS;
+    }
+
+    private Node.Status WaitToBeHit(float time)
+    {
+        waitToBeHitTimer += Time.deltaTime;
+        if(waitToBeHitTimer >= time)
+        {
+            waitToBeHitTimer = 0f;
+            animator.SetTrigger("BackToIdle");
+            return Node.Status.SUCCESS;
+        }
+        if(hitReceivedCounter.GetHitReceivedNumber() >= 1)
+        {
+            Debug.Log("Wait to be hit enrage");
+            Enrage();
+            waitToBeHitTimer = 0f;
+            return Node.Status.SUCCESS;
+        }
+        return Node.Status.RUNNING;
     }
 
     private Node.Status IsPlayerDistanceLessThan(float range)
@@ -349,7 +384,7 @@ public class DummyBT : BTUser
                 Debug.Log("Keep Player From Attacking");
                 animator.SetTrigger("Protect");
                 ResetRage();
-                Pause(shieldTime);
+                Pause(shieldTime, null);
                 player.GetComponent<PlayerController>().TakeKnockBack(0f,this.transform);
                 return Node.Status.SUCCESS; 
             }
@@ -381,6 +416,7 @@ public class DummyBT : BTUser
         if (!isAttacking)
         {
             dummyFighter.MoveTowardsPlayerAttack();
+            animator.SetTrigger("Dash");
             isAttacking = true;
             dummyFighter.LookPlayer(true);
             return Node.Status.RUNNING;
@@ -511,6 +547,7 @@ public class DummyBT : BTUser
         if(!isAttacking) 
         {
             dummyFighter.SpinAttack(playerLocation - transform.position);
+            hitReceivedCounter.ResetHits();
             isAttacking = true;
             animator.SetBool("Spin", true);
             return Node.Status.RUNNING;
@@ -519,18 +556,26 @@ public class DummyBT : BTUser
         {
             if(dummyFighter.IsAttacking()) 
             {
-                if(dummyFighter.HasHitPlayer())
-                {
-                    dummyFighter.ResetHitPlayer();
-                    ResetRage();
-                }
                 return Node.Status.RUNNING;
             }
             else
             {
-                isAttacking = false;
-                hitReceivedCounter.ResetHits();
-                animator.SetBool("Spin", false);
+                if (dummyFighter.HasHitPlayer())
+                {
+                    Debug.Log("Hit");
+                    dummyFighter.ResetHitPlayer();
+                    ResetRage();
+                    animator.SetBool("Spin", false);
+                    isAttacking = false;
+                }
+                else
+                {
+                    Debug.Log("tired");
+                    isAttacking = false;
+                    hitReceivedCounter.ResetHits();
+                    animator.SetTrigger("Tired");
+                    Pause(timeOnGroundAfterSpin, () => animator.SetBool("Spin", false));
+                }
                 return Node.Status.SUCCESS;
             }
         }
