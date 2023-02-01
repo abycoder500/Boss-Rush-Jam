@@ -5410,7 +5410,8 @@ MonoBehaviour:
   distanceToTriggerMoveToPlayerAttack: 15
   shieldTime: 0.4
   timeOnGroundAfterSpin: 2.5
-  waitToBeHitTime: 2
+  waitToBeHitTime: 1
+  laughTimeAfterHit: 1.5
 --- !u!114 &6522571951791476490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5470,9 +5471,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 80
-  phase1JumpTimeLength: 0.6
-  phase1JumpAttackHorizontalVelocity: 6
+  jumpHeight: 40
+  phase1JumpTimeLength: 0.7
+  phase1JumpAttackHorizontalVelocity: 7
   phase2JumpTimeLength: 1
   phase2JumpAttackHorizontalVelocity: 5
   phase3JumpTimeLength: 1
@@ -5578,7 +5579,7 @@ MonoBehaviour:
   phase1StepAwayTimeLength: 1
   phase1StepAwayVelocity: 10
   phase1DashDuration: 2
-  phase1DashVelocity: 15
+  phase1DashVelocity: 25
   phase2StepAwayTimeLength: 0.5
   phase2StepAwayVelocity: 5
   phase2DashDuration: 2
@@ -5588,10 +5589,10 @@ MonoBehaviour:
   phase3DashDuration: 3
   phase3DashVelocity: 8
   spinAttackTimeLength: 6
-  spinAttackVelocity: 5
-  clubAttackTimeLength: 3
-  hitboxActivationTime: 0.5
-  hitboxDeactivationTime: 2.5
+  spinAttackVelocity: 10
+  clubAttackTimeLength: 0.7
+  hitboxActivationTime: 0
+  hitboxDeactivationTime: 0.6
   clubAttackDamage: 10
   barrelLaunchForce: 10
   barrelHitForce: 20

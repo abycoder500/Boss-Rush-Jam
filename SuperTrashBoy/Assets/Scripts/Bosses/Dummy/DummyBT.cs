@@ -23,6 +23,7 @@ public class DummyBT : BTUser
     [SerializeField] private float shieldTime = 0.4f;
     [SerializeField] private float timeOnGroundAfterSpin = 2.5f;
     [SerializeField] private float waitToBeHitTime = 2f;
+    [SerializeField] private float laughTimeAfterHit = 2f;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
@@ -36,6 +37,7 @@ public class DummyBT : BTUser
     private bool isHitAfterSpin = false;
     private bool isIdleSetUp = false;
     private bool entranceTriggered = false;
+    private bool canAdvanceStage = true;
 
     private BehaviorTree stage1DependencyCondition = new BehaviorTree("Stage1 dep");
     private BehaviorTree stage2DependencyCondition = new BehaviorTree("Stage2 dep");
@@ -69,6 +71,7 @@ public class DummyBT : BTUser
         Leaf checkForRangeAttack = new Leaf("Check for range attack", CheckForIncomingRangeAttack);
         Leaf checkForMeleeAttack = new Leaf("Check for melee attack", CheckForMeleeAttack);
         Leaf resetHits = new Leaf("Reset hits", ResetHitCounter);
+        Leaf resetStageAdvance = new Leaf("Reset Stage Advance", ResetStageAdvance);
 
         Leaf hitAfterSpin = new Leaf("Check hit during spin", HitAfterSpin);
         Leaf checkHitAfterSpin = new Leaf("Check hit after spin", CheckHitAfterSpin);
@@ -180,6 +183,8 @@ public class DummyBT : BTUser
 
         clubAttackSequence.AddChild(findPlayerLocation);
         clubAttackSequence.AddChild(clubAttack);
+        clubAttackSequence.AddChild(resetHits);
+        clubAttackSequence.AddChild(waitToBeHitAfterJumpAttack);
 
         launchAndHitSequence.AddChild(launchBin);
         launchAndHitSequence.AddChild(findPlayerLocation);
@@ -212,12 +217,15 @@ public class DummyBT : BTUser
         stage3AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage3AttacksLoop.AddChild(stage3AttackSelector);
 
+        stage1Loop.AddChild(resetStageAdvance);
         stage1Loop.AddChild(stage1AttacksLoop);
         stage1Loop.AddChild(spinSequence);
 
+        stage2Loop.AddChild(resetStageAdvance);
         stage2Loop.AddChild(stage2AttacksLoop);
         stage2Loop.AddChild(spinSequence);
 
+        stage3Loop.AddChild(resetStageAdvance);
         stage3Loop.AddChild(stage3AttacksLoop);
         stage3Loop.AddChild(spinSequence);
 
@@ -303,6 +311,12 @@ public class DummyBT : BTUser
         return Node.Status.SUCCESS;
     }
 
+    private Node.Status ResetStageAdvance()
+    {
+        canAdvanceStage = true;
+        return Node.Status.SUCCESS;
+    }
+
     private Node.Status WaitToBeHit(float time)
     {
         waitToBeHitTimer += Time.deltaTime;
@@ -337,7 +351,7 @@ public class DummyBT : BTUser
 
     private Node.Status HitAfterSpin()
     {
-        if(isHitAfterSpin) 
+        if(isHitAfterSpin && canAdvanceStage) 
         {
             isHitAfterSpin = false;
             return Node.Status.FAILURE;
@@ -349,12 +363,21 @@ public class DummyBT : BTUser
     {
         if(hitReceivedCounter.GetHitReceivedNumber() >= 1)
         {
-            Debug.Log("Success stage!");
-            isHitAfterSpin = true;
-            dummyFighter.AdvanceStage();
+            if(canAdvanceStage)
+            {
+                Debug.Log("Success stage!");
+                isHitAfterSpin = true;
+                dummyFighter.AdvanceStage();                           
+            }
+            else
+            {
+                Debug.Log("Can't advance");
+                //isHitAfterSpin = false;                      
+            }
         }
         ResetRage();
         return Node.Status.SUCCESS;
+        
     }
 
     private Node.Status CheckForIncomingRangeAttack()
@@ -508,7 +531,7 @@ public class DummyBT : BTUser
             else
             {
                 isAttacking = false;
-                Enrage();
+                //Enrage();
                 return Node.Status.SUCCESS;
             }
         }
@@ -567,6 +590,7 @@ public class DummyBT : BTUser
                     ResetRage();
                     animator.SetBool("Spin", false);
                     isAttacking = false;
+                    canAdvanceStage = false;
                 }
                 else
                 {
@@ -609,6 +633,15 @@ public class DummyBT : BTUser
     {
         rage = 0;
         rageParticles.gameObject.SetActive(false);
+        animator.SetTrigger("Laugh");
+        Pause(laughTimeAfterHit, StopLaugh);
+    }
+
+    private void StopLaugh()
+    {
+        Debug.Log("Stop");
+        paused = false;
+        animator.SetTrigger("BackToIdleAfterLaugh");
     }
 
     private IEnumerator ResetEnrage()

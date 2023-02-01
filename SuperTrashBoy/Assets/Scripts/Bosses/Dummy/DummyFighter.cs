@@ -375,10 +375,11 @@ public class DummyFighter : MonoBehaviour
 
     public void AdvanceStage()
     {
+        Debug.Log("Advancing");
         stage ++;
         if(stage == 2)
         {
-             jumpTimeLength = phase1JumpTimeLength;
+            jumpTimeLength = phase1JumpTimeLength;
             jumpAttackHorizontalVelocity = phase2JumpAttackHorizontalVelocity;
 
             dashDuration = phase2DashDuration;
