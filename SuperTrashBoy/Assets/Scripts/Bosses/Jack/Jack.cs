@@ -37,6 +37,7 @@ public class Jack : MonoBehaviour
     public float waveSpeed = 0.1f; //Speed of the wave
     public float waveDamage = 10f;
     public float hammerAttackDamage = 20f;
+    public float jackMovementSpeed = 0.1f;
 
     //Variables for flow control
     private bool mInAttack = false;
@@ -155,6 +156,7 @@ public class Jack : MonoBehaviour
         {
             mCurrentState = states.hammerSwing;
             mInAttack = false;
+            animator.ResetTrigger("isMoving");
             return;
         }
 
@@ -169,6 +171,7 @@ public class Jack : MonoBehaviour
         {
             mCurrentState = states.throwingBarrels;
             mInAttack = false;
+            animator.ResetTrigger("isMoving");
             return;
         }
 
@@ -179,6 +182,7 @@ public class Jack : MonoBehaviour
         {
             mCurrentState = states.spinSpit;
             mInAttack = false;
+            animator.ResetTrigger("isMoving");
             return;
         }
 
@@ -281,6 +285,8 @@ public class Jack : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
+        transform.position += transform.forward * jackMovementSpeed;
+        animator.SetTrigger("isMoving");
         LookAtPlayer();
     }
 }
