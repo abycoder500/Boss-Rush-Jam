@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,6 +107,8 @@ public class DummyFighter : MonoBehaviour
     private GameObject player;
 
     private int stage = 1;
+
+    public event Action onBarrelHit;
 
     private void Awake() 
     {
@@ -415,10 +418,19 @@ public class DummyFighter : MonoBehaviour
         HitBox hitbox = barrel.GetComponentInChildren<HitBox>();
         hitbox.SetupHitBox(this.gameObject, barrelDamage);
         hitbox.gameObject.SetActive(true);
+        hitbox.onHit += ResetRageOnBarrelHit;
         Destroy(barrel, barrelLifeTime);
         Rigidbody rb = barrel.GetComponent<Rigidbody>();
         rb.AddForce(barrelLaunchForce * Vector3.up, ForceMode.Impulse);
         StartCoroutine(HitBarrelRoutine(rb));
+    }
+
+    private void ResetRageOnBarrelHit(GameObject hitObject)
+    {
+        if(hitObject == player)
+        {
+            onBarrelHit?.Invoke();
+        }
     }
 
     private void HitPlayer(GameObject hit)

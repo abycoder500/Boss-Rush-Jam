@@ -6,6 +6,7 @@ using System;
 
 public class DummyBT : BTUser
 {
+    [SerializeField] private string bossName = "The Dummy";
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private Animator animator;
     [SerializeField] private float enterTimeDuration = 2f;
@@ -45,6 +46,8 @@ public class DummyBT : BTUser
     private BehaviorTree waitForAttackDependency = new BehaviorTree("Wait for attack dep");
     private BehaviorTree checkForHitAfterSpinTree = new BehaviorTree("Check for hit during spin");
 
+    public event Action<string> onActivate;
+
     protected override void Awake() 
     {
         base.Awake();
@@ -72,6 +75,7 @@ public class DummyBT : BTUser
         Leaf checkForMeleeAttack = new Leaf("Check for melee attack", CheckForMeleeAttack);
         Leaf resetHits = new Leaf("Reset hits", ResetHitCounter);
         Leaf resetStageAdvance = new Leaf("Reset Stage Advance", ResetStageAdvance);
+        Leaf resetAnimatorTriggers = new Leaf("Reset Animator triggers", ResetAnimatorTriggers);
 
         Leaf hitAfterSpin = new Leaf("Check hit during spin", HitAfterSpin);
         Leaf checkHitAfterSpin = new Leaf("Check hit after spin", CheckHitAfterSpin);
@@ -205,16 +209,19 @@ public class DummyBT : BTUser
         stage1AttacksLoop.AddChild(checkForPlayerAttacks);
         stage1AttacksLoop.AddChild(findPlayerLocation);
         stage1AttacksLoop.AddChild(checkForPlayerDistanceSelector);
+        stage1AttacksLoop.AddChild(resetAnimatorTriggers);
         stage1AttacksLoop.AddChild(stage1AttackSelector);
 
         stage2AttacksLoop.AddChild(checkForPlayerAttacks);
         stage2AttacksLoop.AddChild(findPlayerLocation);
         stage2AttacksLoop.AddChild(checkForPlayerDistanceSelector);
+        stage2AttacksLoop.AddChild(resetAnimatorTriggers);
         stage2AttacksLoop.AddChild(stage2AttackSelector);
 
         stage3AttacksLoop.AddChild(checkForPlayerAttacks);
         stage3AttacksLoop.AddChild(findPlayerLocation);
         stage3AttacksLoop.AddChild(checkForPlayerDistanceSelector);
+        stage3AttacksLoop.AddChild(resetAnimatorTriggers);
         stage3AttacksLoop.AddChild(stage3AttackSelector);
 
         stage1Loop.AddChild(resetStageAdvance);
@@ -245,11 +252,13 @@ public class DummyBT : BTUser
     private void OnEnable() 
     {
         dummyFighter.GetHitBox().onHit += ResetRage;    
+        dummyFighter.onBarrelHit += ResetRage;
     }
 
     private void OnDisable() 
     {
-        dummyFighter.GetHitBox().onHit -= ResetRage;    
+        dummyFighter.GetHitBox().onHit -= ResetRage;
+        dummyFighter.onBarrelHit -= ResetRage; 
     }
 
     private Node.Status StayIdle()
@@ -284,6 +293,7 @@ public class DummyBT : BTUser
     {
         if(!entranceTriggered)
         {
+            onActivate?.Invoke(bossName);
             animator.SetTrigger("Enter");
             audioManager.PlayDummyBossMusic();
             entranceTriggered = true;
@@ -317,13 +327,21 @@ public class DummyBT : BTUser
         return Node.Status.SUCCESS;
     }
 
+    private Node.Status ResetAnimatorTriggers()
+    {
+        animator.ResetTrigger("BackToIdleAfterClub");
+        animator.ResetTrigger("BackToIdle");
+        animator.ResetTrigger("BackToIdleAfterLaugh");
+        return Node.Status.SUCCESS;
+    }
+
     private Node.Status WaitToBeHit(float time)
     {
         waitToBeHitTimer += Time.deltaTime;
         if(waitToBeHitTimer >= time)
         {
             waitToBeHitTimer = 0f;
-            animator.SetTrigger("BackToIdle");
+            animator.SetTrigger("BackToIdleAfterClub");
             return Node.Status.SUCCESS;
         }
         if(hitReceivedCounter.GetHitReceivedNumber() >= 1)
@@ -375,7 +393,7 @@ public class DummyBT : BTUser
                 //isHitAfterSpin = false;                      
             }
         }
-        ResetRage();
+        ResetRage(false);
         return Node.Status.SUCCESS;
         
     }
@@ -390,7 +408,7 @@ public class DummyBT : BTUser
             {
                 Destroy(projectile.gameObject);
                 animator.SetTrigger("Protect");
-                ResetRage();
+                ResetRage(false);
             }
         }
         return Node.Status.SUCCESS;
@@ -399,14 +417,13 @@ public class DummyBT : BTUser
     private Node.Status CheckForMeleeAttack()
     {
         dummyFighter.LookPlayer(false);
-        Debug.Log("waiting");
         if(playerFighter.IsAttackingMelee())
         {
             if(IsPlayerWithinRange(playerAttackDetectionRange))
             {
                 Debug.Log("Keep Player From Attacking");
                 animator.SetTrigger("Protect");
-                ResetRage();
+                ResetRage(false);
                 Pause(shieldTime, null);
                 player.GetComponent<PlayerController>().TakeKnockBack(0f,this.transform);
                 return Node.Status.SUCCESS; 
@@ -506,7 +523,7 @@ public class DummyBT : BTUser
                 {
                     dummyFighter.ResetHitPlayer();
                     animator.SetTrigger("BackToIdle");
-                    ResetRage();
+                    ResetRage(true);
                 }
                 else
                 {
@@ -587,7 +604,7 @@ public class DummyBT : BTUser
                 {
                     Debug.Log("Hit");
                     dummyFighter.ResetHitPlayer();
-                    ResetRage();
+                    ResetRage(true);
                     animator.SetBool("Spin", false);
                     isAttacking = false;
                     canAdvanceStage = false;
@@ -607,7 +624,20 @@ public class DummyBT : BTUser
 
     private void ResetRage(GameObject playerObject)
     {
-        if(playerObject == player) ResetRage();
+        if(playerObject == player) ResetRage(true);
+    }
+
+    private void ResetRage(bool laugh)
+    {
+        rage = 0;
+        rageParticles.gameObject.SetActive(false);
+        if (laugh) animator.SetTrigger("Laugh");
+        Pause(laughTimeAfterHit, StopLaugh);
+    }
+
+    private void ResetRage()
+    {
+        ResetRage(true);
     }
 
     private void Enrage()
@@ -629,13 +659,7 @@ public class DummyBT : BTUser
         }
     }
 
-    private void ResetRage()
-    {
-        rage = 0;
-        rageParticles.gameObject.SetActive(false);
-        animator.SetTrigger("Laugh");
-        Pause(laughTimeAfterHit, StopLaugh);
-    }
+    
 
     private void StopLaugh()
     {

@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
 
     public UnityEvent OnDeath;
 
-    void Start()
+    void Awake()
     {
         maxHealth = startingHealth;
         currentHealth = maxHealth;  
@@ -32,6 +32,11 @@ public class Health : MonoBehaviour
     public float GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public float GetHealthFraction()
+    {
+        return currentHealth/maxHealth;
     }
 
     public bool TryTakeDamage(float damageAmount, Transform damager)

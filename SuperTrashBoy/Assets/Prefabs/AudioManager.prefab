@@ -143,3 +143,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introMusic: {fileID: 8300000, guid: 66401739bb3fe22488e0b2c9042e93df, type: 3}
   dummyMusic: {fileID: 8300000, guid: 60478c40845501b4588a2e0ff58a0e7e, type: 3}
+  stopMusicTime: 1.5
