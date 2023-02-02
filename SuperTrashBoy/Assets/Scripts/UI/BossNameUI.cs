@@ -16,20 +16,24 @@ public class BossNameUI : MonoBehaviour
     [SerializeField] float targetPanelAlpha = 0.9f;
 
     private DummyBT dummyBT;
+    private Jack jack;
 
     private void Awake() 
     {
         dummyBT = FindObjectOfType<DummyBT>();
+        jack = FindObjectOfType<Jack>();
     }
 
     private void OnEnable() 
     {
         if (dummyBT != null) dummyBT.onActivate += ShowBossName;
+        if (jack != null) jack.onActivate += ShowBossName;
     }
 
     private void OnDisable()
     {
         if (dummyBT != null) dummyBT.onActivate -= ShowBossName;
+        if (jack != null) jack.onActivate -= ShowBossName;
     }
 
     private void Start() 
