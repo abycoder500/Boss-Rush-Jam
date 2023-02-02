@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Jack : MonoBehaviour
 {
     //This class should be spawned in knowing what phase it is in. A new instance of the boss is spawned for every main phase.
+    [SerializeField] string bossName = "Jack in the box";
 
-    //Hitboxes
-    public HitBox waveHitbox;
+
+    //Attacks
     public GameObject wave;
-    public float waveDamage;
 
     //Materials for coloured attacks:
     public Material redAttack;
@@ -17,6 +19,7 @@ public class Jack : MonoBehaviour
     public Material yellowAttack;
     public Material purpleAttack;
 
+    //Variables for choosing attacks
     public int barrelChance = 100;  //Higher values are less likely
     public int hammerChance = 100;
     public int spitChance = 100;
@@ -26,16 +29,21 @@ public class Jack : MonoBehaviour
     [Range(0f, 100f)]
     public float farThreshold = 80f;   //Range greater than which the player is considered far
     public float distanceWeighting = 1.5f;  //Amount by which distance will effect the attack chosen
+    private int mTimeSinceLastAttack = 0;
 
+    //Variables for attack parameters
+    public float waveTime = 1f; //Time in seconds the wave will last
+    public float waveSpeed = 0.1f; //Speed of the wave
+    public float waveDamage;
 
+    //Variables for 
     private bool mInAttack = false;
     private bool mHasTakenDamage = false;
     private int mAttacksAfterDamageTaken = 0;
 
-    //Variables for choosing attack
-    private int mTimeSinceLastAttack = 0;
-
     protected GameObject player;
+
+    public event Action<string> onActivate;
 
     //List all the states the boss could be in
     private enum states
@@ -58,6 +66,9 @@ public class Jack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
             Debug.LogError("No player gameobject found");
+
+        //Todo: put this where it actually happens
+        onActivate?.Invoke(bossName);
     }
 
     private void FixedUpdate()
@@ -198,13 +209,17 @@ public class Jack : MonoBehaviour
         if (!mInAttack)
         {
             //Set up
+            LookAtPlayer();
             mInAttack = true;
         }
 
-        wave.SetActive(true);
+        GameObject waveInstance = Instantiate(wave, transform);
+        waveInstance.SetActive(true);
+        waveInstance.GetComponent<WaveAttackController>().SetSpeedAndLifetime(waveSpeed, waveTime);
+        HitBox waveHitbox = waveInstance.GetComponent<HitBox>();
         waveHitbox.SetupHitBox(gameObject, waveDamage);
         //Set attack colour
-        MeshRenderer[] rend = wave.gameObject.GetComponentsInChildren<MeshRenderer>();
+        MeshRenderer[] rend = waveInstance.gameObject.GetComponentsInChildren<MeshRenderer>();
         foreach (var render in rend)
         {
             if (render.gameObject != gameObject)
@@ -219,11 +234,16 @@ public class Jack : MonoBehaviour
         }
     }
 
+    private void LookAtPlayer()
+    {
+        transform.LookAt(player.transform);
+        transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
+    }
 
     //-------------Functions below are TODO!-----------
 
     private void MoveTowardsPlayer()
     {
-
+        LookAtPlayer();
     }
 }

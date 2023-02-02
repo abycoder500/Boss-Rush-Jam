@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3666848290404806732}
   - component: {fileID: 5622589727382020873}
   - component: {fileID: 3135706854891412766}
+  - component: {fileID: 8155820498082886092}
   m_Layer: 0
   m_Name: Wave Attack
   m_TagString: Untagged
@@ -31,8 +32,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1536502052056193644}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.149, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 4}
+  m_LocalPosition: {x: 0, y: -4.2, z: 4}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1613354453578686286}
@@ -2523,7 +2524,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bbb235fff4f48426b863b36058ab66d2, type: 2}
+  - {fileID: 2100000, guid: f791c4e2bc76c0b4290bf93e74c2699a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2595,6 +2596,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manageVisibility: 1
+--- !u!114 &8155820498082886092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536502052056193644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bac8537136d2e44b8d067473793cf41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8199782918068588932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2613,6 +2626,14 @@ PrefabInstance:
     - target: {fileID: 936577221328675296, guid: 5e73efc12f6e3d047832e36fd78bf040, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237168859330406724, guid: 5e73efc12f6e3d047832e36fd78bf040, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f791c4e2bc76c0b4290bf93e74c2699a, type: 2}
+    - target: {fileID: 1237168859330406724, guid: 5e73efc12f6e3d047832e36fd78bf040, type: 3}
+      propertyPath: m_SelectedEditorRenderState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1536502052056193644, guid: 5e73efc12f6e3d047832e36fd78bf040, type: 3}
       propertyPath: m_Name
