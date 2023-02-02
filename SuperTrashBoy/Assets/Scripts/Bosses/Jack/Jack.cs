@@ -8,7 +8,8 @@ public class Jack : MonoBehaviour
 {
     //This class should be spawned in knowing what phase it is in. A new instance of the boss is spawned for every main phase.
     [SerializeField] string bossName = "Jack in the box";
-
+    [SerializeField] Animator animator;
+    [SerializeField] HitBox hammerHitbox;
 
     //Attacks
     public GameObject wave;
@@ -34,12 +35,16 @@ public class Jack : MonoBehaviour
     //Variables for attack parameters
     public float waveTime = 1f; //Time in seconds the wave will last
     public float waveSpeed = 0.1f; //Speed of the wave
-    public float waveDamage;
+    public float waveDamage = 10f;
+    public float hammerAttackDamage = 20f;
 
-    //Variables for 
+    //Variables for flow control
     private bool mInAttack = false;
     private bool mHasTakenDamage = false;
     private int mAttacksAfterDamageTaken = 0;
+    public bool hammerDown = false;
+    private bool mAnimationFinished = false;    //Set true when an animation has finished, set back to false
+                                                //when that's handled
 
     protected GameObject player;
 
@@ -66,6 +71,8 @@ public class Jack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
             Debug.LogError("No player gameobject found");
+
+        animator = GetComponent<Animator>();
 
         //Todo: put this where it actually happens
         onActivate?.Invoke(bossName);
@@ -101,7 +108,6 @@ public class Jack : MonoBehaviour
 
             case states.hammerSwing:
                 HammerAttack();
-                Debug.Log("Hammer Swing");
                 break;
 
             case states.spinSpit:
@@ -186,6 +192,20 @@ public class Jack : MonoBehaviour
         mHasTakenDamage = true;
     }
 
+    //-----Animation functions
+
+    public void AnimationFinished()
+    {
+        mAnimationFinished = true;
+    }
+
+    public void SetHammerDown()
+    {
+        hammerDown = true;
+    }
+
+    //-----End of Animation functions
+
     private bool IsPlayerLOS()
     {
         //Draw a ray from the boss to the player, and return false if it hits anything else
@@ -208,11 +228,35 @@ public class Jack : MonoBehaviour
     {
         if (!mInAttack)
         {
+            Debug.Log("Hammer Swing");
             //Set up
             LookAtPlayer();
+            animator.SetTrigger("isHammerAttack");
             mInAttack = true;
+            hammerHitbox.SetupHitBox(this.gameObject, hammerAttackDamage);
+            hammerHitbox.gameObject.SetActive(true);
         }
 
+        if (hammerDown)
+        {
+            SpawnHammerWave();
+            hammerDown = false;
+        }
+
+
+        if (mAnimationFinished)
+        {
+            hammerHitbox.gameObject.SetActive(false);
+            animator.ResetTrigger("isHammerAttack");
+            mAnimationFinished = false;
+            //Leaving the state
+            mInAttack = false;
+            mCurrentState = states.neutral;       
+        }
+    }
+
+    private void SpawnHammerWave()
+    {
         GameObject waveInstance = Instantiate(wave, transform);
         waveInstance.SetActive(true);
         waveInstance.GetComponent<WaveAttackController>().SetSpeedAndLifetime(waveSpeed, waveTime);
@@ -224,13 +268,6 @@ public class Jack : MonoBehaviour
         {
             if (render.gameObject != gameObject)
                 render.material = redAttack;
-        }
-
-        if (true)
-        {
-            //Leaving the state
-            mInAttack = false;
-            mCurrentState = states.neutral;
         }
     }
 
