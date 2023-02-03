@@ -160,7 +160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3252099569264577379, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3252099569264577379, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.x
@@ -673,7 +673,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1812215442
 GameObject:
@@ -769,71 +769,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1889349412
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 891886858715871575, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_Name
-      value: Barrel
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.545094
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 19.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 22.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199798259596163993, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3046651480728751463, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8683203543699185472, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
-      propertyPath: explodeHeight
-      value: -2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
 --- !u!1 &1923224622
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1923224623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +803,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   hammerHitbox: {fileID: 575495361}
   wave: {fileID: 1536502052056193644, guid: 739a9d03626febb4aa0101a7967b69ad, type: 3}
+  barrel: {fileID: 891886858715871575, guid: 801d6ed069c24694d9264bab20841ade, type: 3}
   redAttack: {fileID: 2100000, guid: f791c4e2bc76c0b4290bf93e74c2699a, type: 2}
   blueAttack: {fileID: 2100000, guid: c09edda8e22c6a342b8a6123be6b4e1a, type: 2}
   yellowAttack: {fileID: 2100000, guid: 1beb81df69df6394f83100f94afad4c3, type: 2}
@@ -884,6 +820,10 @@ MonoBehaviour:
   waveDamage: 10
   hammerAttackDamage: 20
   jackMovementSpeed: 0.1
+  barrelSpawnHeight: 10
+  noOfBarrels: 5
+  barrelSpawnDelay: 0.5
+  barrelDamage: 20
   hammerDown: 0
 --- !u!4 &1923224627
 Transform:
@@ -899,7 +839,7 @@ Transform:
   m_Children:
   - {fileID: 1573679516}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1923224628
 Animator:
@@ -995,5 +935,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

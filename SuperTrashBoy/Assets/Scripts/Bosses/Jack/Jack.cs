@@ -13,6 +13,7 @@ public class Jack : MonoBehaviour
 
     //Attacks
     public GameObject wave;
+    public GameObject barrel;
 
     //Materials for coloured attacks:
     public Material redAttack;
@@ -38,6 +39,10 @@ public class Jack : MonoBehaviour
     public float waveDamage = 10f;
     public float hammerAttackDamage = 20f;
     public float jackMovementSpeed = 0.1f;
+    public float barrelSpawnHeight = 50f;
+    public int noOfBarrels = 5;
+    public float barrelSpawnDelay = 0.5f;
+    public float barrelDamage = 20f;
 
     //Variables for flow control
     private bool mInAttack = false;
@@ -46,6 +51,10 @@ public class Jack : MonoBehaviour
     public bool hammerDown = false;
     private bool mAnimationFinished = false;    //Set true when an animation has finished, set back to false
                                                 //when that's handled
+    private float mAttackStartTime;             //Emergancy timer to make sure we're not stuck in a state if the animations mess up
+    private float moveOnTime = 20f;
+    private float barrelThrowStart = 0;
+    private int barrelsThrown = 0;
 
     protected GameObject player;
 
@@ -103,8 +112,7 @@ public class Jack : MonoBehaviour
                 break;
 
             case states.throwingBarrels:
-                mCurrentState = states.neutral;
-                Debug.Log("Throwing Barrels");
+                ThrowBarrels();
                 break;
 
             case states.hammerSwing:
@@ -226,7 +234,6 @@ public class Jack : MonoBehaviour
     //-----End of Animation functions
 
     //Attack functions
-
     private void HammerAttack()
     {
         if (!mInAttack)
@@ -238,6 +245,7 @@ public class Jack : MonoBehaviour
             mInAttack = true;
             hammerHitbox.SetupHitBox(this.gameObject, hammerAttackDamage);
             hammerHitbox.gameObject.SetActive(true);
+            mAttackStartTime = Time.time;
         }
 
         if (hammerDown)
@@ -247,7 +255,7 @@ public class Jack : MonoBehaviour
         }
 
 
-        if (mAnimationFinished)
+        if (mAnimationFinished || Time.time > mAttackStartTime + moveOnTime)
         {
             hammerHitbox.gameObject.SetActive(false);
             animator.ResetTrigger("isHammerAttack");
@@ -272,6 +280,44 @@ public class Jack : MonoBehaviour
             if (render.gameObject != gameObject)
                 render.material = redAttack;
         }
+    }
+
+    private void ThrowBarrels()
+    {
+        if (!mInAttack)
+        {
+            Debug.Log("Barrel Throw");
+            //Set up
+            LookAtPlayer();
+            //animator.SetTrigger("isHammerAttack");
+            mInAttack = true;
+            barrelThrowStart = Time.time;
+            barrelsThrown = 0;
+        }
+
+        if (Time.time > barrelThrowStart + barrelSpawnDelay)
+        {
+            if (barrelsThrown < noOfBarrels)
+            {
+                SpawnBarrel();
+                barrelsThrown++;
+                barrelThrowStart = Time.time;
+            }
+            else
+            {
+                //We've spawned all the barrels we need to, end the attack
+                mCurrentState = states.neutral;
+                mInAttack = false;
+            }
+        }
+    }
+
+    private void SpawnBarrel()
+    {
+        Vector3 spawnPos = player.transform.position + Vector3.up * barrelSpawnHeight;
+        GameObject barrelInstance = Instantiate(barrel, spawnPos, Quaternion.identity);
+        barrelInstance.GetComponent<BarrelExplode>().SetupAttack(gameObject, barrelDamage);
+        barrelInstance.GetComponent<MeshRenderer>().material = yellowAttack;
     }
 
     private void LookAtPlayer()
