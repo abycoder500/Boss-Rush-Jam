@@ -195,21 +195,6 @@ public class Jack : MonoBehaviour
     {
         mHasTakenDamage = true;
     }
-
-    //-----Animation functions
-
-    public void AnimationFinished()
-    {
-        mAnimationFinished = true;
-    }
-
-    public void SetHammerDown()
-    {
-        hammerDown = true;
-    }
-
-    //-----End of Animation functions
-
     private bool IsPlayerLOS()
     {
         //Draw a ray from the boss to the player, and return false if it hits anything else
@@ -225,6 +210,20 @@ public class Jack : MonoBehaviour
         float distance = Vector3.Magnitude(player.transform.position - transform.position);
         return distance;
     }
+
+    //-----Animation functions
+
+    public void AnimationFinished()
+    {
+        mAnimationFinished = true;
+    }
+
+    public void SetHammerDown()
+    {
+        hammerDown = true;
+    }
+
+    //-----End of Animation functions
 
     //Attack functions
 
@@ -281,12 +280,12 @@ public class Jack : MonoBehaviour
         transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
     }
 
-    //-------------Functions below are TODO!-----------
-
     private void MoveTowardsPlayer()
     {
         transform.position += transform.forward * jackMovementSpeed;
         animator.SetTrigger("isMoving");
         LookAtPlayer();
     }
+
+    //-------------Functions below are TODO!-----------
 }
