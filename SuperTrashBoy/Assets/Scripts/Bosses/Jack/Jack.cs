@@ -14,6 +14,7 @@ public class Jack : MonoBehaviour
     //Attacks
     public GameObject wave;
     public GameObject barrel;
+    public GameObject bullet;
 
     //Materials for coloured attacks:
     public Material redAttack;
@@ -34,15 +35,25 @@ public class Jack : MonoBehaviour
     private int mTimeSinceLastAttack = 0;
 
     //Variables for attack parameters
+    public float jackMovementSpeed = 0.1f;
+    //Hammer
     public float waveTime = 1f; //Time in seconds the wave will last
     public float waveSpeed = 0.1f; //Speed of the wave
     public float waveDamage = 10f;
     public float hammerAttackDamage = 20f;
-    public float jackMovementSpeed = 0.1f;
+    //Barrels
     public float barrelSpawnHeight = 50f;
     public int noOfBarrels = 5;
     public float barrelSpawnDelay = 0.5f;
     public float barrelDamage = 20f;
+    //Spit
+    public float spitTime = 5f;
+    public float spitRate = 0.2f;
+    public float spinSpeed = 10f;
+    public float bulletDamage = 5f;
+    public float bulletSpeed = 1f;
+    public float bulletLifetime = 1f;
+    public Vector3 bulletOffset = new Vector3(0, -2);
 
     //Variables for flow control
     private bool mInAttack = false;
@@ -55,6 +66,8 @@ public class Jack : MonoBehaviour
     private float moveOnTime = 20f;
     private float barrelThrowStart = 0;
     private int barrelsThrown = 0;
+    private float spitSpinStart = 0;
+    private float lastBulletTime = 0;
 
     protected GameObject player;
 
@@ -120,8 +133,7 @@ public class Jack : MonoBehaviour
                 break;
 
             case states.spinSpit:
-                mCurrentState = states.neutral;
-                Debug.Log("Spin spit");
+                SpinSpit();
                 break;
 
             default:
@@ -318,6 +330,41 @@ public class Jack : MonoBehaviour
         GameObject barrelInstance = Instantiate(barrel, spawnPos, Quaternion.identity);
         barrelInstance.GetComponent<BarrelExplode>().SetupAttack(gameObject, barrelDamage);
         barrelInstance.GetComponent<MeshRenderer>().material = yellowAttack;
+    }
+
+    private void SpinSpit()
+    {
+        if (!mInAttack)
+        {
+            Debug.Log("Spin Spit");
+            //Set up
+            LookAtPlayer();
+            //animator.SetTrigger("isHammerAttack");
+            mInAttack = true;
+            spitSpinStart = Time.time;
+            lastBulletTime = Time.time;
+        }
+
+        if (Time.time > lastBulletTime + spitRate)
+        {
+            SpitBullet();
+        }
+
+        gameObject.transform.Rotate(new Vector3(0, spinSpeed));
+
+        if (Time.time > spitSpinStart + spitTime)
+        {
+            //Attack finished
+            LookAtPlayer();
+            mCurrentState = states.neutral;
+            mInAttack = false;
+        }
+    }
+
+    private void SpitBullet()
+    {
+        GameObject bulletInst = Instantiate(bullet, transform.position + bulletOffset, transform.rotation);
+        bulletInst.GetComponent<Bullet>().SetUpBullet(bulletLifetime, bulletSpeed, bulletDamage, gameObject);
     }
 
     private void LookAtPlayer()
