@@ -61,10 +61,10 @@ public class Intro : MonoBehaviour
                 thePanel.SetActive(true);
                 TextSizeIncreaser thePanelText = thePanel.GetComponent<TextSizeIncreaser>();
                 thePanelText.BeginIncrease();
-                yield return new WaitForSeconds(theNarration.enterTime);
-                yield return fader.FadeIn(theNarration.fadeInTime);
-                yield return new WaitForSeconds(theNarration.persistanceTime);
-                yield return fader.FadeOut(theNarration.fadeOutTime);
+                yield return new WaitForSeconds(theNarration.EnterTime);
+                yield return fader.FadeIn(theNarration.FadeInTime);
+                yield return new WaitForSeconds(theNarration.PersistanceTime);
+                yield return fader.FadeOut(theNarration.FadeOutTime);
                 thePanelText.ResetState();
                 thePanel.SetActive(false);
             }
