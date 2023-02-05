@@ -9,9 +9,14 @@ public class MainMenuUI : MonoBehaviour
 
     private MySceneManager mySceneManager = null;
 
-    private void Start() 
+    private void Start()
     {
         mySceneManager = FindObjectOfType<MySceneManager>();
+        OnEnable();
+    }
+
+    private void OnEnable()
+    {
         startGameButton.onClick.AddListener(() => mySceneManager.LoadFirstScene());
     }
 
