@@ -14,6 +14,8 @@ public class MySceneManager : MonoBehaviour
     private AudioManager audioManager;
     private Intro intro;
 
+    private float cachedTimeScale;
+
     private void Awake()
     {
         fader = FindObjectOfType<Fader>();
@@ -30,12 +32,15 @@ public class MySceneManager : MonoBehaviour
 
     public void PauseGame()
     {
-        //time.timescale = 0;
+        cachedTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        Cursor.visible = true;
     }
 
     public void ResumeGame()
     {
-        //time.timescale = 0;
+        Time.timeScale = cachedTimeScale;
+        Cursor.visible = false;
     }
 
     public void QuitGame()
@@ -49,7 +54,8 @@ public class MySceneManager : MonoBehaviour
 
     public void LoadMenuScene()
     {
-
+        Time.timeScale = cachedTimeScale;
+        StartCoroutine(LoadScene(0));
     }
 
     public void LoadFirstScene()

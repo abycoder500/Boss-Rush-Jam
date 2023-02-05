@@ -65,5 +65,9 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Attack.triggered;
     }
 
+    public bool IsPausing()
+    {
+        return playerControls.Player.Pause.triggered;
+    }
 
 }

@@ -8,26 +8,25 @@ public class PausePanelUI : MonoBehaviour
     [SerializeField] Button mainMenuButton;
     [SerializeField] Button resumeButton;
 
-    private MySceneManager mySceneManager = null;
-
+    private PausingManager pausingManager = null;
 
     // Auto hide when the scene is started
     void Start()
     {
-        mySceneManager = FindObjectOfType<MySceneManager>();
+        pausingManager = FindObjectOfType<PausingManager>();
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        mainMenuButton.onClick.AddListener(() => mySceneManager.LoadMenuScene());
-        resumeButton.onClick.AddListener(() => mySceneManager.ResumeGame());
+        mainMenuButton.onClick.AddListener(() => pausingManager.OnMainMenuButton());
+        resumeButton.onClick.AddListener(() => pausingManager.OnResumeButton());
     }
 
     private void OnDisable()
     {
-        mainMenuButton.onClick.RemoveListener(() => mySceneManager.LoadMenuScene());
-        resumeButton.onClick.RemoveListener(() => mySceneManager.ResumeGame());
+        mainMenuButton.onClick.RemoveListener(() => pausingManager.OnMainMenuButton());
+        resumeButton.onClick.RemoveListener(() => pausingManager.OnResumeButton());
     }
 
 }
