@@ -14,18 +14,27 @@ public class MySceneManager : MonoBehaviour
     private AudioManager audioManager;
     private Intro intro;
 
-    private void Awake() 
+    private void Awake()
     {
-        fader = FindObjectOfType<Fader>();  
-        audioManager = FindObjectOfType<AudioManager>();  
+        fader = FindObjectOfType<Fader>();
+        audioManager = FindObjectOfType<AudioManager>();
         intro = FindObjectOfType<Intro>();
     }
 
-    private IEnumerator Start() 
+    private IEnumerator Start()
     {
         yield return new WaitForSeconds(timeToWaitForGameStart);
         audioManager.PlayMenuMusic();
         intro.Begin(fader);
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     public void LoadFirstScene()
