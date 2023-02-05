@@ -174,16 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4e5ba47dcc8dd54c94777f964e54f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel1: {fileID: 952644840}
-  panel2: {fileID: 1975501661}
-  panel1EnterTime: 3.2
-  panel1FadeInTime: 0.3
-  panel1PersistanceTime: 5
-  panel1FadeOutTime: 1
-  panel2EnterTime: 2.5
-  panel2FadeInTime: 0.3
-  panel2PersistanceTime: 6.5
-  panel2FadeOutTime: 0.5
   mainMenuTime: 1.8
   mainMenuFadeInTime: 0.2
 --- !u!1 &504767508
