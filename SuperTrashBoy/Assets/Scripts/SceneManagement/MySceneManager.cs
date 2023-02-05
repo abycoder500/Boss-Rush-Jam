@@ -28,6 +28,16 @@ public class MySceneManager : MonoBehaviour
         intro.Begin(fader);
     }
 
+    public void PauseGame()
+    {
+        //time.timescale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        //time.timescale = 0;
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR
@@ -35,6 +45,11 @@ public class MySceneManager : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void LoadMenuScene()
+    {
+
     }
 
     public void LoadFirstScene()
