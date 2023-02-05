@@ -71,6 +71,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""e97f45cc-85ae-4d41-baae-dec1cc758faf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""2fed7b98-5a9d-4887-acd7-32f75a7ab564"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +190,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31333162-1609-4aea-8641-b204a03c7e51"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60fe6d1c-7012-4b20-892a-1d5e880a9611"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +225,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Quit = m_Player.FindAction("Quit", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +291,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Quit;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -258,6 +302,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @Quit => m_Wrapper.m_Player_Quit;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +328,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttack;
+                @Quit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                @Quit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                @Quit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnQuit;
+                @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +353,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -312,5 +370,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
