@@ -6,6 +6,13 @@ using System;
 
 public class DummyBT : BTUser
 {
+    [Header("SFX")]
+    [SerializeField] private SFXObject laughSFXPrefab;
+    [SerializeField] private SFXObject enrageSFXPrefab;
+    [SerializeField] private SFXObject enragePlusSFXPrefab;
+    [Space]
+    [Space]
+    [Header("Other parameters")]
     [SerializeField] private string bossName = "The Dummy";
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private Animator animator;
@@ -286,6 +293,7 @@ public class DummyBT : BTUser
     private Node.Status EnrageBeforeSpin()
     {
         animator.SetTrigger("EnrageBeforeSpin");
+        Instantiate(enragePlusSFXPrefab, transform.position, Quaternion.identity);
         return Node.Status.SUCCESS;
     }
 
@@ -631,7 +639,11 @@ public class DummyBT : BTUser
     {
         rage = 0;
         rageParticles.gameObject.SetActive(false);
-        if (laugh) animator.SetTrigger("Laugh");
+        if (laugh) 
+        {
+            animator.SetTrigger("Laugh");
+            Instantiate(laughSFXPrefab, transform.position, Quaternion.identity);        
+        }
         Pause(laughTimeAfterHit, StopLaugh);
     }
 
@@ -644,6 +656,7 @@ public class DummyBT : BTUser
     {
         rage++;
         rageParticles.gameObject.SetActive(true);
+        Instantiate(enrageSFXPrefab, transform.position, Quaternion.identity);
         StartCoroutine(ResetEnrage());
         if(rage == 1)
         {

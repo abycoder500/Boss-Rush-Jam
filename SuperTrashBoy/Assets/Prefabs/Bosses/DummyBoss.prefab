@@ -5394,6 +5394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   status: 1
+  laughSFXPrefab: {fileID: 7698837146834326729, guid: 6894ae65a749a704c983221e00b4865b, type: 3}
+  enrageSFXPrefab: {fileID: 7698837146834326729, guid: bccaf205fd8ee944ba32afad375471e7, type: 3}
+  enragePlusSFXPrefab: {fileID: 7698837146834326729, guid: 37140252fb2b4824e9290bf57a5899aa, type: 3}
+  bossName: The Dummy
   rageParticles: {fileID: 8400866889793175973}
   animator: {fileID: 2240185744142053734}
   enterTimeDuration: 2.2
