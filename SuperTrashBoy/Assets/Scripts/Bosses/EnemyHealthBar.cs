@@ -8,6 +8,7 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] Image healthBarImage;
     [SerializeField] float updateVelocity = 2f;
 
+    public Vector3 offset = Vector3.zero;
     public Health enemyHealth;
 
     // Start is called before the first frame update
@@ -59,6 +60,34 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Make sure object is on screen, and if so show the healthbar on the object
+        if (enemyHealth.GetComponent<Renderer>() != null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Vector3 viewing = Camera.main.WorldToViewportPoint(enemyHealth.gameObject.transform.position);
+            bool showingObject = false;
+            if (viewing.x > 0 && viewing.x < 1 && viewing.y > 0 && viewing.y < 1 && viewing.z > Camera.main.nearClipPlane) 
+            {
+                showingObject = true;
+            }
+            Physics.Raycast(enemyHealth.gameObject.transform.position, player.transform.position - enemyHealth.gameObject.transform.position, out RaycastHit hit);
+            if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
+                && enemyHealth.GetComponent<Renderer>().isVisible
+                && showingObject == true)
+            {
+                //Only show if object is in camera and player has LOS
+                transform.position = Camera.main.WorldToScreenPoint(enemyHealth.gameObject.transform.position + offset);
+            }
+            else
+            {
+                //Make sure this is not on screen
+                transform.position = Camera.main.ViewportToScreenPoint(new Vector3(-100, -100));
+            }
+        }
+        else
+        {
+            //Make sure this is not on screen
+            transform.position = Camera.main.ViewportToScreenPoint(new Vector3(-100, -100));
+        }
     }
 }

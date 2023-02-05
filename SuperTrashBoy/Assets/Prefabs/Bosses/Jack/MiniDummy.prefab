@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 6869831919162776695}
   - component: {fileID: 8988807951334536356}
   - component: {fileID: 6988327913962893571}
+  - component: {fileID: 2068277950334820436}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -294,6 +295,18 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2068277950334820436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2824632103052187696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 545cb76c4e4b734478a49afe5f4683dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3001305890314301815
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,4 +469,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 4689294685053480082}
   updateVelocity: 2
+  offset: {x: 0, y: 2, z: 0}
   enemyHealth: {fileID: 6988327913962893571}
