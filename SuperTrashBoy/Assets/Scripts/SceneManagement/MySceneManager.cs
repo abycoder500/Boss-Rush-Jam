@@ -13,6 +13,7 @@ public class MySceneManager : MonoBehaviour
     private Fader fader;
     private AudioManager audioManager;
     private Intro intro;
+    private Outro outro;
 
     private CreditsRoll creditsRoll;
 
@@ -23,6 +24,7 @@ public class MySceneManager : MonoBehaviour
         fader = FindObjectOfType<Fader>();
         audioManager = FindObjectOfType<AudioManager>();
         intro = FindObjectOfType<Intro>();
+        outro = FindObjectOfType<Outro>();
         creditsRoll = FindObjectOfType<CreditsRoll>();
     }
 
@@ -48,8 +50,12 @@ public class MySceneManager : MonoBehaviour
 
     public void PlayCredits()
     {
+        //creditsRoll.gameObject.SetActive(enabled);
+        //creditsRoll.Begin(fader);
+
+        outro.gameObject.SetActive(true);
         creditsRoll.gameObject.SetActive(enabled);
-        creditsRoll.Begin(fader);
+        outro.Begin(fader);
     }
 
     public void QuitGame()
