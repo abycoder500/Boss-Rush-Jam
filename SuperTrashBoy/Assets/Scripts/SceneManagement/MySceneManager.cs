@@ -14,6 +14,8 @@ public class MySceneManager : MonoBehaviour
     private AudioManager audioManager;
     private Intro intro;
 
+    private Outro outro;
+
     private float cachedTimeScale;
 
     private void Awake()
@@ -21,6 +23,7 @@ public class MySceneManager : MonoBehaviour
         fader = FindObjectOfType<Fader>();
         audioManager = FindObjectOfType<AudioManager>();
         intro = FindObjectOfType<Intro>();
+        outro = FindObjectOfType<Outro>();
     }
 
     private IEnumerator Start()
@@ -41,6 +44,12 @@ public class MySceneManager : MonoBehaviour
     {
         Time.timeScale = cachedTimeScale;
         Cursor.visible = false;
+    }
+
+    public void PlayCredits()
+    {
+        outro.gameObject.SetActive(enabled);
+        outro.Begin(fader);
     }
 
     public void QuitGame()
