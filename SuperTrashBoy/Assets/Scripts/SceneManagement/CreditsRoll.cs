@@ -7,7 +7,7 @@ public class CreditsRoll : MonoBehaviour
 {
 
     [SerializeField] ScrollRect scrollerView;
-    [SerializeField] float scrollFactor = 20f;
+    [SerializeField] float scrollFactor = 30f;
 
     // Auto hides on start
     void Start()
