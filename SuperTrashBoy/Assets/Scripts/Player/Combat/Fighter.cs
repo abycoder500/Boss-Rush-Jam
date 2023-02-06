@@ -26,10 +26,20 @@ public class Fighter : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    public void RangeAttack()
+    {
+        if((equippedWeapon as RangedWeapon) == null) return;
+        if(isAttacking) return;
+        isAttacking = true;
+        RangedWeapon rangedWeapon = equippedWeapon as RangedWeapon;
+        rangedWeapon.Fire(this.gameObject, AttackFinished);
+    }
+
     public void EquipWeapon(Weapon weapon)
     {
         if (weapon != null) 
         {
+            if(equippedWeapon != null) Destroy(equippedWeapon.gameObject);
             equippedWeapon  = Instantiate(weapon, weaponLocation);
             animator.runtimeAnimatorController = equippedWeapon.GetAnimatorOverride();
         }

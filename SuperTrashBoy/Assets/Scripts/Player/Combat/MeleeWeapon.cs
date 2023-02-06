@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class MeleeWeapon : Weapon
 {
-    [SerializeField] private float hitBoxActivationTime;
-    [SerializeField] private float hitBoxDeactivationTime;
-    [SerializeField] private float attackEndTime; 
-    [SerializeField] private HitBox hitBox;
+    [SerializeField] protected float hitBoxActivationTime;
+    [SerializeField] protected float hitBoxDeactivationTime;
+    [SerializeField] protected float meleeAttackEndTime; 
+    [SerializeField] protected HitBox hitBox;
 
     private void Start() 
     {
@@ -27,7 +27,7 @@ public class MeleeWeapon : Weapon
         hitBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(hitBoxDeactivationTime - hitBoxActivationTime);
         hitBox.gameObject.SetActive(false);
-        yield return new WaitForSeconds(attackEndTime - hitBoxDeactivationTime - hitBoxActivationTime);
+        yield return new WaitForSeconds(meleeAttackEndTime - hitBoxDeactivationTime - hitBoxActivationTime);
         AttackFinished();
     }
 }

@@ -5398,13 +5398,14 @@ MonoBehaviour:
   enrageSFXPrefab: {fileID: 7698837146834326729, guid: bccaf205fd8ee944ba32afad375471e7, type: 3}
   enragePlusSFXPrefab: {fileID: 7698837146834326729, guid: 37140252fb2b4824e9290bf57a5899aa, type: 3}
   bossName: The Dummy
+  weaponUpgradePickablePrefab: {fileID: 3701322255831151566, guid: c2430795418c5f34e8b18a844b4a63b2, type: 3}
   rageParticles: {fileID: 8400866889793175973}
   animator: {fileID: 2240185744142053734}
   enterTimeDuration: 2.2
   numberOfHitsToLeaveIdle: 3
-  rageLevelToAdvanceStage1: 3
-  rageLevelToAdvanceStage2: 4
-  rageLevelToAdvanceStage3: 5
+  rageLevelToAdvanceStage1: 1
+  rageLevelToAdvanceStage2: 1
+  rageLevelToAdvanceStage3: 1
   enrageTimeLength: 1
   projectileDetectionRange: 6
   playerAttackDetectionRange: 10
@@ -5416,6 +5417,10 @@ MonoBehaviour:
   timeOnGroundAfterSpin: 2.5
   waitToBeHitTime: 1
   laughTimeAfterHit: 1.5
+  deathTime: 2
+  deathNotification:
+    text: I can't believe you defeated me!
+    timeOnScreen: 5
 --- !u!114 &6522571951791476490
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ public class DummyBT : BTUser
     [Space]
     [Header("Other parameters")]
     [SerializeField] private string bossName = "The Dummy";
+    [SerializeField] private WeaponUpgradePickable weaponUpgradePickablePrefab;
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private Animator animator;
     [SerializeField] private float enterTimeDuration = 2f;
@@ -32,20 +33,25 @@ public class DummyBT : BTUser
     [SerializeField] private float timeOnGroundAfterSpin = 2.5f;
     [SerializeField] private float waitToBeHitTime = 2f;
     [SerializeField] private float laughTimeAfterHit = 2f;
+    [SerializeField] private float deathTime = 2f;
+    [SerializeField] private NotificationUI.Notification deathNotification;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
     private DummyFighter dummyFighter;
     private AudioManager audioManager;
+    private NotificationUI notificationUI;
 
     private int rage = 0;
     private float enterTimer = 0f;
     private float waitToBeHitTimer = 0f;
+    private float deathTimer = 0f;
     private bool isAttacking = false;
     private bool isHitAfterSpin = false;
     private bool isIdleSetUp = false;
     private bool entranceTriggered = false;
     private bool canAdvanceStage = true;
+    private bool isDead = false;
 
     private BehaviorTree stage1DependencyCondition = new BehaviorTree("Stage1 dep");
     private BehaviorTree stage2DependencyCondition = new BehaviorTree("Stage2 dep");
@@ -62,6 +68,7 @@ public class DummyBT : BTUser
         hitReceivedCounter = GetComponent<HitReceivedCounter>();    
         dummyFighter = GetComponent<DummyFighter>();
         audioManager = FindObjectOfType<AudioManager>();
+        notificationUI = FindObjectOfType<NotificationUI>();
     }
 
     protected override void Start()
@@ -166,8 +173,8 @@ public class DummyBT : BTUser
         //STAGE 3
 
         //Stage1 condition 
-        Leaf Stage3RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage3));
-        stage3DependencyCondition.AddChild(Stage3RageOverComeLimit);
+        Leaf stage3RageOverComeLimit = new Leaf("Stage 1 Rage Check", () => RageOverComeLimit(rageLevelToAdvanceStage3));
+        stage3DependencyCondition.AddChild(stage3RageOverComeLimit);
 
         Loop stage3Loop = new Loop("Stage 3 loop", checkForHitAfterSpinTree);
         Loop stage3AttacksLoop = new Loop("Stage 3 attacks loop", stage3DependencyCondition);
@@ -179,6 +186,10 @@ public class DummyBT : BTUser
 
 
         //-----------------------------------------------------------------------------------------------------------
+
+        //Final sequence
+        Leaf die = new Leaf("Die", Die);
+        
 
 
         //Build tree--------------------------------------------------------------------------------------------------------
@@ -248,6 +259,7 @@ public class DummyBT : BTUser
         mainSequence.AddChild(stage1Loop);
         mainSequence.AddChild(stage2Loop);
         mainSequence.AddChild(stage3Loop);
+        mainSequence.AddChild(die);
 
         bt.AddChild(mainSequence);
 
@@ -315,6 +327,31 @@ public class DummyBT : BTUser
         }
         enterTimer = 0f;
         return Node.Status.SUCCESS;
+    }
+
+    private Node.Status Die()
+    {
+        if(!isDead)
+        {
+            deathTimer = 0f;
+            isDead = true;
+            notificationUI.ShowNotification(deathNotification);
+            animator.SetTrigger("Die");
+        }
+        deathTimer += Time.deltaTime;
+        if(deathTimer <= deathTime)
+        {
+            return Node.Status.RUNNING;
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+            WeaponUpgradePickable upgrade = Instantiate(weaponUpgradePickablePrefab, transform.position, Quaternion.identity);
+            upgrade.transform.parent = null;
+            upgrade.Spawn();
+            return Node.Status.SUCCESS;
+        }
+        
     }
 
     private Node.Status RageOverComeLimit(int limit)

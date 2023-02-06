@@ -60,9 +60,14 @@ public class InputManager : MonoBehaviour
         return playerControls.Player.Crouch.triggered;
     }
 
-    public bool IsAttacking()
+    public bool IsAttackingMelee()
     {
-        return playerControls.Player.Attack.triggered;
+        return playerControls.Player.MeleeAttack.triggered;
+    }
+
+    public bool IsAttackingRanged()
+    {
+        return playerControls.Player.RangeAttack.triggered;
     }
 
     public bool IsPausing()

@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour
         if(knocked) return;
         if(inputManager.IsJumping()) mover.Jump();
         if(inputManager.IsCrouching()) mover.Crouch();
-        if(inputManager.IsAttacking()) fighter.Attack();
+        if(inputManager.IsAttackingMelee()) fighter.Attack();
+        if(inputManager.IsAttackingRanged()) fighter.RangeAttack();
 
         mover.ApplyGravity();
     }

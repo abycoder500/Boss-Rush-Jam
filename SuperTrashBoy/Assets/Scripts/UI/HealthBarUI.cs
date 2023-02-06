@@ -53,7 +53,7 @@ public class HealthBarUI : MonoBehaviour
     private IEnumerator UpdateHealthBar()
     {
         Debug.Log(healthBarImage.fillAmount <= playerHealth.GetHealthFraction());
-        while(healthBarImage.fillAmount > playerHealth.GetHealthFraction())
+        while(!Mathf.Approximately(healthBarImage.fillAmount, playerHealth.GetHealthFraction()))
         {
             healthBarImage.fillAmount = Mathf.Lerp(healthBarImage.fillAmount, playerHealth.GetHealthFraction(), updateVelocity * Time.deltaTime);
             yield return null;
