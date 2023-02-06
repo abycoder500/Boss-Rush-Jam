@@ -1688,7 +1688,7 @@ GameObject:
   - component: {fileID: 1175290223}
   - component: {fileID: 1175290222}
   m_Layer: 5
-  m_Name: OutroPanel
+  m_Name: CreditsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2432,7 +2432,7 @@ GameObject:
   - component: {fileID: 1721228156}
   - component: {fileID: 1721228157}
   m_Layer: 5
-  m_Name: Outro
+  m_Name: Credits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
