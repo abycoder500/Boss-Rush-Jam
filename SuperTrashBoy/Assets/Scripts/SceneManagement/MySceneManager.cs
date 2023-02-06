@@ -14,7 +14,7 @@ public class MySceneManager : MonoBehaviour
     private AudioManager audioManager;
     private Intro intro;
 
-    private Outro outro;
+    private CreditsRoll creditsRoll;
 
     private float cachedTimeScale;
 
@@ -23,7 +23,7 @@ public class MySceneManager : MonoBehaviour
         fader = FindObjectOfType<Fader>();
         audioManager = FindObjectOfType<AudioManager>();
         intro = FindObjectOfType<Intro>();
-        outro = FindObjectOfType<Outro>();
+        creditsRoll = FindObjectOfType<CreditsRoll>();
     }
 
     private IEnumerator Start()
@@ -48,8 +48,8 @@ public class MySceneManager : MonoBehaviour
 
     public void PlayCredits()
     {
-        outro.gameObject.SetActive(enabled);
-        outro.Begin(fader);
+        creditsRoll.gameObject.SetActive(enabled);
+        creditsRoll.Begin(fader);
     }
 
     public void QuitGame()

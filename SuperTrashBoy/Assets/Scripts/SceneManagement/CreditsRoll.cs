@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Outro : MonoBehaviour
+public class CreditsRoll : MonoBehaviour
 {
 
     [SerializeField] ScrollRect scrollerView;
