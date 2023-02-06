@@ -23,7 +23,7 @@ public class Intro : MonoBehaviour
         StartCoroutine(DynamicIntroSequence(fader));
     }
 
-    private IEnumerator DynamicIntroSequence(Fader fader)
+    protected IEnumerator DynamicIntroSequence(Fader fader)
     {
         fader.FadeOutImmediate();
 
@@ -51,6 +51,7 @@ public class Intro : MonoBehaviour
 
         yield return new WaitForSeconds(mainMenuTime);
         yield return fader.FadeIn(mainMenuFadeInTime);
+        Invoke(nameof(Start), 1f);
     }
 
 }
