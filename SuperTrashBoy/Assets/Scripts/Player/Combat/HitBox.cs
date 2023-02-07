@@ -33,6 +33,8 @@ public class HitBox : MonoBehaviour
         if (other.TryGetComponent<Health>(out Health targetHealth))
         {
             Debug.Log("Health");
+            if (instigator == null)
+                instigator = gameObject;    //Protection against the instigator being destroyed while this is still active
             if(targetHealth.TryTakeDamage(damage, instigator.transform))
             {
                 gameObject.SetActive(false);

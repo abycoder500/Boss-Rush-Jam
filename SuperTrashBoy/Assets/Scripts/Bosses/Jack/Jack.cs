@@ -55,6 +55,8 @@ public class Jack : MonoBehaviour
     public float bulletLifetime = 1f;
     public Vector3 bulletOffset = new Vector3(0, -2);
 
+    public int attacksForPhaseChange = 3;
+
     //Variables for flow control
     private bool mInAttack = false;
     private bool mHasTakenDamage = false;
@@ -70,6 +72,8 @@ public class Jack : MonoBehaviour
     private float lastBulletTime = 0;
 
     protected GameObject player;
+    private FightManager fightManager;
+    public Health health;
 
     public event Action<string> onActivate;
 
@@ -95,10 +99,21 @@ public class Jack : MonoBehaviour
         if (player == null)
             Debug.LogError("No player gameobject found");
 
+        fightManager = FindObjectOfType<FightManager>();
+        if (fightManager == null)
+            Debug.LogError("No fight manager found");
+
         animator = GetComponent<Animator>();
+
+        health.onTakeDamage += SetDamageTaken;
 
         //Todo: put this where it actually happens
         onActivate?.Invoke(bossName);
+    }
+
+    public void SetHealth(float value)
+    {
+        health.currentHealth = value;
     }
 
     private void FixedUpdate()
@@ -144,6 +159,11 @@ public class Jack : MonoBehaviour
 
     private void HandleNeutral()
     {
+        if (mAttacksAfterDamageTaken >= attacksForPhaseChange)
+        {
+            fightManager.SeekPhase(1, health.GetCurrentHealth(), false);
+            Destroy(gameObject);
+        }
         if (IsPlayerLOS())
         {
             MoveTowardsPlayer();
@@ -211,9 +231,10 @@ public class Jack : MonoBehaviour
 
     //Helper functions
 
-    public void SetDamageTaken()
+    public void SetDamageTaken(float i, Transform t)
     {
-        mHasTakenDamage = true;
+        if (t.gameObject != gameObject)
+            mHasTakenDamage = true;
     }
     private bool IsPlayerLOS()
     {
@@ -274,7 +295,9 @@ public class Jack : MonoBehaviour
             mAnimationFinished = false;
             //Leaving the state
             mInAttack = false;
-            mCurrentState = states.neutral;       
+            mCurrentState = states.neutral;
+            if (mHasTakenDamage)
+                mAttacksAfterDamageTaken++;
         }
     }
 
@@ -320,6 +343,8 @@ public class Jack : MonoBehaviour
                 //We've spawned all the barrels we need to, end the attack
                 mCurrentState = states.neutral;
                 mInAttack = false;
+                if (mHasTakenDamage)
+                    mAttacksAfterDamageTaken++;
             }
         }
     }
@@ -358,6 +383,8 @@ public class Jack : MonoBehaviour
             LookAtPlayer();
             mCurrentState = states.neutral;
             mInAttack = false;
+            if (mHasTakenDamage)
+                mAttacksAfterDamageTaken++;
         }
     }
 

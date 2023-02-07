@@ -10,6 +10,8 @@ public class EnemyHealthBar : MonoBehaviour
 
     public Vector3 offset = Vector3.zero;
     public Health enemyHealth;
+    public bool followsObject = true;
+    public Vector3 screenPos = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -60,32 +62,39 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Make sure object is on screen, and if so show the healthbar on the object
-        if (enemyHealth.GetComponent<Renderer>() != null)
+        if (followsObject)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player == null) 
+            //Make sure object is on screen, and if so show the healthbar on the object
+            if (enemyHealth.GetComponent<Renderer>() != null)
             {
-                DontShow();
-                return;
-            }
-            Vector3 viewing = Camera.main.WorldToViewportPoint(enemyHealth.gameObject.transform.position);
-            bool showingObject = false;
-            if (viewing.x > 0 && viewing.x < 1 && viewing.y > 0 && viewing.y < 1 && viewing.z > Camera.main.nearClipPlane) 
-            {
-                showingObject = true;
-            }
-            Physics.Raycast(enemyHealth.gameObject.transform.position, player.transform.position - enemyHealth.gameObject.transform.position, out RaycastHit hit);
-            if (hit.collider == null)
-            {
-                DontShow();
-            }
-            else if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
-                && enemyHealth.GetComponent<Renderer>().isVisible
-                && showingObject == true)
-            {
-                //Only show if object is in camera and player has LOS
-                transform.position = Camera.main.WorldToScreenPoint(enemyHealth.gameObject.transform.position + offset);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player == null)
+                {
+                    DontShow();
+                    return;
+                }
+                Vector3 viewing = Camera.main.WorldToViewportPoint(enemyHealth.gameObject.transform.position);
+                bool showingObject = false;
+                if (viewing.x > 0 && viewing.x < 1 && viewing.y > 0 && viewing.y < 1 && viewing.z > Camera.main.nearClipPlane)
+                {
+                    showingObject = true;
+                }
+                Physics.Raycast(enemyHealth.gameObject.transform.position, player.transform.position - enemyHealth.gameObject.transform.position, out RaycastHit hit);
+                if (hit.collider == null)
+                {
+                    DontShow();
+                }
+                else if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
+                    && enemyHealth.GetComponent<Renderer>().isVisible
+                    && showingObject == true)
+                {
+                    //Only show if object is in camera and player has LOS
+                    transform.position = Camera.main.WorldToScreenPoint(enemyHealth.gameObject.transform.position + offset);
+                }
+                else
+                {
+                    DontShow();
+                }
             }
             else
             {
@@ -94,8 +103,9 @@ public class EnemyHealthBar : MonoBehaviour
         }
         else
         {
-            DontShow();
+            transform.position = screenPos;
         }
+
     }
 
     void DontShow()

@@ -292,6 +292,7 @@ MonoBehaviour:
   startingHealth: 30
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 1
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -490,3 +491,5 @@ MonoBehaviour:
   updateVelocity: 2
   offset: {x: 0, y: 0, z: 0}
   enemyHealth: {fileID: 6988327913962893571}
+  followsObject: 1
+  screenPos: {x: 0, y: 0, z: 0}
