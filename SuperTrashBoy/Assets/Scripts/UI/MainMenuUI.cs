@@ -7,6 +7,7 @@ public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] Button startGameButton;
     [SerializeField] Button quitGameButton;
+    [SerializeField] Button creditsButton;
 
     private MySceneManager mySceneManager = null;
 
@@ -20,11 +21,13 @@ public class MainMenuUI : MonoBehaviour
     {
         startGameButton.onClick.AddListener(() => mySceneManager.LoadFirstScene());
         quitGameButton.onClick.AddListener(() => mySceneManager.QuitGame());
+        creditsButton.onClick.AddListener(() => mySceneManager.PlayCredits());
     }
 
     private void OnDisable()
     {
         startGameButton.onClick.RemoveListener(() => mySceneManager.LoadFirstScene());
         quitGameButton.onClick.RemoveListener(() => mySceneManager.QuitGame());
+        creditsButton.onClick.RemoveListener(() => mySceneManager.PlayCredits());
     }
 }

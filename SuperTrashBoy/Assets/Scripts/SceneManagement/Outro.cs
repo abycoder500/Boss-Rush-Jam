@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intro : MonoBehaviour
+public class Outro : MonoBehaviour
 {
     [SerializeField] private float mainMenuTime = 20f;
     [SerializeField] private float mainMenuFadeInTime = 0.3f;
 
+    [Space(1)]
+    [SerializeField] CreditsRoll creditsRoll;
 
     private void Start()
     {
@@ -20,10 +21,10 @@ public class Intro : MonoBehaviour
 
     public void Begin(Fader fader)
     {
-        StartCoroutine(DynamicIntroSequence(fader));
+        StartCoroutine(DynamicOutroSequence(fader));
     }
 
-    protected IEnumerator DynamicIntroSequence(Fader fader)
+    protected IEnumerator DynamicOutroSequence(Fader fader)
     {
         fader.FadeOutImmediate();
 
@@ -51,7 +52,16 @@ public class Intro : MonoBehaviour
 
         yield return new WaitForSeconds(mainMenuTime);
         yield return fader.FadeIn(mainMenuFadeInTime);
-        Invoke(nameof(Start), 1f);
+        if (null != creditsRoll)
+        {
+            creditsRoll.gameObject.SetActive(true);
+            creditsRoll.Begin(fader);
+        }
+        else
+        {
+            Invoke(nameof(Start), 1f);
+        }
     }
+
 
 }
