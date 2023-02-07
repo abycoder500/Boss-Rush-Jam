@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 8988807951334536356}
   - component: {fileID: 6988327913962893571}
   - component: {fileID: 2068277950334820436}
+  - component: {fileID: 5151385029928383884}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -288,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8012297b93604c64b981beda9889841f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 30
   dieOnOneHit: 0
   canBeHitByPlayer: 1
   currentHealth: 0
@@ -307,6 +308,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545cb76c4e4b734478a49afe5f4683dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5151385029928383884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2824632103052187696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df445fb257f992a4d955bb8b4d96c81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 378394659067382830, guid: d42d1098a511eb447b5103af58b1e4fb, type: 3}
+  spitRate: 2
+  bulletDamage: 5
+  bulletSpeed: 1
+  bulletLifetime: 3
+  bulletOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &3001305890314301815
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +461,7 @@ RectTransform:
   m_GameObject: {fileID: 4168223667773234326}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48055997, y: 0.48055997, z: 0.48055997}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2247627829063046885}
@@ -469,5 +488,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 4689294685053480082}
   updateVelocity: 2
-  offset: {x: 0, y: 2, z: 0}
+  offset: {x: 0, y: 0, z: 0}
   enemyHealth: {fileID: 6988327913962893571}

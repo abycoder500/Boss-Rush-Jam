@@ -64,6 +64,11 @@ public class EnemyHealthBar : MonoBehaviour
         if (enemyHealth.GetComponent<Renderer>() != null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) 
+            {
+                DontShow();
+                return;
+            }
             Vector3 viewing = Camera.main.WorldToViewportPoint(enemyHealth.gameObject.transform.position);
             bool showingObject = false;
             if (viewing.x > 0 && viewing.x < 1 && viewing.y > 0 && viewing.y < 1 && viewing.z > Camera.main.nearClipPlane) 
@@ -71,7 +76,11 @@ public class EnemyHealthBar : MonoBehaviour
                 showingObject = true;
             }
             Physics.Raycast(enemyHealth.gameObject.transform.position, player.transform.position - enemyHealth.gameObject.transform.position, out RaycastHit hit);
-            if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
+            if (hit.collider == null)
+            {
+                DontShow();
+            }
+            else if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
                 && enemyHealth.GetComponent<Renderer>().isVisible
                 && showingObject == true)
             {
@@ -80,14 +89,18 @@ public class EnemyHealthBar : MonoBehaviour
             }
             else
             {
-                //Make sure this is not on screen
-                transform.position = Camera.main.ViewportToScreenPoint(new Vector3(-100, -100));
+                DontShow();
             }
         }
         else
         {
-            //Make sure this is not on screen
-            transform.position = Camera.main.ViewportToScreenPoint(new Vector3(-100, -100));
+            DontShow();
         }
+    }
+
+    void DontShow()
+    {
+        //Make sure this is not on screen
+        transform.position = Camera.main.ViewportToScreenPoint(new Vector3(-100, -100));
     }
 }

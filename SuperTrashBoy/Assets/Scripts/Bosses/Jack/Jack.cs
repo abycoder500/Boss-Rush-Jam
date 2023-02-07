@@ -255,7 +255,7 @@ public class Jack : MonoBehaviour
             LookAtPlayer();
             animator.SetTrigger("isHammerAttack");
             mInAttack = true;
-            hammerHitbox.SetupHitBox(this.gameObject, hammerAttackDamage);
+            hammerHitbox.SetupHitBox(gameObject, hammerAttackDamage);
             hammerHitbox.gameObject.SetActive(true);
             mAttackStartTime = Time.time;
         }
@@ -370,6 +370,7 @@ public class Jack : MonoBehaviour
     private void LookAtPlayer()
     {
         transform.LookAt(player.transform);
+        //Make sure Jack isn't tilting up or down
         transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
     }
 
