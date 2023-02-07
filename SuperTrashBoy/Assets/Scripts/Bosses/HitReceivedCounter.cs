@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +11,20 @@ public class HitReceivedCounter : MonoBehaviour
     public event Action onHit;
     public UnityEvent onHitEvent;
 
+    public bool canOnlyBeHitByPlayer = false;
+
     public void Hit()
     {
         hitReceived ++;
         onHit?.Invoke();
         onHitEvent?.Invoke();
+    }
+
+    public void Hit(Transform damager)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (canOnlyBeHitByPlayer && damager.gameObject != player) return;
+        else Hit();
     }
 
     public int GetHitReceivedNumber()

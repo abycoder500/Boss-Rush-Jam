@@ -21,20 +21,21 @@ public class HitBox : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         if (other.gameObject == instigator) return;
-        if (other.gameObject == this.gameObject) return;    
+        if (other.gameObject == this.gameObject) return;
+
+        if (instigator == null)
+            instigator = gameObject;    //Protection against the instigator being destroyed while this is still active
 
         if (other.TryGetComponent<HitReceivedCounter>(out HitReceivedCounter counter))
         {
             Debug.Log("hit");
-            counter.Hit();
+            counter.Hit(instigator.transform);
             if(other.GetComponent<Health>() == null) gameObject.SetActive(false);
         }
 
         if (other.TryGetComponent<Health>(out Health targetHealth))
         {
             Debug.Log("Health");
-            if (instigator == null)
-                instigator = gameObject;    //Protection against the instigator being destroyed while this is still active
             if(targetHealth.TryTakeDamage(damage, instigator.transform))
             {
                 gameObject.SetActive(false);

@@ -5,6 +5,8 @@ using UnityEngine;
 public class ClosedBoxScript : MonoBehaviour
 {
     private bool isFake = true;
+    private bool isFinalBox = false;
+
     private FightManager manager;
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,18 @@ public class ClosedBoxScript : MonoBehaviour
         isFake = isNotReal;
     }
 
+    public void SetFinalBox()
+    {
+        isFinalBox = true;
+    }
+
     private void AwakeBoxes()
     {
+        if (isFinalBox)
+        {
+            HandleBattleEnd();
+            return;
+        }
         if (isFake == true)
             manager.AwakeBoxes();
         else
@@ -45,5 +57,10 @@ public class ClosedBoxScript : MonoBehaviour
             manager.SpawnJack(transform);
         }
         Destroy(gameObject);
+    }
+
+    private void HandleBattleEnd()
+    {
+        Debug.Log("A winner is you!");
     }
 }

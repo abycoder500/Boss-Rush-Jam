@@ -17,10 +17,8 @@ public class Jack : MonoBehaviour
     public GameObject bullet;
 
     //Materials for coloured attacks:
-    public Material redAttack;
-    public Material blueAttack;
-    public Material yellowAttack;
-    public Material purpleAttack;
+    private Material[] normalAttacks;
+    private Material finalAttack;
 
     //Variables for choosing attacks
     public int barrelChance = 100;  //Higher values are less likely
@@ -71,6 +69,12 @@ public class Jack : MonoBehaviour
     private float spitSpinStart = 0;
     private float lastBulletTime = 0;
 
+    private bool mNoHealth = false;
+    private bool oneLastAttack = false;         //Added to stop the boss transitioning without showing purple
+    private bool oneLastAttackDone = false;
+
+    private Material lastAttack;
+
     protected GameObject player;
     private FightManager fightManager;
     public Health health;
@@ -102,6 +106,11 @@ public class Jack : MonoBehaviour
         fightManager = FindObjectOfType<FightManager>();
         if (fightManager == null)
             Debug.LogError("No fight manager found");
+        else
+        {
+            normalAttacks = fightManager.attackMaterials;
+            finalAttack = fightManager.finalAttackMaterial;
+        }
 
         animator = GetComponent<Animator>();
 
@@ -161,8 +170,13 @@ public class Jack : MonoBehaviour
     {
         if (mAttacksAfterDamageTaken >= attacksForPhaseChange)
         {
-            fightManager.SeekPhase(1, health.GetCurrentHealth(), false);
-            Destroy(gameObject);
+            if (oneLastAttackDone == true)  //Make sure there is always a purple attack after running out of health
+            {
+                fightManager.SeekPhase(lastAttack, health.GetCurrentHealth(), mNoHealth);
+                Destroy(gameObject);
+            }
+            else
+                oneLastAttack = true;
         }
         if (IsPlayerLOS())
         {
@@ -234,7 +248,11 @@ public class Jack : MonoBehaviour
     public void SetDamageTaken(float i, Transform t)
     {
         if (t.gameObject != gameObject)
+        {
             mHasTakenDamage = true;
+            if (health.GetComponent<Health>().currentHealth <= 0)
+                mNoHealth = true;
+        }
     }
     private bool IsPlayerLOS()
     {
@@ -295,6 +313,8 @@ public class Jack : MonoBehaviour
             mAnimationFinished = false;
             //Leaving the state
             mInAttack = false;
+            if (oneLastAttack)
+                oneLastAttackDone = true;
             mCurrentState = states.neutral;
             if (mHasTakenDamage)
                 mAttacksAfterDamageTaken++;
@@ -313,7 +333,7 @@ public class Jack : MonoBehaviour
         foreach (var render in rend)
         {
             if (render.gameObject != gameObject)
-                render.material = redAttack;
+                render.material = ChooseMaterial();
         }
     }
 
@@ -328,6 +348,7 @@ public class Jack : MonoBehaviour
             mInAttack = true;
             barrelThrowStart = Time.time;
             barrelsThrown = 0;
+            ChooseMaterial();
         }
 
         if (Time.time > barrelThrowStart + barrelSpawnDelay)
@@ -343,6 +364,8 @@ public class Jack : MonoBehaviour
                 //We've spawned all the barrels we need to, end the attack
                 mCurrentState = states.neutral;
                 mInAttack = false;
+                if (oneLastAttack)
+                    oneLastAttackDone = true;
                 if (mHasTakenDamage)
                     mAttacksAfterDamageTaken++;
             }
@@ -354,7 +377,7 @@ public class Jack : MonoBehaviour
         Vector3 spawnPos = player.transform.position + Vector3.up * barrelSpawnHeight;
         GameObject barrelInstance = Instantiate(barrel, spawnPos, Quaternion.identity);
         barrelInstance.GetComponent<BarrelExplode>().SetupAttack(gameObject, barrelDamage);
-        barrelInstance.GetComponent<MeshRenderer>().material = yellowAttack;
+        barrelInstance.GetComponent<MeshRenderer>().material = lastAttack;
     }
 
     private void SpinSpit()
@@ -368,6 +391,7 @@ public class Jack : MonoBehaviour
             mInAttack = true;
             spitSpinStart = Time.time;
             lastBulletTime = Time.time;
+            ChooseMaterial();
         }
 
         if (Time.time > lastBulletTime + spitRate)
@@ -383,6 +407,8 @@ public class Jack : MonoBehaviour
             LookAtPlayer();
             mCurrentState = states.neutral;
             mInAttack = false;
+            if (oneLastAttack)
+                oneLastAttackDone = true;
             if (mHasTakenDamage)
                 mAttacksAfterDamageTaken++;
         }
@@ -392,6 +418,7 @@ public class Jack : MonoBehaviour
     {
         GameObject bulletInst = Instantiate(bullet, transform.position + bulletOffset, transform.rotation);
         bulletInst.GetComponent<Bullet>().SetUpBullet(bulletLifetime, bulletSpeed, bulletDamage, gameObject);
+        bulletInst.GetComponent<Renderer>().material = lastAttack;
     }
 
     private void LookAtPlayer()
@@ -406,6 +433,21 @@ public class Jack : MonoBehaviour
         transform.position += transform.forward * jackMovementSpeed;
         animator.SetTrigger("isMoving");
         LookAtPlayer();
+    }
+
+    private Material ChooseMaterial()
+    {
+        if (mNoHealth && mAttacksAfterDamageTaken == attacksForPhaseChange)
+        {
+            lastAttack = finalAttack;
+            return finalAttack;
+        }
+        else
+        {
+            int i = Random.Range(0, normalAttacks.Length);
+            lastAttack = normalAttacks[i];
+            return normalAttacks[i];
+        }
     }
 
     //-------------Functions below are TODO!-----------
