@@ -32,7 +32,7 @@ public class CreditsRoll : MonoBehaviour
         {
             vs.value -= Time.deltaTime / scrollFactor;
             //vs.SetValueWithoutNotify(vs.value - Time.deltaTime / scrollFactor);
-            Debug.Log(vs.value);
+            //Debug.Log(vs.value);
             yield return wf;
         }
         Invoke(nameof(Start), 2f);
