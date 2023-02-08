@@ -86,9 +86,12 @@ public class MySceneManager : MonoBehaviour
     {
         yield return fader.FadeOut(loadSceneFadeOutTime);
         audioManager.StopMusic();
-        yield return SceneManager.LoadSceneAsync(sceneIndex);
-        yield return new WaitForSeconds(loadSceneWaitTime);
-        yield return fader.FadeIn(loadSceneFadeInTime);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        yield return new WaitForEndOfFrame();
 
         // When we return to the main scene we need to refresh the references for the panels.
         // Also, if we return after the game is finished, this will run the outro sequence.
@@ -100,12 +103,17 @@ public class MySceneManager : MonoBehaviour
                 PlayOutro();
             }
         }
+
+        yield return fader.FadeIn(loadSceneFadeInTime);
     }
+
 
     private void HookupMenuScenePanels()
     {
         intro = FindObjectOfType<Intro>();
         outro = FindObjectOfType<Outro>();
-        creditsRoll = FindObjectOfType<CreditsRoll>();
+
+        // Unlike intro/outro, creditsRoll disables itself, not its children
+        creditsRoll = FindObjectOfType<CreditsRoll>(true);
     }
 }
