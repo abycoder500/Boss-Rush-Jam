@@ -488,6 +488,7 @@ MonoBehaviour:
 
 
 
+
     <b>Idea:</b>
 
     foo
@@ -1948,7 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f91f88e7dac010429f311cb54587804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enterTime: 3.2
+  enterTime: 1
   fadeInTime: 0.3
   persistanceTime: 5
   fadeOutTime: 1
@@ -3078,7 +3079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollerView: {fileID: 1376847936}
-  scrollFactor: 20
+  scrollFactor: 30
 --- !u!1 &1743655469
 GameObject:
   m_ObjectHideFlags: 0
