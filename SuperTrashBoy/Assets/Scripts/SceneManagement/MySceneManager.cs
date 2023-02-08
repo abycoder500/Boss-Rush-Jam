@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class MySceneManager : MonoBehaviour
     private Outro outro;
 
     private CreditsRoll creditsRoll;
+    private bool willPlayOutroSequence = false;
 
     private float cachedTimeScale;
 
@@ -23,9 +25,7 @@ public class MySceneManager : MonoBehaviour
     {
         fader = FindObjectOfType<Fader>();
         audioManager = FindObjectOfType<AudioManager>();
-        intro = FindObjectOfType<Intro>();
-        outro = FindObjectOfType<Outro>();
-        creditsRoll = FindObjectOfType<CreditsRoll>();
+        HookupMenuScenePanels();
     }
 
     private IEnumerator Start()
@@ -50,12 +50,15 @@ public class MySceneManager : MonoBehaviour
 
     public void PlayCredits()
     {
-        //creditsRoll.gameObject.SetActive(enabled);
-        //creditsRoll.Begin(fader);
-
-        outro.gameObject.SetActive(true);
         creditsRoll.gameObject.SetActive(enabled);
-        outro.Begin(fader);
+        creditsRoll.Begin(fader);
+    }
+
+    private void PlayOutro()
+    {
+        creditsRoll.gameObject.SetActive(enabled);
+        outro.gameObject.SetActive(enabled);
+        outro.Begin(fader); // This includes the credits roll!
     }
 
     public void QuitGame()
@@ -67,9 +70,10 @@ public class MySceneManager : MonoBehaviour
 #endif
     }
 
-    public void LoadMenuScene()
+    public void LoadMenuScene(bool withOutro = false)
     {
         Time.timeScale = cachedTimeScale;
+        willPlayOutroSequence = withOutro;
         StartCoroutine(LoadScene(0));
     }
 
@@ -85,5 +89,23 @@ public class MySceneManager : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(sceneIndex);
         yield return new WaitForSeconds(loadSceneWaitTime);
         yield return fader.FadeIn(loadSceneFadeInTime);
+
+        // When we return to the main scene we need to refresh the references for the panels.
+        // Also, if we return after the game is finished, this will run the outro sequence.
+        if (0 == sceneIndex)
+        {
+            HookupMenuScenePanels();
+            if (willPlayOutroSequence)
+            {
+                PlayOutro();
+            }
+        }
+    }
+
+    private void HookupMenuScenePanels()
+    {
+        intro = FindObjectOfType<Intro>();
+        outro = FindObjectOfType<Outro>();
+        creditsRoll = FindObjectOfType<CreditsRoll>();
     }
 }
