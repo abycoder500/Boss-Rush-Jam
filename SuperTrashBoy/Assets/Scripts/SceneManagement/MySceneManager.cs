@@ -103,7 +103,7 @@ public class MySceneManager : MonoBehaviour
                 PlayOutro();
             }
         }
-
+        yield return new WaitForSeconds(loadSceneWaitTime);
         yield return fader.FadeIn(loadSceneFadeInTime);
     }
 
