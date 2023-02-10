@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -219,7 +219,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &230190501
 MonoBehaviour:
@@ -236,6 +236,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -352,6 +353,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 11400000, guid: d5ab39fb7c0e6ad419d4a7c61f761254, type: 2}
+--- !u!1001 &977517360
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3701322255831151565, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_Name
+      value: LaserWeaponCollectible
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14.72376
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.44401
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701322255831151567, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4aeb586e21efde546b51019c9d73d396, type: 3}
 --- !u!1 &1027202912
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +506,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1027202917
 MonoBehaviour:
@@ -465,6 +523,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -622,7 +681,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1117414732
 MonoBehaviour:
@@ -639,6 +698,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -739,7 +799,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1191149950
 MonoBehaviour:
@@ -756,6 +816,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -856,7 +917,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1194376623
 MonoBehaviour:
@@ -873,6 +934,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -923,7 +985,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1209301833
 MonoBehaviour:
@@ -1049,7 +1111,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1240253283
 MonoBehaviour:
@@ -1066,6 +1128,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1166,7 +1229,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1931632650
 GameObject:
@@ -1264,7 +1327,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1931632655
 MonoBehaviour:
@@ -1281,6 +1344,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1381,7 +1445,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2133258440
 MonoBehaviour:
@@ -1398,6 +1462,7 @@ MonoBehaviour:
   startingHealth: 100
   dieOnOneHit: 0
   canBeHitByPlayer: 1
+  canOnlyBeHitByPlayer: 0
   currentHealth: 0
   OnDeath:
     m_PersistentCalls:
@@ -1409,6 +1474,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1627235813228088440, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2018187
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627235813825106970, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2018187
+      objectReference: {fileID: 0}
     - target: {fileID: 3252099569264577379, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1655,6 +1728,14 @@ PrefabInstance:
     - target: {fileID: 6522571950693075494, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522571950693075495, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
+      propertyPath: rageLevelToAdvanceStage2
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6522571950693075495, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}
+      propertyPath: rageLevelToAdvanceStage3
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 415715e9021dc9e4a8c7bea3653a92b1, type: 3}

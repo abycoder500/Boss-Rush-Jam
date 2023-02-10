@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3701322255831151566}
   - component: {fileID: 2821260190489994523}
   m_Layer: 0
-  m_Name: FirstWeaponCollectible
+  m_Name: LaserWeaponCollectible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,12 +134,12 @@ MonoBehaviour:
   OnPicked:
     m_PersistentCalls:
       m_Calls: []
-  weapon: {fileID: -5782950360663828468, guid: ed4b0167df231904299ef1ffe82bf5d2, type: 3}
+  weapon: {fileID: 1499170367665064610, guid: fb93667632085ac488ae6778b365eb72, type: 3}
   notificationOnSpawn:
-    text: What is that? Maybe it's useful, I should take it
+    text: Wow a laser weapon! I'm grabbing it!
     timeOnScreen: 3
   notificationOnCollect:
-    text: Wow, now I can use this to fire potatoes!
+    text: Great, I can shoot laser with this!
     timeOnScreen: 5
 --- !u!65 &2821260190489994523
 BoxCollider:
