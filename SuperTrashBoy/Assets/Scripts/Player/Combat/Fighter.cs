@@ -21,6 +21,7 @@ public class Fighter : MonoBehaviour
 
     public void Attack()
     {
+        Debug.Log("Attack!");
         if(isAttacking) return;
         isAttacking = true;
         equippedWeapon.Attack(this.gameObject, AttackFinished);

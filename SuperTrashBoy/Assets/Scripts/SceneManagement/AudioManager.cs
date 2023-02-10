@@ -35,6 +35,7 @@ public class AudioManager : MonoBehaviour
     private void PlayMusic(AudioClip audio, bool loop)
     {
         if (audio == null) return;
+        audioSource.volume = 1f;
         audioSource.clip = audio;
         audioSource.loop = loop;
         audioSource.Play();
