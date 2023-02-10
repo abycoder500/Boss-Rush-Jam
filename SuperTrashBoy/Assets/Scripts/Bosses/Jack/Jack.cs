@@ -449,6 +449,4 @@ public class Jack : MonoBehaviour
             return normalAttacks[i];
         }
     }
-
-    //-------------Functions below are TODO!-----------
 }
