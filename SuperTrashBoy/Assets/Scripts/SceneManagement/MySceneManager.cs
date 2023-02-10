@@ -48,6 +48,12 @@ public class MySceneManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void ReloadCurrentScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(LoadScene(currentSceneIndex));
+    }
+
     public void PlayCredits()
     {
         creditsRoll.gameObject.SetActive(enabled);

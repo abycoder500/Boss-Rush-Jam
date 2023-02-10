@@ -15,9 +15,10 @@ public class LaserWeapon : Weapon
         Debug.Log("Fire!!!!");
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector3 cameraPosition = Camera.main.transform.position;
-        Vector3 direction = (mousePos - cameraPosition).normalized;
+        //Vector3 direction = (mousePos - cameraPosition).normalized;
+        Vector3 direction = Camera.main.transform.forward;
         Ray ray = new Ray(Camera.main.transform.position, direction);
-        Debug.DrawRay(cameraPosition, mousePos, Color.red, 3f);
+        Debug.DrawRay(cameraPosition, direction, Color.red, 3f);
         if(Physics.Raycast(ray, out RaycastHit hit, weaponRange, targetLayers))
         {
             if(hit.transform.TryGetComponent<Health>(out Health health))
@@ -33,8 +34,9 @@ public class LaserWeapon : Weapon
      {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector3 cameraPosition = Camera.main.transform.position;
-        Vector3 direction = (mousePos - cameraPosition).normalized;
+        //Vector3 direction = (mousePos - cameraPosition).normalized;
+        Vector3 direction = Camera.main.transform.forward;
         Ray ray = new Ray(Camera.main.transform.position, direction);
-        Debug.DrawRay(cameraPosition, mousePos, Color.red);    
+        Debug.DrawRay(cameraPosition, direction, Color.red);    
     }
 }

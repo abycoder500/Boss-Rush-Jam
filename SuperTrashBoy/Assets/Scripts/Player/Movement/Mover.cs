@@ -36,6 +36,8 @@ public class Mover : MonoBehaviour
 
     [SerializeField] AnimationCurve jumpCurve;
 
+    private Vector2 windForce;
+
     private void Awake() 
     {
         controller = GetComponent<CharacterController>();
@@ -64,7 +66,18 @@ public class Mover : MonoBehaviour
                 jumpTimer = 0f;
             }
         }
-        controller.Move(movementVelocity * Time.deltaTime);
+        Vector3 movement = new Vector3(movementVelocity.x + windForce.x, movementVelocity.y, movementVelocity.z + windForce.y);
+        controller.Move(movement * Time.deltaTime);
+    }
+
+    public void SetWindForce(Vector2 force)
+    {
+        windForce = force;
+    }
+
+    public void ResetWindForce()
+    {
+        windForce = Vector2.zero;
     }
 
     public void Move(InputManager inputManager, Transform cameraTransform, bool knocked)

@@ -7,6 +7,7 @@ public class Fighter : MonoBehaviour
     [SerializeField] private Weapon startingWeapon;
     [SerializeField] private Transform weaponLocation;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject aim;
   
     private Weapon equippedWeapon;
     private List<Weapon> weapons;
@@ -42,6 +43,8 @@ public class Fighter : MonoBehaviour
             if(equippedWeapon != null) Destroy(equippedWeapon.gameObject);
             equippedWeapon  = Instantiate(weapon, weaponLocation);
             animator.runtimeAnimatorController = equippedWeapon.GetAnimatorOverride();
+            if(equippedWeapon as LaserWeapon == null) aim.SetActive(false);
+            else aim.SetActive(true);
         }
     }
 
