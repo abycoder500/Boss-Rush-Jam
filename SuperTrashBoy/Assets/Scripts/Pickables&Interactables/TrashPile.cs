@@ -21,7 +21,7 @@ public class TrashPile : MonoBehaviour
             float ydir = Mathf.Sin(verticalSpawnAngle * Mathf.PI / 180f);
             Vector3 spawnDir = new Vector3(xdir,ydir,zdir);
             spawnDir.Normalize();
-            Debug.Log(spawnDir);
+            //Debug.Log(spawnDir);
             instance.Spawn(spawnForce * spawnDir);
         }     
     }

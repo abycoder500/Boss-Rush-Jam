@@ -6,6 +6,9 @@ public class KaijuController : MonoBehaviour
 {
     private bool mInAttack = false;
 
+    //GameObjects for attacks
+    public GameObject fallingTrash;
+
     //Variables for choosing attacks
     public int handChance = 100;  //Higher values are less likely
     public int roarChance = 100;  //Higher values are less likely
@@ -16,6 +19,19 @@ public class KaijuController : MonoBehaviour
     public int highMoveThreshold = 4;
     private int attacksSinceMove = 0;
     private int mTimeSinceLastAttack = 0;
+
+    //Throw trash variables:
+    public float trashDamage = 10;
+    public int noOfTrashPiles = 3;
+    public float timeBetweenTrashThrows = 0.5f;
+    public int noPilesThrown = 0;
+    public float trashSpawnHeight = 50f;
+
+    //Variables for flow control
+    public float mCurrentAttackTime = 0;
+
+    private GameObject player;
+    public GameObject ground;
 
     //List all the states the boss could be in
     private enum states
@@ -34,6 +50,11 @@ public class KaijuController : MonoBehaviour
     void Start()
     {
         mCurrentState = states.none;
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (ground == null)
+        {
+            Debug.LogError("No ground object specified");
+        }
     }
 
     private void FixedUpdate()
@@ -70,8 +91,7 @@ public class KaijuController : MonoBehaviour
                 break;
 
             case states.throwingTrash:
-                //TODO
-                ChangeState(states.neutral);
+                ThrowTrash();
                 break;
 
             case states.repositioning:
@@ -159,7 +179,50 @@ public class KaijuController : MonoBehaviour
             attacksSinceMove = 0;
 
         Debug.Log("Changing state to " + state);
+        mInAttack = false; //Added redundancy
 
         mCurrentState = state;
+    }
+
+    //------Attacks-------
+
+    void ThrowTrash()
+    {
+        if (!mInAttack)
+        {
+            //We've hit this point for the first time
+            mInAttack = true;
+            mCurrentAttackTime = Time.time;
+            noPilesThrown = 0;
+        }
+
+        if (Time.time > mCurrentAttackTime + timeBetweenTrashThrows)
+        {
+            if (noPilesThrown >= noOfTrashPiles)
+            {
+                //End state, closing logic goes here
+                mInAttack = false;
+                ChangeState(states.neutral);
+            }
+            else
+            {
+                //Throw a trash pile
+                SpawnTrashPile();
+                noPilesThrown++;
+                mCurrentAttackTime = Time.time;
+            }
+        }
+    }
+
+    private void SpawnTrashPile()
+    {
+        Vector2 pos = Random.insideUnitCircle * ground.transform.localScale.x;
+        GameObject pile = Instantiate(fallingTrash, new Vector3(pos.x, trashSpawnHeight, pos.y), Quaternion.identity);
+        pile.GetComponent<FallingTrash>().damage = trashDamage;
+    }
+
+    private void Roar()
+    {
+
     }
 }
