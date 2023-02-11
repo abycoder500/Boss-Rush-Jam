@@ -9,6 +9,8 @@ public class Wind : MonoBehaviour
 
     private bool isKnockingBack = false;
 
+    public float windForce = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,13 +23,22 @@ public class Wind : MonoBehaviour
         if (mCollider.bounds.Intersects(player.GetComponent<Collider>().bounds))
         {
             Mover move = player.GetComponent<Mover>();
-            move.TakeKnockBack(transform.forward);
+            move.SetWindForce(new Vector2(transform.forward.x, transform.forward.z) * windForce);
             isKnockingBack = true;
         }
         else if (isKnockingBack)
         {
             Mover move = player.GetComponent<Mover>();
-            move.Stop();
+            move.ResetWindForce();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (player != null)
+        {
+            Mover move = player.GetComponent<Mover>();
+            move.ResetWindForce();
         }
     }
 
