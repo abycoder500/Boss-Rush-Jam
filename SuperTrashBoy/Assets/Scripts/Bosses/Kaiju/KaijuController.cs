@@ -8,6 +8,7 @@ public class KaijuController : MonoBehaviour
 
     //GameObjects for attacks
     public GameObject fallingTrash;
+    public GameObject wind;
 
     //Variables for choosing attacks
     public int handChance = 100;  //Higher values are less likely
@@ -26,6 +27,12 @@ public class KaijuController : MonoBehaviour
     public float timeBetweenTrashThrows = 0.5f;
     public int noPilesThrown = 0;
     public float trashSpawnHeight = 50f;
+
+    //Wind variables
+    public float windTime = 5.0f;
+    public float windStrength = 18f;
+    public float windHeight = 9.5f;
+    private GameObject windInst = null;
 
     //Variables for flow control
     public float mCurrentAttackTime = 0;
@@ -59,7 +66,16 @@ public class KaijuController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Kaiju should always be looking at the middle of the arena
+        LookAtCenter();
         HandleState();
+    }
+
+    private void LookAtCenter()
+    {
+        transform.LookAt(ground.transform);
+        //Make sure Jack isn't tilting up or down
+        transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
     }
 
     // Update is called once per frame
@@ -86,8 +102,7 @@ public class KaijuController : MonoBehaviour
                 break;
 
             case states.roar:
-                //TODO
-                ChangeState(states.neutral);
+                Roar();
                 break;
 
             case states.throwingTrash:
@@ -223,6 +238,20 @@ public class KaijuController : MonoBehaviour
 
     private void Roar()
     {
+        if (!mInAttack)
+        {
+            //We've hit this point for the first time
+            mInAttack = true;
+            mCurrentAttackTime = Time.time;
+            windInst = Instantiate(wind, ground.transform.position, transform.rotation);
+            windInst.transform.position = new Vector3(windInst.transform.position.x, windHeight, windInst.transform.position.z);
+        }
 
+        if (Time.time > mCurrentAttackTime + windTime)
+        {
+            Destroy(windInst);
+            mInAttack = false;
+            ChangeState(states.neutral);
+        }
     }
 }
