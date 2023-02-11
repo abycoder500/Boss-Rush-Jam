@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class CinemachinePOVExtension : CinemachineExtension
 {
+    public event Action onCameraRotation;
     private InputManager inputManager;
     private Vector3 startingRotation;
 
@@ -37,6 +39,7 @@ public class CinemachinePOVExtension : CinemachineExtension
                 startingRotation.y = Mathf.Clamp(startingRotation.y, - clampAngleDown, clampAngleUp);
 
                 state.RawOrientation = Quaternion.Euler(-startingRotation.y, startingRotation.x, 0f);
+                onCameraRotation?.Invoke();
             }
         }
     }

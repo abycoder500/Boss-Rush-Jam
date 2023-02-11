@@ -5,13 +5,12 @@ using UnityEngine;
 public class SFXObject : MonoBehaviour
 {
     [SerializeField] private float lifeTime = 1f;
-    [SerializeField] private AudioClip audioClip;
+    [SerializeField] private AudioClip[] audioClips;
     AudioSource audioSource;
 
     private void Awake() 
     {
         audioSource = GetComponent<AudioSource>();    
-        audioSource.clip = audioClip;
         audioSource.playOnAwake = false;
         audioSource.loop = false;
     }
@@ -24,6 +23,18 @@ public class SFXObject : MonoBehaviour
 
     private void PlayeEffect()
     {
+        ChooseClip();
         audioSource.Play();
+    }
+
+    private void ChooseClip()
+    {
+        int range = audioClips.Length;
+        int clipNumber = Random.Range(0, range);
+
+        if (clipNumber < audioClips.Length)
+        {
+            audioSource.clip = audioClips[clipNumber];
+        }
     }
 }

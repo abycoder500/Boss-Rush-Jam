@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DummyFighter : MonoBehaviour
 {
+    [SerializeField] private SFXObject attackSFXPrefab;
+    [SerializeField] private SFXObject preAttackSFXPrefab;
     [SerializeField] HitBox clubHitBox;
     [SerializeField] GameObject barrelPrefab;
     [SerializeField] Transform barrelSpawnPoint;
@@ -145,6 +147,7 @@ public class DummyFighter : MonoBehaviour
             movementVelocity.z = moveDirection.z * jumpAttackHorizontalVelocity;
             if(time > clubBehindBackTimeFraction && !isJumpClubBehind)
             {
+                Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
                 isJumpClubBehind = true;
                 animator.SetTrigger("ClubBack");
                 clubHitBox.SetupHitBox(this.gameObject, jumpAttackDamage);
@@ -153,6 +156,7 @@ public class DummyFighter : MonoBehaviour
             }
             if(time > clubAttackTimeFraction && !isJumpClubUsed)
             {
+                Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
                 isJumpClubUsed = true;
                 animator.SetTrigger("ClubAttack");
                 clubHitBox.gameObject.SetActive(true);
@@ -240,6 +244,7 @@ public class DummyFighter : MonoBehaviour
             movementVelocity.z = direction.z * moveTowardsPlayerAttackVelocity;
             if(Vector3.Distance(transform.position, player.transform.position) <= distanceToPlayerToAttack)
             {
+                Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
                 animator.SetTrigger("MoveToPlayerAttack");
                 movementVelocity.x = 0f;
                 movementVelocity.z = 0f;
@@ -282,12 +287,14 @@ public class DummyFighter : MonoBehaviour
 
     private IEnumerator ClubRoutine()
     {
+        Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
         clubHitBox.SetupHitBox(this.gameObject, clubAttackDamage);
         clubHitBox.gameObject.SetActive(false);
         lookAtPlayer = true;
         animator.SetTrigger("ClubBack");
         yield return new WaitForSeconds(hitboxActivationTime);
         animator.SetTrigger("ClubAttack");
+        Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
         clubHitBox.gameObject.SetActive(true);
         lookAtPlayer = false;
         yield return new WaitForSeconds(hitboxDeactivationTime-hitboxActivationTime);
@@ -458,6 +465,7 @@ public class DummyFighter : MonoBehaviour
 
     private IEnumerator HitBarrelRoutine(Rigidbody barrelRB)
     {
+        Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(hitBarrelWaitTime);
         if(!hitBarrel)
         {
@@ -465,6 +473,7 @@ public class DummyFighter : MonoBehaviour
             isAttacking = false;
             yield break;
         }
+        Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
         Vector3 direction;
         direction = player.transform.position - transform.position;
         Vector3 playerVelocity = player.GetComponent<Mover>().GetVelocity();

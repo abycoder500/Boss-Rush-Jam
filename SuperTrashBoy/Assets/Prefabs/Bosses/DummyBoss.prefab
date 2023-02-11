@@ -5380,6 +5380,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c6e24ffc2a26b4984675cfa69523fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  canOnlyBeHitByPlayer: 0
 --- !u!114 &6522571950693075495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5397,6 +5401,12 @@ MonoBehaviour:
   laughSFXPrefab: {fileID: 7698837146834326729, guid: 6894ae65a749a704c983221e00b4865b, type: 3}
   enrageSFXPrefab: {fileID: 7698837146834326729, guid: bccaf205fd8ee944ba32afad375471e7, type: 3}
   enragePlusSFXPrefab: {fileID: 7698837146834326729, guid: 37140252fb2b4824e9290bf57a5899aa, type: 3}
+  attackSFXPrefab: {fileID: 7698837146834326729, guid: 8a8970b3921f2b841a9ffa2205fb5436, type: 3}
+  comeToLifeSFXPrefab: {fileID: 7698837146834326729, guid: b9e8d1148ff4d90479750635baf06f8b, type: 3}
+  deathSFXPrefab: {fileID: 7698837146834326729, guid: a35898b89ffce7d48b89f9d69a6a49b2, type: 3}
+  hitSFXPrefab: {fileID: 7698837146834326729, guid: d92ec26b801e2574cb250b0a719ebca8, type: 3}
+  moveSFXPrefab: {fileID: 7698837146834326729, guid: dc4f1dba5fd46724cb22d8e4d4245bf8, type: 3}
+  preAttackSFXPrefab: {fileID: 7698837146834326729, guid: 0a60b3364535c8e41998b7d16acd2313, type: 3}
   bossName: The Dummy
   weaponUpgradePickablePrefab: {fileID: 3701322255831151566, guid: c2430795418c5f34e8b18a844b4a63b2, type: 3}
   rageParticles: {fileID: 8400866889793175973}
@@ -5433,6 +5443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2565e0e2749f0246a99d924519deb1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSFXPrefab: {fileID: 7698837146834326729, guid: 8a8970b3921f2b841a9ffa2205fb5436, type: 3}
+  preAttackSFXPrefab: {fileID: 7698837146834326729, guid: 0a60b3364535c8e41998b7d16acd2313, type: 3}
   clubHitBox: {fileID: 4245313419004934061}
   barrelPrefab: {fileID: 3055966481888553634, guid: 80063f571ada02441b85d59622d2c16e, type: 3}
   barrelSpawnPoint: {fileID: 1512666690861360673}

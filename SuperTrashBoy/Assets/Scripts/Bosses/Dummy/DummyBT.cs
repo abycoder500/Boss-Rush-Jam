@@ -10,6 +10,12 @@ public class DummyBT : BTUser
     [SerializeField] private SFXObject laughSFXPrefab;
     [SerializeField] private SFXObject enrageSFXPrefab;
     [SerializeField] private SFXObject enragePlusSFXPrefab;
+    [SerializeField] private SFXObject attackSFXPrefab;
+    [SerializeField] private SFXObject comeToLifeSFXPrefab;
+    [SerializeField] private SFXObject deathSFXPrefab;
+    [SerializeField] private SFXObject hitSFXPrefab;
+    [SerializeField] private SFXObject moveSFXPrefab;
+    [SerializeField] private SFXObject preAttackSFXPrefab;
     [Space]
     [Space]
     [Header("Other parameters")]
@@ -313,6 +319,7 @@ public class DummyBT : BTUser
     {
         if(!entranceTriggered)
         {
+            Instantiate(comeToLifeSFXPrefab, transform.position, Quaternion.identity);
             onActivate?.Invoke(bossName);
             animator.SetTrigger("Enter");
             audioManager.PlayDummyBossMusic();
@@ -337,6 +344,7 @@ public class DummyBT : BTUser
             isDead = true;
             notificationUI.ShowNotification(deathNotification);
             animator.SetTrigger("Die");
+            Instantiate(deathSFXPrefab, transform.position, Quaternion.identity);
         }
         deathTimer += Time.deltaTime;
         if(deathTimer <= deathTime)
@@ -500,6 +508,7 @@ public class DummyBT : BTUser
     {
         if (!isAttacking)
         {
+            Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
             dummyFighter.MoveTowardsPlayerAttack();
             animator.SetTrigger("Dash");
             isAttacking = true;
@@ -521,6 +530,7 @@ public class DummyBT : BTUser
     {
         if(!isAttacking) 
         {
+            Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
             animator.SetTrigger("StepAwayPosition");
             dummyFighter.StepAway(transform.position - playerLocation);
             dummyFighter.LookPlayer(true);
@@ -552,6 +562,7 @@ public class DummyBT : BTUser
     {
         if(!isAttacking) 
         {
+            Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
             animator.SetTrigger("DashPosition");
             dummyFighter.LookPlayer(true);
             dummyFighter.DashAttack(playerLocation - transform.position);

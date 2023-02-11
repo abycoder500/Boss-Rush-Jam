@@ -33,6 +33,8 @@ public class Mover : MonoBehaviour
     [SerializeField] private float crouchAmountFraction = 0.5f;
     [SerializeField] private float knockBackForce = 10f;
     [SerializeField] private double knockBackAngle = 30f;
+    [SerializeField] private float bodyRotationVelocity = 2f;
+    [SerializeField] private CinemachinePOVExtension ext;
 
     [SerializeField] AnimationCurve jumpCurve;
 
@@ -51,6 +53,16 @@ public class Mover : MonoBehaviour
         startColliderYPosition = capsuleCollider.center.y;
         startControllerHeight = controller.height;
         startControllerYPosition = controller.center.y;    
+    }
+
+    private void OnEnable() 
+    {
+        //ext.onCameraRotation += RotateBodyModel;    
+    }
+
+    private void OnDisable() 
+    {
+       //ext.onCameraRotation -= RotateBodyModel;    
     }
 
     private void Update()
@@ -82,7 +94,7 @@ public class Mover : MonoBehaviour
 
     public void Move(InputManager inputManager, Transform cameraTransform, bool knocked)
     {
-        playerBody.forward = cameraTransform.forward;
+        playerBody.forward = Vector3.Lerp(playerBody.forward, cameraTransform.forward, Time.deltaTime * bodyRotationVelocity);
         if(knocked) return;
         isGrounded = controller.isGrounded;
 
@@ -169,5 +181,10 @@ public class Mover : MonoBehaviour
     public Vector3 GetVelocity()
     {
         return movementVelocity;
+    }
+
+    private void RotateBodyModel()
+    {
+        playerBody.forward = Camera.main.transform.forward;
     }
 }
