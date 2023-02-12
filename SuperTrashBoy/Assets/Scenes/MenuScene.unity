@@ -489,51 +489,123 @@ MonoBehaviour:
 
 
 
-    <b>Idea:</b>
+    <b>Initial Idea:</b>
 
-    foo
 
-    bar
+    l0lvers
 
-    baz
+    - lead project
+    manager
+
+    - junior game designer
+
+
+    RedDragonMakesGames
+
+    - game designer
+
+
 
 
     <b>Code:</b>
 
-    foo
 
-    bar
+    Vitbull88
 
-    baz
+    -
+    Project skeleton
+
+    - Dummy AI
+
+    - Game play
+
+    - Original Main-menu and
+    Intro Sequence
 
 
-    <b>3D
-    Models</b>
+    heckert
 
-    foo
+    - Quality of Life coding and release setup
 
-    bar
+    -
+    Expanded Intro Sequence
 
-    baz
+    - Credits Roll
+
+    - Pause Mode
+
+
+    RedDragonMakesGames
+
+    -
+    Enemy AI
+
+    - Animation Code
+
+
+
+    <b>3D Models</b>
+
+
+    Aby-artistik
+
+    -
+    3D artist
+
+
+    nazrud
+
+    - 3D artist (environment)
+
+
+    Avocadofire
+
+    -
+    3D modeling
+
+
+    Odieman
+
+    - 3D modeling
+
 
 
     <b>2D graphics</b>
 
-    foo
+    Redmono
 
-    bar
+    -
+    concept artist
 
-    baz
+    - character designer
+
+
+    Gilgamesh24
+
+    - 2D game artist
+
 
 
     <b>Audio
     Department</b>
 
-    foo
 
-    bar
+    Emily Shearwood (Mills)
 
-    baz
+    - composer
+
+
+    Pablo Wunderlich
+
+    -
+    composer
+
+    - sound designer
+
+    - sound effects
+
+
+
 
 '
   m_isRightToLeft: 0
@@ -876,7 +948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'CheesyFriez Studio
+  m_text: 'CheezyFriez Studio
 
 
     Presents'
@@ -1016,11 +1088,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'A game by
 
-    name1
 
-    name2
+    l0lvers
 
-    name3'
+    RedDragonMakesGames
+
+
+    and the team of
+    CheezyFriez'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2149,8 +2224,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0006713867}
-  m_SizeDelta: {x: 0, y: 4000}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 8000}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1272823799
 GameObject:
@@ -2212,11 +2287,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'A game by
 
-    name1
 
-    name2
+    l0lvers
 
-    name3'
+    RedDragonMakesGames
+
+
+    and the team of
+    CheezyFriez'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2812,8 +2890,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 444857229}
   m_HandleRect: {fileID: 444857228}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.215
+  m_Value: 1
+  m_Size: 0.1075
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3079,7 +3157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollerView: {fileID: 1376847936}
-  scrollFactor: 30
+  scrollFactor: 35
 --- !u!1 &1743655469
 GameObject:
   m_ObjectHideFlags: 0
