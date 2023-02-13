@@ -1,0 +1,77 @@
+
+
+
+
+
+
+
+
+
+
+<b>Initial Idea:</b>
+
+l0lvers
+- lead project manager
+- junior game designer
+
+RedDragonMakesGames
+- game designer
+
+
+
+<b>Code:</b>
+
+Vitbull88
+- Project skeleton
+- Dummy AI
+- Game play
+- Original Main-menu and Intro Sequence
+
+heckert
+- Quality of Life coding and release setup
+- Expanded Intro Sequence
+- Credits Roll
+- Pause Mode
+
+RedDragonMakesGames
+- Enemy AI
+- Animation Code
+
+
+<b>3D Models</b>
+
+Aby-artistik
+- 3D artist
+
+nazrud
+- 3D artist (environment)
+
+Avocadofire
+- 3D modeling
+
+Odieman
+- 3D modeling
+
+
+<b>2D graphics</b>
+Redmono
+- concept artist
+- character designer
+
+Gilgamesh24
+- 2D game artist
+
+
+<b>Audio Department</b>
+
+Emily Shearwood (Mills)
+- composer
+
+Pablo Wunderlich
+- composer
+- sound designer
+- sound effects
+
+
+
+
