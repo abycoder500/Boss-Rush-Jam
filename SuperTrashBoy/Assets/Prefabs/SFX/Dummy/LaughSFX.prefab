@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1117554488307464778, guid: f89dccaa717cfb8499425fa87a54debb, type: 3}
       propertyPath: lifeTime
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1117554488307464778, guid: f89dccaa717cfb8499425fa87a54debb, type: 3}
       propertyPath: audioClip
@@ -22,7 +22,7 @@ PrefabInstance:
     - target: {fileID: 1117554488307464778, guid: f89dccaa717cfb8499425fa87a54debb, type: 3}
       propertyPath: audioClips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 8a05419d8b3651746a3797618bf88707, type: 3}
+      objectReference: {fileID: 8300000, guid: b99737ff62c676b46819998f53a76609, type: 3}
     - target: {fileID: 4726495537213637587, guid: f89dccaa717cfb8499425fa87a54debb, type: 3}
       propertyPath: m_RootOrder
       value: 0

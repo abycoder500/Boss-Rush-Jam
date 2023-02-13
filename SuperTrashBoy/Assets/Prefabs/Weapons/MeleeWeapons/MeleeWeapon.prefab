@@ -101,8 +101,8 @@ MonoBehaviour:
   attackAnimationOverride: {fileID: 22100000, guid: 1e502fa30ff7e824db1af4b4edc29165, type: 2}
   damage: 10
   hitBoxActivationTime: 0.02
-  hitBoxDeactivationTime: 0.18
-  meleeAttackEndTime: 0.2
+  hitBoxDeactivationTime: 0.28
+  meleeAttackEndTime: 0.3
   hitBox: {fileID: 5622765291455684613}
 --- !u!1001 &5104170300644071986
 PrefabInstance:
@@ -168,6 +168,30 @@ PrefabInstance:
       value: Hitbox
       objectReference: {fileID: 0}
     - target: {fileID: 638865620051540532, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929553, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929558, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0271202
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929558, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929558, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.292
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929558, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 638865621183929559, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

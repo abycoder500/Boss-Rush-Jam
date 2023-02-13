@@ -22,6 +22,8 @@ public class DummyBT : BTUser
     [SerializeField] private string bossName = "The Dummy";
     [SerializeField] private WeaponUpgradePickable weaponUpgradePickablePrefab;
     [SerializeField] private ParticleSystem rageParticles = null;
+    [SerializeField] private ParticleSystem aliveParticles = null;
+    [SerializeField] private float aliveParticlesDuration = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private float enterTimeDuration = 2f;
     [SerializeField] private int numberOfHitsToLeaveIdle = 5;
@@ -66,6 +68,9 @@ public class DummyBT : BTUser
     private BehaviorTree checkForHitAfterSpinTree = new BehaviorTree("Check for hit during spin");
 
     public event Action<string> onActivate;
+    public event Action<float> onRageChange;
+    public event Action onAlive;
+    public event Action onDie;
 
     protected override void Awake() 
     {
@@ -320,6 +325,12 @@ public class DummyBT : BTUser
         if(!entranceTriggered)
         {
             Instantiate(comeToLifeSFXPrefab, transform.position, Quaternion.identity);
+            onAlive?.Invoke();
+            if(aliveParticles != null)
+            {
+                aliveParticles.Play();
+                Destroy(aliveParticles, aliveParticlesDuration);
+            }
             onActivate?.Invoke(bossName);
             animator.SetTrigger("Enter");
             audioManager.PlayDummyBossMusic();
@@ -340,6 +351,7 @@ public class DummyBT : BTUser
     {
         if(!isDead)
         {
+            onDie?.Invoke();
             deathTimer = 0f;
             isDead = true;
             notificationUI.ShowNotification(deathNotification);
@@ -686,6 +698,7 @@ public class DummyBT : BTUser
     private void ResetRage(bool laugh)
     {
         rage = 0;
+        onRageChange?.Invoke(GetRageFraction());
         rageParticles.gameObject.SetActive(false);
         if (laugh) 
         {
@@ -703,6 +716,7 @@ public class DummyBT : BTUser
     private void Enrage()
     {
         rage++;
+        onRageChange?.Invoke(GetRageFraction());
         rageParticles.gameObject.SetActive(true);
         Instantiate(enrageSFXPrefab, transform.position, Quaternion.identity);
         StartCoroutine(ResetEnrage());
@@ -720,8 +734,6 @@ public class DummyBT : BTUser
         }
     }
 
-    
-
     private void StopLaugh()
     {
         Debug.Log("Stop");
@@ -736,6 +748,20 @@ public class DummyBT : BTUser
         dummyFighter.LookPlayer(true);
         yield return new WaitForSeconds(enrageTimeLength);
         Pause(false);
+    }
+
+    public float GetRageFraction()
+    {
+        int stage = dummyFighter.GetCurrentStage();
+        float fraction = 0f;
+
+        if(stage == 1) fraction = (float)rage / rageLevelToAdvanceStage1;
+        else if (stage == 2) fraction = (float)rage / rageLevelToAdvanceStage2;
+        else fraction = (float)rage / rageLevelToAdvanceStage3;
+
+        Debug.Log("final " + fraction);
+        return fraction;
+
     }
 
 }

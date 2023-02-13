@@ -171,7 +171,7 @@ public class DummyFighter : MonoBehaviour
                 movementVelocity.z = 0f;
                 isJumpClubUsed = false;
                 isJumpClubBehind = false;
-                Invoke("DeactivateHitBox", 0.2f);
+                Invoke("DeactivateHitBox", 0.4f);
             }
         }
 
@@ -482,5 +482,10 @@ public class DummyFighter : MonoBehaviour
         direction.Normalize();
         barrelRB.AddForceAtPosition(barrelHitForce * direction, barrelRB.transform.position + Vector3.down * 0.2f, ForceMode.Impulse);  
         isAttacking = false; 
+    }
+
+    public int GetCurrentStage()
+    {
+        return stage;
     }
 }
