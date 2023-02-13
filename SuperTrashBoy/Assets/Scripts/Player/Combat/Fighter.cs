@@ -24,8 +24,11 @@ public class Fighter : MonoBehaviour
         Debug.Log("Attack!");
         if(isAttacking) return;
         isAttacking = true;
-        equippedWeapon.Attack(this.gameObject, AttackFinished);
-        animator.SetTrigger("Attack");
+        if (equippedWeapon != null)
+        {
+            equippedWeapon.Attack(this.gameObject, AttackFinished);
+            animator.SetTrigger("Attack");
+        }
     }
 
     public void RangeAttack()
@@ -47,6 +50,11 @@ public class Fighter : MonoBehaviour
             if(equippedWeapon as LaserWeapon == null) aim.SetActive(false);
             else aim.SetActive(true);
         }
+    }
+
+    public void UnequipWeapon()
+    {
+        if (equippedWeapon != null) Destroy(equippedWeapon.gameObject);
     }
 
     public bool IsAttackingMelee()

@@ -60,6 +60,7 @@ public class KaijuController : MonoBehaviour
         throwingTrash,
         roar,
         repositioning,
+        disarmingRoar,
         none
     }
 
@@ -74,6 +75,8 @@ public class KaijuController : MonoBehaviour
         {
             Debug.LogError("No ground object specified");
         }
+        //Start by disarming the player
+        ChangeState(states.disarmingRoar);
     }
 
     private void FixedUpdate()
@@ -115,6 +118,10 @@ public class KaijuController : MonoBehaviour
 
             case states.roar:
                 Roar();
+                break;
+
+            case states.disarmingRoar:
+                DisarmingRoar();
                 break;
 
             case states.throwingTrash:
@@ -261,6 +268,23 @@ public class KaijuController : MonoBehaviour
         if (Time.time > mCurrentAttackTime + windTime)
         {
             Destroy(windInst);
+            mInAttack = false;
+            ChangeState(states.neutral);
+        }
+    }
+
+    private void DisarmingRoar()
+    {
+        if (!mInAttack)
+        {
+            mInAttack = true;
+            player.GetComponent<Fighter>().UnequipWeapon();
+        }
+
+        //TODO: wait for animations here
+
+        // if animations are done
+        {
             mInAttack = false;
             ChangeState(states.neutral);
         }
