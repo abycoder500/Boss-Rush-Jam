@@ -23,6 +23,7 @@ public class DummyBT : BTUser
     [SerializeField] private WeaponUpgradePickable weaponUpgradePickablePrefab;
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private ParticleSystem aliveParticles = null;
+    [SerializeField] private ParticleSystem weaponParticles = null;
     [SerializeField] private float aliveParticlesDuration = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private float enterTimeDuration = 2f;
@@ -329,7 +330,7 @@ public class DummyBT : BTUser
             if(aliveParticles != null)
             {
                 aliveParticles.Play();
-                Destroy(aliveParticles, aliveParticlesDuration);
+                weaponParticles.Play();
             }
             onActivate?.Invoke(bossName);
             animator.SetTrigger("Enter");

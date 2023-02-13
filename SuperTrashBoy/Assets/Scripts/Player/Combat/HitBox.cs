@@ -10,6 +10,7 @@ public class HitBox : MonoBehaviour
     private float damage;
 
     public event Action<GameObject> onHit;
+    public event Action onCollidedWithAnything;
     public UnityEvent OnHit;
 
     public void SetupHitBox(GameObject instigator, float damage)
@@ -23,11 +24,14 @@ public class HitBox : MonoBehaviour
         if (other.gameObject == instigator) return;
         if (other.gameObject == this.gameObject) return;
 
+        onCollidedWithAnything?.Invoke();
+
         if (instigator == null)
             instigator = gameObject;    //Protection against the instigator being destroyed while this is still active
 
         if (other.TryGetComponent<HitReceivedCounter>(out HitReceivedCounter counter))
         {
+            OnHit?.Invoke();
             Debug.Log("hit");
             counter.Hit(instigator.transform);
             if(other.GetComponent<Health>() == null) gameObject.SetActive(false);

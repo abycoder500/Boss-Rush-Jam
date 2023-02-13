@@ -18,10 +18,10 @@ public class SFXObject : MonoBehaviour
     private void Start() 
     {
         Destroy(this.gameObject, lifeTime); 
-        PlayeEffect();   
+        PlayEffect();   
     }
 
-    private void PlayeEffect()
+    private void PlayEffect()
     {
         ChooseClip();
         audioSource.Play();

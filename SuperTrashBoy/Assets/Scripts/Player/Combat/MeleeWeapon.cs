@@ -9,6 +9,7 @@ public class MeleeWeapon : Weapon
     [SerializeField] protected float hitBoxDeactivationTime;
     [SerializeField] protected float meleeAttackEndTime; 
     [SerializeField] protected HitBox hitBox;
+    [SerializeField] protected SFXObject hitSound;
 
     private void Start() 
     {
@@ -30,4 +31,11 @@ public class MeleeWeapon : Weapon
         yield return new WaitForSeconds(meleeAttackEndTime - hitBoxDeactivationTime - hitBoxActivationTime);
         AttackFinished();
     }
+
+    public void PlaySound()
+    {
+        Instantiate(hitSound, transform.position, Quaternion.identity);
+    }
+
+
 }

@@ -7,6 +7,7 @@ public class DummyFighter : MonoBehaviour
 {
     [SerializeField] private SFXObject attackSFXPrefab;
     [SerializeField] private SFXObject preAttackSFXPrefab;
+    [SerializeField] private SFXObject hitSFXPrefab;
     [SerializeField] HitBox clubHitBox;
     [SerializeField] GameObject barrelPrefab;
     [SerializeField] Transform barrelSpawnPoint;
@@ -131,6 +132,11 @@ public class DummyFighter : MonoBehaviour
 
         clubHitBox.gameObject.SetActive(false);
         dashAttackHitBox.gameObject.SetActive(false);
+    }
+
+    private void OnEnable() 
+    {
+        clubHitBox.onCollidedWithAnything += () => Instantiate(hitSFXPrefab, transform.position, Quaternion.identity);    
     }
 
     private void Update() 
