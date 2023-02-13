@@ -1835,14 +1835,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734054776}
-  m_LocalRotation: {x: -0, y: 0.9749821, z: -0, w: 0.22228362}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.99, y: 5.05, z: 29.04}
   m_LocalScale: {x: 5, y: 10, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 154.314, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1734054781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1872,6 +1872,11 @@ MonoBehaviour:
   windTime: 5
   windStrength: 18
   windHeight: 9.5
+  waitMaximum: 5
+  withdrawSpeed: 1
+  returnSpeed: 1
+  distanceFromCenter: 30
+  retreatDistance: 70
   mCurrentAttackTime: 0
   ground: {fileID: 495457986}
 --- !u!1001 &1740229879
@@ -1881,6 +1886,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1627235813228088440, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2018185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627235813825106970, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2018185
+      objectReference: {fileID: 0}
     - target: {fileID: 3252099569264577379, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2326,7 +2339,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37706
+  m_Name: pb_Mesh32284
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
