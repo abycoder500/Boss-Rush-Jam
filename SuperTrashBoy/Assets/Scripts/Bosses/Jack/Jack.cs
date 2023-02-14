@@ -196,6 +196,9 @@ public class Jack : MonoBehaviour
 
         mTimeSinceLastAttack++;
 
+        if (!IsPlayerLOS()) //Don't attack if we can't see the player
+            return;
+
         // Work out what attack to do next based on weightings from player position, time since previous attack and so on
         float playerDistance = GetDistanceFromPlayer();
 
