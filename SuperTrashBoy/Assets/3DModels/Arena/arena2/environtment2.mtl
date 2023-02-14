@@ -1,0 +1,26 @@
+# Blender MTL File: 'environtment2.blend'
+# Material Count: 2
+
+newmtl Ground
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd D:\\WORK\\BlenderFiles\\Materials\\NEW\\Ground043_2K-JPG\\Ground043_2K_Color.jpg
+map_Ns D:\\WORK\\BlenderFiles\\Materials\\NEW\\Ground043_2K-JPG\\Ground043_2K_Roughness.jpg
+
+newmtl trash
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump C:\\Users\\LENOVO\\Downloads\\trash land\\trash land_normal.bmp
+map_Kd C:\\Users\\LENOVO\\Downloads\\trash land\\trash land_diffuseOriginal.bmp
