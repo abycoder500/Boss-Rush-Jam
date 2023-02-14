@@ -51,7 +51,7 @@ public class Jack : MonoBehaviour
     public float bulletDamage = 5f;
     public float bulletSpeed = 1f;
     public float bulletLifetime = 1f;
-    public Vector3 bulletOffset = new Vector3(0, -2);
+    public Vector3 bulletOffset = new Vector3(0, 2);
 
     public int attacksForPhaseChange = 3;
 
@@ -112,7 +112,7 @@ public class Jack : MonoBehaviour
             finalAttack = fightManager.finalAttackMaterial;
         }
 
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
         health.onTakeDamage += SetDamageTaken;
 
@@ -153,7 +153,8 @@ public class Jack : MonoBehaviour
                 break;
 
             case states.hammerSwing:
-                HammerAttack();
+                //HammerAttack();
+                mCurrentState = states.neutral;
                 break;
 
             case states.spinSpit:
