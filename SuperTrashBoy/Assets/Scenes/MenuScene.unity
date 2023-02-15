@@ -645,8 +645,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 64
+  m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2236,7 +2236,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 8400}
+  m_SizeDelta: {x: 0, y: 8800}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1272823799
 GameObject:
@@ -2901,8 +2901,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 444857229}
   m_HandleRect: {fileID: 444857228}
   m_Direction: 2
-  m_Value: 0.99999994
-  m_Size: 0.10238094
+  m_Value: 1
+  m_Size: 0.09772726
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
