@@ -263,7 +263,11 @@ public class Jack : MonoBehaviour
     {
         //Draw a ray from the boss to the player, and return false if it hits anything else
         Physics.Raycast(transform.position, player.transform.position - transform.position, out RaycastHit hit);
-        if (hit.collider.gameObject != player.GetComponent<Collider>().gameObject)
+        if (hit.collider == null)
+            return false;
+        else if (hit.collider.gameObject == null)
+            return false;
+        else if (hit.collider.gameObject != player.GetComponent<Collider>().gameObject)
             return false;
         else
             return true;

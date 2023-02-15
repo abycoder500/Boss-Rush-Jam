@@ -66,7 +66,7 @@ public class EnemyHealthBar : MonoBehaviour
         if (followsObject)
         {
             //Make sure object is on screen, and if so show the healthbar on the object
-            if (enemyHealth.GetComponent<Renderer>() != null)
+            if (enemyHealth.GetComponentInChildren<Renderer>() != null)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 if (player == null)
@@ -86,7 +86,7 @@ public class EnemyHealthBar : MonoBehaviour
                     DontShow();
                 }
                 else if (hit.collider.gameObject == player.GetComponent<Collider>().gameObject
-                    && enemyHealth.GetComponent<Renderer>().isVisible
+                    && enemyHealth.GetComponentInChildren<Renderer>().isVisible
                     && showingObject == true)
                 {
                     //Only show if object is in camera and player has LOS
