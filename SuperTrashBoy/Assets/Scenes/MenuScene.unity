@@ -620,8 +620,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -964,8 +964,8 @@ MonoBehaviour:
 
     Presents'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1108,8 +1108,8 @@ MonoBehaviour:
     and the team of
     CheezyFriez'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1245,8 +1245,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2236,7 +2236,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 8000}
+  m_SizeDelta: {x: 0, y: 8400}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &1272823799
 GameObject:
@@ -2307,8 +2307,8 @@ MonoBehaviour:
     and the team of
     CheezyFriez'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2442,8 +2442,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2577,8 +2577,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Credits
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2901,8 +2901,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 444857229}
   m_HandleRect: {fileID: 444857228}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.10749999
+  m_Value: 0.99999994
+  m_Size: 0.10238094
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3005,8 +3005,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Thank you for playing
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3351,8 +3351,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Armageddump
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3488,8 +3488,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
