@@ -11,6 +11,7 @@ public class EnemyHealthBar : MonoBehaviour
     public Vector3 offset = Vector3.zero;
     public Health enemyHealth;
     public bool followsObject = true;
+    public bool hasSetPos = false;
     public Vector3 screenPos = Vector3.zero;
 
     // Start is called before the first frame update
@@ -103,7 +104,8 @@ public class EnemyHealthBar : MonoBehaviour
         }
         else
         {
-            transform.position = screenPos;
+            if (!hasSetPos)
+                transform.position = screenPos;
         }
 
     }
