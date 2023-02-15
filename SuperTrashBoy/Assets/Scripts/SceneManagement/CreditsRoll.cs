@@ -28,6 +28,7 @@ public class CreditsRoll : MonoBehaviour
         WaitForSeconds ws = new WaitForSeconds(1);
         Scrollbar vs = scrollerView.verticalScrollbar;
 
+        Cursor.lockState = CursorLockMode.Locked;
         while (vs.value >= 0)
         {
             vs.value -= Time.deltaTime / scrollFactor;
@@ -36,6 +37,8 @@ public class CreditsRoll : MonoBehaviour
             yield return wf;
         }
         Invoke(nameof(Start), 2f);
+        Cursor.lockState = CursorLockMode.Confined;
+
         yield return null;
     }
 }
