@@ -19,14 +19,14 @@ public class MainMenuUI : MonoBehaviour
 
     private void OnEnable()
     {
-        startGameButton.onClick.AddListener(() => mySceneManager.LoadFirstScene());
+        startGameButton.onClick.AddListener(() => mySceneManager.LoadDummyScene());
         quitGameButton.onClick.AddListener(() => mySceneManager.QuitGame());
         creditsButton.onClick.AddListener(() => mySceneManager.PlayCredits());
     }
 
     private void OnDisable()
     {
-        startGameButton.onClick.RemoveListener(() => mySceneManager.LoadFirstScene());
+        startGameButton.onClick.RemoveListener(() => mySceneManager.LoadDummyScene());
         quitGameButton.onClick.RemoveListener(() => mySceneManager.QuitGame());
         creditsButton.onClick.RemoveListener(() => mySceneManager.PlayCredits());
     }

@@ -24,6 +24,7 @@ public class DummyBT : BTUser
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private ParticleSystem aliveParticles = null;
     [SerializeField] private ParticleSystem weaponParticles = null;
+    [SerializeField] private GameObject[] eyes;
     [SerializeField] private float aliveParticlesDuration = 1f;
     [SerializeField] private Animator animator;
     [SerializeField] private float enterTimeDuration = 2f;
@@ -43,7 +44,14 @@ public class DummyBT : BTUser
     [SerializeField] private float waitToBeHitTime = 2f;
     [SerializeField] private float laughTimeAfterHit = 2f;
     [SerializeField] private float deathTime = 2f;
+    [Space]
+    [Space]
+    [Header("Notifications")]
     [SerializeField] private NotificationUI.Notification deathNotification;
+    [SerializeField] private NotificationUI.Notification noHitsNotification;
+    [SerializeField] private NotificationUI.Notification spinEndNotification;
+    [SerializeField] private NotificationUI.Notification spinHitNotification;
+    [SerializeField] private NotificationUI.Notification defenseNotification;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
@@ -52,6 +60,7 @@ public class DummyBT : BTUser
     private NotificationUI notificationUI;
 
     private int rage = 0;
+    private int timesWithNoHits = 0;
     private float enterTimer = 0f;
     private float waitToBeHitTimer = 0f;
     private float deathTimer = 0f;
@@ -85,6 +94,10 @@ public class DummyBT : BTUser
 
     protected override void Start()
     {
+        foreach (GameObject eye in eyes)
+            {
+                eye.SetActive(false);
+            }
         playerFighter = player.GetComponent<Fighter>();
         rageParticles.gameObject.SetActive(false);
 
@@ -327,6 +340,10 @@ public class DummyBT : BTUser
         {
             Instantiate(comeToLifeSFXPrefab, transform.position, Quaternion.identity);
             onAlive?.Invoke();
+            foreach (GameObject eye in eyes)
+            {
+                eye.SetActive(true);
+            }
             if(aliveParticles != null)
             {
                 aliveParticles.Play();
@@ -406,12 +423,19 @@ public class DummyBT : BTUser
         waitToBeHitTimer += Time.deltaTime;
         if(waitToBeHitTimer >= time)
         {
+            timesWithNoHits ++;
+            if(timesWithNoHits == 3)
+            {
+                timesWithNoHits = 0;
+                notificationUI.ShowNotification(noHitsNotification);
+            }
             waitToBeHitTimer = 0f;
             animator.SetTrigger("BackToIdleAfterClub");
             return Node.Status.SUCCESS;
         }
         if(hitReceivedCounter.GetHitReceivedNumber() >= 1)
         {
+            timesWithNoHits = 0;
             Debug.Log("Wait to be hit enrage");
             Enrage();
             waitToBeHitTimer = 0f;
@@ -492,6 +516,7 @@ public class DummyBT : BTUser
                 ResetRage(false);
                 Pause(shieldTime, null);
                 player.GetComponent<PlayerController>().TakeKnockBack(0f,this.transform);
+                notificationUI.ShowNotification(defenseNotification);
                 return Node.Status.SUCCESS; 
             }
         }
@@ -629,6 +654,7 @@ public class DummyBT : BTUser
         {
             dummyFighter.LaunchBarrel();
             isAttacking = true;
+            hitReceivedCounter.ResetHits();
             return Node.Status.RUNNING;
         }
         else
@@ -671,6 +697,7 @@ public class DummyBT : BTUser
             {
                 if (dummyFighter.HasHitPlayer())
                 {
+                    notificationUI.ShowNotification(spinHitNotification);
                     Debug.Log("Hit");
                     dummyFighter.ResetHitPlayer();
                     ResetRage(true);
@@ -680,6 +707,7 @@ public class DummyBT : BTUser
                 }
                 else
                 {
+                    notificationUI.ShowNotification(spinEndNotification);
                     Debug.Log("tired");
                     isAttacking = false;
                     hitReceivedCounter.ResetHits();

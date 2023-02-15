@@ -12,6 +12,7 @@ public class NotificationUI : MonoBehaviour
     {
         public string text;
         public float timeOnScreen;
+        public bool sound;
     }
 
     [SerializeField] Image panel;
@@ -19,14 +20,21 @@ public class NotificationUI : MonoBehaviour
     [SerializeField] float disappearanceTime = 0.5f;
     [SerializeField] float timeToShow = 1f;
     [SerializeField] float timeBetweenNotifications = 1f;
+    [SerializeField] AudioClip notificationSound = null;
 
     private Coroutine activeNotification = null;
+    private AudioSource audioSource;
 
     private List<Notification> notificationsOnQueue = new List<Notification>();
 
     Notification test1;
     Notification test2;
     Notification test3;
+
+    private void Awake() 
+    {
+        audioSource = GetComponent<AudioSource>();    
+    }
 
 
     private void Start()
@@ -40,6 +48,7 @@ public class NotificationUI : MonoBehaviour
         if(activeNotification == null)
         {
             activeNotification = StartCoroutine(ShowText(notification));
+            if(notification.sound && notificationSound != null) audioSource.PlayOneShot(notificationSound);
         }
         else
         {

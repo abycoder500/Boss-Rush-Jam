@@ -83,9 +83,19 @@ public class MySceneManager : MonoBehaviour
         StartCoroutine(LoadScene(0));
     }
 
-    public void LoadFirstScene()
+    public void LoadDummyScene()
     {
         StartCoroutine(LoadScene(1));
+    }
+
+    public void LoadJackScene()
+    {
+        StartCoroutine(LoadScene(2));
+    }
+
+    public void LoadKaijuScene()
+    {
+        StartCoroutine(LoadScene(3));
     }
 
     private IEnumerator LoadScene(int sceneIndex)

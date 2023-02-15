@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] AudioClip introMusic = null;
     [SerializeField] AudioClip dummyMusic = null;
+    [SerializeField] AudioClip jackMusic = null;
+    [SerializeField] AudioClip kaijuMusic = null;
     [SerializeField] float stopMusicTime = 0.5f;
 
     AudioSource audioSource;
@@ -26,10 +28,19 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(ChangeVolume(stopMusicTime, 0f));
     }
 
-
     public void PlayDummyBossMusic()
     {
         PlayMusic(dummyMusic, true);
+    }
+
+    public void PlayJackBossMusic()
+    {
+        PlayMusic(jackMusic, true);
+    }
+
+    public void PlayKaijuMusic()
+    {
+        PlayMusic(kaijuMusic, true);
     }
 
     private void PlayMusic(AudioClip audio, bool loop)

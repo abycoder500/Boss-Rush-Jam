@@ -19,10 +19,9 @@ public class EventTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {   
-        if(other.gameObject == player)
-        {
-            OnTriggerEvent?.Invoke();
-        }
+        if(other.gameObject != player) return;
+ 
+        OnTriggerEvent?.Invoke();
         if(deactivateOnTrigger) this.gameObject.SetActive(false);
     }
 }

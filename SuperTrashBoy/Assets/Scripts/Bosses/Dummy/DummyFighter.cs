@@ -52,6 +52,7 @@ public class DummyFighter : MonoBehaviour
     //[SerializeField] AnimationCurve stepBackCurve;
     [SerializeField] float spinAttackTimeLength = 8f;
     [SerializeField] float spinAttackVelocity = 3f;
+    [SerializeField] float spinAttackMinDistance = 4.5f;
     [Space]
     [Space]
 
@@ -220,8 +221,16 @@ public class DummyFighter : MonoBehaviour
             Vector3 direction = player.transform.position - transform.position;
             direction.y = 0f;
             direction.Normalize();
-            movementVelocity.x = direction.x * spinAttackVelocity;
-            movementVelocity.z = direction.z * spinAttackVelocity;
+            if(Vector3.Distance(player.transform.position, transform.position) > spinAttackMinDistance)
+            {
+                movementVelocity.x = direction.x * spinAttackVelocity;
+                movementVelocity.z = direction.z * spinAttackVelocity;
+            }
+            else
+            {
+                movementVelocity.x = 0f;
+                movementVelocity.z = 0f;
+            }
             if (time > 1f || hitPlayer)
             {
                 isSpinning = false;
@@ -471,6 +480,7 @@ public class DummyFighter : MonoBehaviour
 
     private IEnumerator HitBarrelRoutine(Rigidbody barrelRB)
     {
+        animator.SetTrigger("HitBarrel");
         Instantiate(preAttackSFXPrefab, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(hitBarrelWaitTime);
         if(!hitBarrel)
@@ -482,8 +492,8 @@ public class DummyFighter : MonoBehaviour
         Instantiate(attackSFXPrefab, transform.position, Quaternion.identity);
         Vector3 direction;
         direction = player.transform.position - transform.position;
-        Vector3 playerVelocity = player.GetComponent<Mover>().GetVelocity();
-        direction += playerVelocity * Time.deltaTime;
+        //Vector3 playerVelocity = player.GetComponent<Mover>().GetVelocity();
+        //direction += playerVelocity * Time.deltaTime;
         direction.y = 0f;
         direction.Normalize();
         barrelRB.AddForceAtPosition(barrelHitForce * direction, barrelRB.transform.position + Vector3.down * 0.2f, ForceMode.Impulse);  

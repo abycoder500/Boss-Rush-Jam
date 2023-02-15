@@ -32,13 +32,13 @@ public class HealthPickable : Pickable
 
     private IEnumerator SpawnWithGravityRoutine(Vector3 force)
     {
-        coll.isTrigger = false;
+        /*coll.isTrigger = false;
         rb.useGravity = true;
-        rb.isKinematic = false;
+        rb.isKinematic = false;*/
         rb.AddForce(force, ForceMode.Impulse);
         yield return new WaitForSeconds(2f);
-        rb.useGravity = false;
+        /*rb.useGravity = false;
         rb.isKinematic = true;
-        coll.isTrigger = true;
+        coll.isTrigger = true;*/
     }
 }

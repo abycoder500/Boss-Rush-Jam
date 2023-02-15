@@ -265,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 234fe938d71f2434692a41b9979cba58, type: 2}
+  - {fileID: 2100000, guid: 1e2925748d373254784b7ab2e06e0211, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -514,7 +514,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 234fe938d71f2434692a41b9979cba58, type: 2}
+  - {fileID: 2100000, guid: 1e2925748d373254784b7ab2e06e0211, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10360,6 +10360,104 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &4093798806261712787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777209182058569684}
+  - component: {fileID: 2625403554857557214}
+  - component: {fileID: 4918629764493420438}
+  - component: {fileID: 2922436442855755349}
+  m_Layer: 0
+  m_Name: Eye2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &777209182058569684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093798806261712787}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.1, y: 1.142, z: 0.367}
+  m_LocalScale: {x: 0.07, y: 0.03, z: 0.07}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6522571950882939406}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &2625403554857557214
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093798806261712787}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4918629764493420438
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093798806261712787}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4e65465f9660c824484d288c3f6a2e01, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &2922436442855755349
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093798806261712787}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &4223852145764009242
 GameObject:
   m_ObjectHideFlags: 0
@@ -10732,6 +10830,9 @@ MonoBehaviour:
   rageParticles: {fileID: 8400866889793175973}
   aliveParticles: {fileID: 8145989247587428842}
   weaponParticles: {fileID: 5973616910475382565}
+  eyes:
+  - {fileID: 6801276965633116162}
+  - {fileID: 4093798806261712787}
   aliveParticlesDuration: 1
   animator: {fileID: 2240185744142053734}
   enterTimeDuration: 2.2
@@ -10742,18 +10843,35 @@ MonoBehaviour:
   enrageTimeLength: 1
   projectileDetectionRange: 6
   playerAttackDetectionRange: 10
-  waitTimeBetweenAttacks: 2
+  waitTimeBetweenAttacks: 1
   waitTimeBeforeSpin: 1
-  waitTimeAfterSpin: 3
+  waitTimeAfterSpin: 1
   distanceToTriggerMoveToPlayerAttack: 15
   shieldTime: 0.4
   timeOnGroundAfterSpin: 2.5
   waitToBeHitTime: 1
-  laughTimeAfterHit: 1.5
+  laughTimeAfterHit: 1.2
   deathTime: 2
   deathNotification:
     text: I can't believe you defeated me!
     timeOnScreen: 5
+    sound: 0
+  noHitsNotification:
+    text: Maybe I should hit the dummy while his weapon is stuck on the ground...
+    timeOnScreen: 5
+    sound: 1
+  spinEndNotification:
+    text: Time to smash the dummy while on the ground! Fast!
+    timeOnScreen: 3.5
+    sound: 1
+  spinHitNotification:
+    text: I guess I can only avoid this attack
+    timeOnScreen: 3
+    sound: 1
+  defenseNotification:
+    text: I better not hit it while it's on cover
+    timeOnScreen: 2.5
+    sound: 1
 --- !u!114 &6522571951791476490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10819,10 +10937,10 @@ MonoBehaviour:
   jumpHeight: 40
   phase1JumpTimeLength: 0.7
   phase1JumpAttackHorizontalVelocity: 7
-  phase2JumpTimeLength: 1
-  phase2JumpAttackHorizontalVelocity: 5
-  phase3JumpTimeLength: 1
-  phase3JumpAttackHorizontalVelocity: 5
+  phase2JumpTimeLength: 0.5
+  phase2JumpAttackHorizontalVelocity: 7
+  phase3JumpTimeLength: 0.3
+  phase3JumpAttackHorizontalVelocity: 9
   clubBehindBackTimeFraction: 0.1
   clubAttackTimeFraction: 0.8
   jumpAttackDamage: 10
@@ -10925,27 +11043,28 @@ MonoBehaviour:
   phase1StepAwayVelocity: 10
   phase1DashDuration: 2
   phase1DashVelocity: 25
-  phase2StepAwayTimeLength: 0.5
-  phase2StepAwayVelocity: 5
-  phase2DashDuration: 2
-  phase2DashVelocity: 12
-  phase3StepAwayTimeLength: 1
-  phase3StepAwayVelocity: 3
-  phase3DashDuration: 3
-  phase3DashVelocity: 8
+  phase2StepAwayTimeLength: 0.7
+  phase2StepAwayVelocity: 12
+  phase2DashDuration: 1.7
+  phase2DashVelocity: 35
+  phase3StepAwayTimeLength: 0.5
+  phase3StepAwayVelocity: 15
+  phase3DashDuration: 1.5
+  phase3DashVelocity: 45
   spinAttackTimeLength: 6
-  spinAttackVelocity: 10
+  spinAttackVelocity: 15
+  spinAttackMinDistance: 5
   clubAttackTimeLength: 0.7
   hitboxActivationTime: 0
   hitboxDeactivationTime: 0.9
   clubAttackDamage: 10
   barrelLaunchForce: 10
-  barrelHitForce: 20
-  hitBarrelWaitTime: 1
+  barrelHitForce: 35
+  hitBarrelWaitTime: 1.6
   barrelLifeTime: 5
   barrelDamage: 10
-  moveTowardsPlayerAttackVelocity: 20
-  distanceToPlayerToAttack: 8
+  moveTowardsPlayerAttackVelocity: 35
+  distanceToPlayerToAttack: 5
   moveTowardsPlayerAttackDuration: 0.5
   moveAttackDamage: 10
 --- !u!1 &6522571950882939405
@@ -10988,6 +11107,8 @@ Transform:
   - {fileID: 987961403628052376}
   - {fileID: 8701324199779817368}
   - {fileID: 1496820840140417195}
+  - {fileID: 7271493123179317788}
+  - {fileID: 777209182058569684}
   m_Father: {fileID: 6522571950693075494}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11075,6 +11196,104 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &6801276965633116162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7271493123179317788}
+  - component: {fileID: 8650589619997056438}
+  - component: {fileID: 2133009907925916912}
+  - component: {fileID: 6397076221730831085}
+  m_Layer: 0
+  m_Name: Eye
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7271493123179317788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801276965633116162}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.1, y: 1.142, z: 0.367}
+  m_LocalScale: {x: 0.07, y: 0.03, z: 0.07}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6522571950882939406}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &8650589619997056438
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801276965633116162}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &2133009907925916912
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801276965633116162}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4e65465f9660c824484d288c3f6a2e01, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &6397076221730831085
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6801276965633116162}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7176940767623388162
 GameObject:
   m_ObjectHideFlags: 0
