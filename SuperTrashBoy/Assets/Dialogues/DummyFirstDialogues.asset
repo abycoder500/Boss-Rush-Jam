@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DummyFirstDialogues
   m_EditorClassIdentifier: 
   dialogues:
-  - text: Wow a dummy!
+  - text: Wow a makeshift dummy!
     timeOnScreen: 2
     sound: 0
   - text: I am so bored, time for some fun!

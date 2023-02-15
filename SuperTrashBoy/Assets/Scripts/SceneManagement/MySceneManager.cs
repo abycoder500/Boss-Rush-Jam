@@ -40,12 +40,14 @@ public class MySceneManager : MonoBehaviour
         cachedTimeScale = Time.timeScale;
         Time.timeScale = 0;
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = cachedTimeScale;
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void ReloadCurrentScene()
@@ -85,6 +87,7 @@ public class MySceneManager : MonoBehaviour
 
     public void LoadDummyScene()
     {
+        Debug.Log("load the dummy scene");
         StartCoroutine(LoadScene(1));
     }
 
@@ -100,6 +103,8 @@ public class MySceneManager : MonoBehaviour
 
     private IEnumerator LoadScene(int sceneIndex)
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         yield return fader.FadeOut(loadSceneFadeOutTime);
         audioManager.StopMusic();
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
@@ -113,6 +118,7 @@ public class MySceneManager : MonoBehaviour
         // Also, if we return after the game is finished, this will run the outro sequence.
         if (0 == sceneIndex)
         {
+            Cursor.lockState = CursorLockMode.Confined;
             HookupMenuScenePanels();
             if (willPlayOutroSequence)
             {
