@@ -24,6 +24,7 @@ public class DummyBT : BTUser
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private ParticleSystem aliveParticles = null;
     [SerializeField] private ParticleSystem weaponParticles = null;
+    [SerializeField] private ParticleSystem dieParticles = null;
     [SerializeField] private GameObject[] eyes;
     [SerializeField] private float aliveParticlesDuration = 1f;
     [SerializeField] private Animator animator;
@@ -52,6 +53,7 @@ public class DummyBT : BTUser
     [SerializeField] private NotificationUI.Notification spinEndNotification;
     [SerializeField] private NotificationUI.Notification spinHitNotification;
     [SerializeField] private NotificationUI.Notification defenseNotification;
+    [SerializeField] private NotificationUI.Notification hitBarrelNotification;
 
     private HitReceivedCounter hitReceivedCounter;
     private Fighter playerFighter;
@@ -60,6 +62,7 @@ public class DummyBT : BTUser
     private NotificationUI notificationUI;
 
     private int rage = 0;
+    private int noHitsBarrel = 0;
     private int timesWithNoHits = 0;
     private float enterTimer = 0f;
     private float waitToBeHitTimer = 0f;
@@ -238,14 +241,14 @@ public class DummyBT : BTUser
 
         stage1AttackSelector.AddChild(jumpAttackSequence);
         stage1AttackSelector.AddChild(dashAttackSequence);
-        //stage1AttackSelector.AddChild(launchAndHitSequence);
+        stage1AttackSelector.AddChild(launchAndHitSequence);
 
         stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
         stage2AttackSelector.AddChild(clubAttackSequence);
 
         stage3AttackSelector.AddChild(jumpAttackSequence);
-        stage3AttackSelector.AddChild(dashAttackSequence);
+        //stage3AttackSelector.AddChild(dashAttackSequence);
         stage3AttackSelector.AddChild(clubAttackSequence);
         stage3AttackSelector.AddChild(launchAndHitSequence);
 
@@ -379,10 +382,13 @@ public class DummyBT : BTUser
         deathTimer += Time.deltaTime;
         if(deathTimer <= deathTime)
         {
+            dummyFighter.LookPlayer(false);
             return Node.Status.RUNNING;
         }
         else
         {
+            dieParticles.Play();
+            dieParticles.transform.parent = null;
             this.gameObject.SetActive(false);
             WeaponUpgradePickable upgrade = Instantiate(weaponUpgradePickablePrefab, transform.position, Quaternion.identity);
             upgrade.transform.parent = null;
@@ -661,6 +667,7 @@ public class DummyBT : BTUser
         {
             if (hitReceivedCounter.GetHitReceivedNumber() >= 1) 
             {
+                noHitsBarrel = 0;
                 Enrage();
                 hitReceivedCounter.ResetHits();
                 dummyFighter.DontHitBarrel();
@@ -670,6 +677,12 @@ public class DummyBT : BTUser
             if (dummyFighter.IsAttacking()) return Node.Status.RUNNING;
             else 
             {
+                noHitsBarrel ++;
+                if(noHitsBarrel == 2)
+                {
+                    notificationUI.ShowNotification(hitBarrelNotification);
+                    noHitsBarrel = 0;
+                }
                 isAttacking = false;
                 return Node.Status.SUCCESS;
             }
