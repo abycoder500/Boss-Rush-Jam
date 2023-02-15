@@ -27,6 +27,7 @@ public class Outro : MonoBehaviour
     protected IEnumerator DynamicOutroSequence(Fader fader)
     {
         fader.FadeOutImmediate();
+        Cursor.lockState = CursorLockMode.Locked;
 
         foreach (Transform t in transform)
         {
@@ -59,6 +60,7 @@ public class Outro : MonoBehaviour
         }
         else
         {
+            Cursor.lockState = CursorLockMode.Confined;
             Invoke(nameof(Start), 1f);
         }
     }

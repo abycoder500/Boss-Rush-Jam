@@ -25,6 +25,8 @@ public class Intro : MonoBehaviour
 
     protected IEnumerator DynamicIntroSequence(Fader fader)
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         fader.FadeOutImmediate();
 
         foreach (Transform t in transform)
@@ -51,6 +53,8 @@ public class Intro : MonoBehaviour
 
         yield return new WaitForSeconds(mainMenuTime);
         yield return fader.FadeIn(mainMenuFadeInTime);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Invoke(nameof(Start), 1f);
     }
 
