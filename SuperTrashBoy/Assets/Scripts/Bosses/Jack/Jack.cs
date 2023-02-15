@@ -39,6 +39,8 @@ public class Jack : MonoBehaviour
     public float waveSpeed = 0.1f; //Speed of the wave
     public float waveDamage = 10f;
     public float hammerAttackDamage = 20f;
+    private float slamAnimTime = 1.5f;
+    private float hammerDownTime = 0.5f;
     //Barrels
     public float barrelSpawnHeight = 50f;
     public int noOfBarrels = 5;
@@ -59,9 +61,9 @@ public class Jack : MonoBehaviour
     private bool mInAttack = false;
     private bool mHasTakenDamage = false;
     private int mAttacksAfterDamageTaken = 0;
-    public bool hammerDown = false;
-    private bool mAnimationFinished = false;    //Set true when an animation has finished, set back to false
-                                                //when that's handled
+    //private bool mAnimationFinished = false;    //Set true when an animation has finished, set back to false
+    //when that's handled
+    private bool hammerDown = false;
     private float mAttackStartTime;             //Emergancy timer to make sure we're not stuck in a state if the animations mess up
     private float moveOnTime = 20f;
     private float barrelThrowStart = 0;
@@ -153,8 +155,7 @@ public class Jack : MonoBehaviour
                 break;
 
             case states.hammerSwing:
-                //HammerAttack();
-                mCurrentState = states.neutral;
+                HammerAttack();
                 break;
 
             case states.spinSpit:
@@ -278,7 +279,7 @@ public class Jack : MonoBehaviour
 
     public void AnimationFinished()
     {
-        mAnimationFinished = true;
+        //mAnimationFinished = true;
     }
 
     public void SetHammerDown()
@@ -296,25 +297,25 @@ public class Jack : MonoBehaviour
             Debug.Log("Hammer Swing");
             //Set up
             LookAtPlayer();
-            animator.SetTrigger("isHammerAttack");
+            //animator.SetTrigger("isHammerAttack");
+            animator.Play("jack_rig|jack_slam");
             mInAttack = true;
+            hammerDown = false;
             hammerHitbox.SetupHitBox(gameObject, hammerAttackDamage);
             hammerHitbox.gameObject.SetActive(true);
             mAttackStartTime = Time.time;
         }
 
-        if (hammerDown)
+        if (Time.time > mAttackStartTime + hammerDownTime && hammerDown == false)
         {
             SpawnHammerWave();
-            hammerDown = false;
+            hammerDown = true;
         }
 
-
-        if (mAnimationFinished || Time.time > mAttackStartTime + moveOnTime)
+        if (Time.time > mAttackStartTime + slamAnimTime)
         {
             hammerHitbox.gameObject.SetActive(false);
             animator.ResetTrigger("isHammerAttack");
-            mAnimationFinished = false;
             //Leaving the state
             mInAttack = false;
             if (oneLastAttack)
@@ -327,7 +328,9 @@ public class Jack : MonoBehaviour
 
     private void SpawnHammerWave()
     {
-        GameObject waveInstance = Instantiate(wave, transform);
+        GameObject waveInstance = Instantiate(wave, transform.position, transform.rotation);
+        waveInstance.transform.Rotate(new Vector3(90, 0, 0));
+        waveInstance.transform.position += new Vector3(0, 0.4f, 0);
         waveInstance.SetActive(true);
         waveInstance.GetComponent<WaveAttackController>().SetSpeedAndLifetime(waveSpeed, waveTime);
         HitBox waveHitbox = waveInstance.GetComponent<HitBox>();
@@ -348,7 +351,7 @@ public class Jack : MonoBehaviour
             Debug.Log("Barrel Throw");
             //Set up
             LookAtPlayer();
-            //animator.SetTrigger("isHammerAttack");
+            animator.SetTrigger("isSwinging");
             mInAttack = true;
             barrelThrowStart = Time.time;
             barrelsThrown = 0;
@@ -366,6 +369,7 @@ public class Jack : MonoBehaviour
             else
             {
                 //We've spawned all the barrels we need to, end the attack
+                animator.ResetTrigger("isSwinging");
                 mCurrentState = states.neutral;
                 mInAttack = false;
                 if (oneLastAttack)

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5020308592435838865}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: arm_IK_Target.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 207365030631197663}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: hand.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 550769981895511502}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: head_bone_upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 8544472638750605802}
   - component: {fileID: 7023436103900407679}
   - component: {fileID: 7882970895327110420}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: HealthImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4794336766627520073}
   - component: {fileID: 1021066156948767474}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: BossHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 8413050361136072582}
   - component: {fileID: 5067978207389494511}
   - component: {fileID: 2434728916255029247}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 8250241374494409184}
   - component: {fileID: 4585119916800494073}
   - component: {fileID: 7791581457047111359}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: jack_character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6314220941106085895}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: torso_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 7363288395452067282}
   - component: {fileID: 4085556602060493256}
   - component: {fileID: 5484167277499960057}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1741134070657007902}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upper_arm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7051847514902827855}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: windup_bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9128206670561323329}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lower_arm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3384455329180451138}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: fingers.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2634936432224887175}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: arm_IK.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -725,7 +725,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 991230730172180379}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lid_bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,7 +756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9021823961355997394}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: arm_IK_Target.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 3890020753993383277}
   - component: {fileID: 3812767892610403220}
   - component: {fileID: 6785822583224798290}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: HealthImageTransparent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -864,7 +864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6323056993202153906}
   - component: {fileID: 6323056993202153902}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Jack In The Boss
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -931,7 +931,6 @@ MonoBehaviour:
   bulletLifetime: 1
   bulletOffset: {x: 0, y: 4, z: 0}
   attacksForPhaseChange: 3
-  hammerDown: 0
   health: {fileID: 198545842483655210}
 --- !u!1 &6323056993786612762
 GameObject:
@@ -942,7 +941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6323056993786612765}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4832255648920014022}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upper_arm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1006,7 +1005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 834205402553672044}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1039,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 474053633811523949}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: fingers.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,7 +1070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2227346148025869734}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: hand.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1103,7 +1102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6724050401466845028}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: torso_bone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,7 +1136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2655446118059013075}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lower_arm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1169,7 +1168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5667833379915523036}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: head_bone_lower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1201,7 +1200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4521242894795021214}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: arm_IK.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1233,7 +1232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8934756542298561863}
   - component: {fileID: 379378906269491476}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Jack_Anims
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1270,7 +1269,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5e83231995ed7334385bc63ff290bff4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1286,7 +1285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3970810109094439090}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: jack_rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1324,7 +1323,7 @@ GameObject:
   - component: {fileID: 7122809762927554919}
   - component: {fileID: 983926567669576825}
   - component: {fileID: 2819152769054656780}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Jack Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1401,7 +1400,7 @@ GameObject:
   - component: {fileID: 254275578207271520}
   - component: {fileID: 5048718802932436824}
   - component: {fileID: 198545842483655210}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1473,7 +1472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7298560625455211307}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: spring_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1563,10 +1562,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jack_hammer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1976944943016075259, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554022541912527124, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5674074370921563190, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7337087565504490415, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c0d4be603d1dab14e8c2222e4a0fb322, type: 2}
+    - target: {fileID: 8313540607360419662, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c12734cb2bd0d21429cd74d0b8fac830, type: 3}
 --- !u!4 &5424766048130960860 stripped
