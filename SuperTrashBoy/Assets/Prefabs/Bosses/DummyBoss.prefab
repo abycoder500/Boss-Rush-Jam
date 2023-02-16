@@ -15887,9 +15887,9 @@ MonoBehaviour:
   phase3DashDuration: 1.5
   phase3DashVelocity: 45
   spinAttackTimeLength: 6
-  spinAttackVelocity: 17
-  spinAttackMinDistance: 5
-  clubAttackTimeLength: 0.7
+  spinAttackVelocity: 14
+  spinAttackMinDistance: 6
+  clubAttackTimeLength: 1
   hitboxActivationTime: 0
   hitboxDeactivationTime: 0.9
   clubAttackDamage: 10
