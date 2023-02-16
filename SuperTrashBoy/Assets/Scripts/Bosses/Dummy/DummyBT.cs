@@ -401,7 +401,7 @@ public class DummyBT : BTUser
             this.gameObject.SetActive(false);
             WeaponUpgradePickable upgrade = Instantiate(weaponUpgradePickablePrefab, transform.position, Quaternion.identity);
             upgrade.transform.parent = null;
-            upgrade.Spawn();
+            upgrade.Spawn(Vector3.zero);
             audioManager.StopMusic();
             return Node.Status.SUCCESS;
         }
