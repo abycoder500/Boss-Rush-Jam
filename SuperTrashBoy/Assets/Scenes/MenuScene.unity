@@ -876,15 +876,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 0dde9240112a1eaacbddf6cc7e556901, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2902,7 +2902,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 444857228}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.09772726
+  m_Size: 0.09772728
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3351,8 +3351,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Armageddump
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
-  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
