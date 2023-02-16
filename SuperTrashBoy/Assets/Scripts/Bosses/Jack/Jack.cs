@@ -171,7 +171,7 @@ public class Jack : MonoBehaviour
     {
         if (mAttacksAfterDamageTaken >= attacksForPhaseChange)
         {
-            if (oneLastAttackDone == true)  //Make sure there is always a purple attack after running out of health
+            if (oneLastAttackDone == true || mNoHealth == false)  //Make sure there is always a purple attack after running out of health
             {
                 fightManager.SeekPhase(lastAttack, health.GetCurrentHealth(), mNoHealth);
                 Destroy(gameObject);
@@ -321,8 +321,6 @@ public class Jack : MonoBehaviour
             animator.ResetTrigger("isHammerAttack");
             //Leaving the state
             mInAttack = false;
-            if (oneLastAttack)
-                oneLastAttackDone = true;
             mCurrentState = states.neutral;
             if (mHasTakenDamage)
                 mAttacksAfterDamageTaken++;
@@ -375,8 +373,6 @@ public class Jack : MonoBehaviour
                 animator.ResetTrigger("isSwinging");
                 mCurrentState = states.neutral;
                 mInAttack = false;
-                if (oneLastAttack)
-                    oneLastAttackDone = true;
                 if (mHasTakenDamage)
                     mAttacksAfterDamageTaken++;
             }
@@ -418,8 +414,6 @@ public class Jack : MonoBehaviour
             LookAtPlayer();
             mCurrentState = states.neutral;
             mInAttack = false;
-            if (oneLastAttack)
-                oneLastAttackDone = true;
             if (mHasTakenDamage)
                 mAttacksAfterDamageTaken++;
         }
@@ -451,6 +445,7 @@ public class Jack : MonoBehaviour
         if (mNoHealth && mAttacksAfterDamageTaken == attacksForPhaseChange)
         {
             lastAttack = finalAttack;
+            oneLastAttackDone = true;
             return finalAttack;
         }
         else
