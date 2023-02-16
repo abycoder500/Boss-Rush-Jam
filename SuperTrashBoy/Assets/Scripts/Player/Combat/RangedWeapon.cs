@@ -9,12 +9,13 @@ public class RangedWeapon : MeleeWeapon
     [SerializeField] private Projectile projectilePrefab;
     [SerializeField] private float launchForce = 10f;
     [SerializeField] private float timeBetweenFireAttacks = 2f;
+    [SerializeField] private float leftCorrection = 0.2f;
 
     public void Fire(GameObject instigator, Action AttackFinished)
     {
         Projectile projectile = Instantiate(projectilePrefab, projectileSpawnPoint);
         projectile.transform.parent = null;
-        projectile.Launch(launchForce * transform.forward, damage, instigator, this);
+        projectile.Launch(launchForce * Camera.main.transform.forward - leftCorrection *Camera.main.transform.right, damage, instigator, this);
         StartCoroutine(ResetAttack(AttackFinished, timeBetweenFireAttacks)); 
     }
 
