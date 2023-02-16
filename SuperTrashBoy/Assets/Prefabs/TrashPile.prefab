@@ -81,8 +81,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPickablePrefab: {fileID: 3501365158643847429, guid: 71a347b0506a0734d9385a7c60d6ad35, type: 3}
+  stickPrefab: {fileID: 3656525531004756889, guid: a15bce4329b644749bf27c6c9266918d, type: 3}
   numberOfHealthSpawn: 4
-  numberOfWeaponPartsSpawn: 0
+  numberOfSticksSpawn: 0
   spawnForce: 8
   verticalSpawnAngle: 45
 --- !u!65 &575779291589842961

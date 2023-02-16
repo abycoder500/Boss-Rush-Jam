@@ -13,9 +13,10 @@ public abstract class Pickable : MonoBehaviour
 
     protected GameObject player;
 
-    private void Start() 
+    protected virtual void Start() 
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(player.name);
         if (lifeTime > 0)
         {
             Destroy(this.gameObject, lifeTime);
@@ -24,15 +25,19 @@ public abstract class Pickable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
+        Debug.Log("trigger");
         if(interactWithPlayerOnly)
         {
+            Debug.Log(other.name);
+            Debug.Log(player.name);
             if (other.gameObject == player)
             {
+                Debug.Log("player");
                 Collect();
             }
         }
         else
-        {
+        {  
             Collect();
         }    
     }
