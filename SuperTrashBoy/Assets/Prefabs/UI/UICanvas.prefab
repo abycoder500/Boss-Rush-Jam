@@ -533,8 +533,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game is paused
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
-  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.30189976, g: 0.18416114, b: 0.24669261, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1025,8 +1025,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4290756607
+  m_fontColor: {r: 1, g: 0.75, b: 0.75, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1153,8 +1153,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BossNameHere
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
-  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1295,8 +1295,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4290756607
+  m_fontColor: {r: 1, g: 0.75, b: 0.75, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3566186, g: 0.6824598, b: 0.64336616, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
