@@ -8,8 +8,9 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
     private GameObject instigator;
-    private RangedWeapon weapon;
+    private Weapon weapon;
     private float damage;
+    private bool collide = true;
 
     private void Awake() 
     {
@@ -23,6 +24,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
+        if(!collide) return;
         Debug.Log("collided with " + other.name);
         if(other.gameObject == this) return;
         if(other.gameObject == instigator) return;
@@ -37,11 +39,17 @@ public class Projectile : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Launch(Vector3 launchForce, float damage, GameObject instigator, RangedWeapon weapon)
+    public void Launch(Vector3 launchForce, float damage, GameObject instigator, Weapon weapon)
     {
         this.instigator = instigator; 
         this.damage = damage;
         this.weapon = weapon;
         rb.AddForce(launchForce, ForceMode.Impulse);
+    }
+
+    public void Launch(Vector3 launchForce, float damage, GameObject instigator, Weapon weapon, bool collide)
+    {
+        this.collide = collide;
+        Launch(launchForce, damage, instigator, weapon);
     }
 }

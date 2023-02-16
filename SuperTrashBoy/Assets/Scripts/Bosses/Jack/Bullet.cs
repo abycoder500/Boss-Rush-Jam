@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
         damage = inDamage;
         hitbox.SetupHitBox(instigator, damage);
         spawnTime = Time.time;
-        hitbox.onCollidedWithAnything += DestroyNextFrame;
+        hitbox.onCollidedWithLayers += DestroyNextFrame;
     }
 
     private void DestroyNextFrame()

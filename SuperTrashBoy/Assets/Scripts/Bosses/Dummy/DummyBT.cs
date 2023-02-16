@@ -113,6 +113,8 @@ public class DummyBT : BTUser
         Inverter waitForNextAttackInverter = new Inverter("Wait inverter");
 
         Leaf findPlayerLocation = new Leaf("Find Player Location", FindPlayerLocation);
+        Leaf startProtectAnimation = new Leaf("Protect animation", StartProtectAnimation);
+        Leaf endProtectAnimation = new Leaf("End protect animation", EndProtectAnimation);
         Leaf checkForRangeAttack = new Leaf("Check for range attack", CheckForIncomingRangeAttack);
         Leaf checkForMeleeAttack = new Leaf("Check for melee attack", CheckForMeleeAttack);
         Leaf resetHits = new Leaf("Reset hits", ResetHitCounter);
@@ -241,7 +243,7 @@ public class DummyBT : BTUser
 
         stage1AttackSelector.AddChild(jumpAttackSequence);
         stage1AttackSelector.AddChild(dashAttackSequence);
-        stage1AttackSelector.AddChild(launchAndHitSequence);
+        //stage1AttackSelector.AddChild(launchAndHitSequence);
 
         stage2AttackSelector.AddChild(jumpAttackSequence);
         stage2AttackSelector.AddChild(dashAttackSequence);
@@ -252,19 +254,25 @@ public class DummyBT : BTUser
         stage3AttackSelector.AddChild(clubAttackSequence);
         stage3AttackSelector.AddChild(launchAndHitSequence);
 
+        stage1AttacksLoop.AddChild(startProtectAnimation);
         stage1AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage1AttacksLoop.AddChild(endProtectAnimation);
         stage1AttacksLoop.AddChild(findPlayerLocation);
         stage1AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage1AttacksLoop.AddChild(resetAnimatorTriggers);
         stage1AttacksLoop.AddChild(stage1AttackSelector);
 
+        stage2AttacksLoop.AddChild(startProtectAnimation);
         stage2AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage2AttacksLoop.AddChild(endProtectAnimation);
         stage2AttacksLoop.AddChild(findPlayerLocation);
         stage2AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage2AttacksLoop.AddChild(resetAnimatorTriggers);
         stage2AttacksLoop.AddChild(stage2AttackSelector);
 
+        stage3AttacksLoop.AddChild(startProtectAnimation);
         stage3AttacksLoop.AddChild(checkForPlayerAttacks);
+        stage3AttacksLoop.AddChild(endProtectAnimation);
         stage3AttacksLoop.AddChild(findPlayerLocation);
         stage3AttacksLoop.AddChild(checkForPlayerDistanceSelector);
         stage3AttacksLoop.AddChild(resetAnimatorTriggers);
@@ -377,7 +385,8 @@ public class DummyBT : BTUser
             isDead = true;
             notificationUI.ShowNotification(deathNotification);
             animator.SetTrigger("Die");
-            Instantiate(deathSFXPrefab, transform.position, Quaternion.identity);
+            SFXObject instance = Instantiate(deathSFXPrefab, transform.position, Quaternion.identity);
+            instance.transform.parent = null;
         }
         deathTimer += Time.deltaTime;
         if(deathTimer <= deathTime)
@@ -393,6 +402,7 @@ public class DummyBT : BTUser
             WeaponUpgradePickable upgrade = Instantiate(weaponUpgradePickablePrefab, transform.position, Quaternion.identity);
             upgrade.transform.parent = null;
             upgrade.Spawn();
+            audioManager.StopMusic();
             return Node.Status.SUCCESS;
         }
         
@@ -518,7 +528,7 @@ public class DummyBT : BTUser
             if(IsPlayerWithinRange(playerAttackDetectionRange))
             {
                 Debug.Log("Keep Player From Attacking");
-                animator.SetTrigger("Protect");
+                animator.SetBool("Protect", false);
                 ResetRage(false);
                 Pause(shieldTime, null);
                 player.GetComponent<PlayerController>().TakeKnockBack(0f,this.transform);
@@ -526,6 +536,18 @@ public class DummyBT : BTUser
                 return Node.Status.SUCCESS; 
             }
         }
+        return Node.Status.SUCCESS;
+    }
+
+    private Node.Status StartProtectAnimation()
+    {
+        animator.SetBool("Protect", true);
+        return Node.Status.SUCCESS;
+    }
+
+    private Node.Status EndProtectAnimation()
+    {
+        animator.SetBool("Protect", false);
         return Node.Status.SUCCESS;
     }
 

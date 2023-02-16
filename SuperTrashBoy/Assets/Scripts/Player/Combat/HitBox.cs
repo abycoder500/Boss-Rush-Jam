@@ -6,11 +6,12 @@ using UnityEngine.Events;
 
 public class HitBox : MonoBehaviour
 {
+    [SerializeField] LayerMask collisionLayers;
     private GameObject instigator;
     private float damage;
 
     public event Action<GameObject> onHit;
-    public event Action onCollidedWithAnything;
+    public event Action onCollidedWithLayers;
     public UnityEvent OnHit;
 
     public void SetupHitBox(GameObject instigator, float damage)
@@ -24,7 +25,7 @@ public class HitBox : MonoBehaviour
         if (other.gameObject == instigator) return;
         if (other.gameObject == this.gameObject) return;
 
-        onCollidedWithAnything?.Invoke();
+        if ((collisionLayers.value & 1 << other.gameObject.layer) > 0) onCollidedWithLayers?.Invoke();
 
         if (instigator == null)
             instigator = gameObject;    //Protection against the instigator being destroyed while this is still active

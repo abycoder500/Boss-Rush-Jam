@@ -137,7 +137,7 @@ public class DummyFighter : MonoBehaviour
 
     private void OnEnable() 
     {
-        clubHitBox.onCollidedWithAnything += () => Instantiate(hitSFXPrefab, transform.position, Quaternion.identity);    
+        clubHitBox.onCollidedWithLayers += () => Instantiate(hitSFXPrefab, transform.position, Quaternion.identity);    
     }
 
     private void Update() 
