@@ -57,7 +57,11 @@ public class FightManager : MonoBehaviour
             }
         }
 
-        currentHealth = remainingHealth;
+        if (remainingHealth > 10)
+            currentHealth = remainingHealth;
+        else
+            currentHealth = 10;
+
         //Spawn the correct box
         int randLocation;
         if (isFinal)
