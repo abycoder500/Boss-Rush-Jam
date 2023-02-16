@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You died!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
-  m_sharedMaterial: {fileID: -6714334045650688776, guid: c02705360a90dd24bb07d8963eede8ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
+  m_sharedMaterial: {fileID: -6714334045650688776, guid: 7eb2ca7e0db0c77859f14bb4124e168a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
