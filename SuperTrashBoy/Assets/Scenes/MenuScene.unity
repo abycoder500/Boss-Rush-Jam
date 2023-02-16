@@ -506,7 +506,6 @@ MonoBehaviour:
 
 
 
-
     <b>Code:</b>
 
 
@@ -517,22 +516,27 @@ MonoBehaviour:
 
     - Dummy AI
 
+    - VFX and animations
+
     - Game play
 
-    - Original Main-menu and
-    Intro Sequence
+    -
+    Original Main-menu and Intro Sequence
 
 
     heckert
 
-    - Quality of Life coding and release setup
+    - Quality of Life coding
+    and release setup
 
-    -
-    Expanded Intro Sequence
+    - Expanded Intro Sequence
 
     - Credits Roll
 
-    - Pause Mode
+    - Pause
+    Mode
+
+    - Enhanced Main menu
 
     - Playtesting
 
@@ -613,6 +617,7 @@ MonoBehaviour:
     composer
 
     - sound designer
+
 
 
 

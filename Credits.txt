@@ -18,12 +18,12 @@ RedDragonMakesGames
 - game designer
 
 
-
 <b>Code:</b>
 
 Vitbull88
 - Project skeleton
 - Dummy AI
+- VFX and animations
 - Game play
 - Original Main-menu and Intro Sequence
 
@@ -32,6 +32,8 @@ heckert
 - Expanded Intro Sequence
 - Credits Roll
 - Pause Mode
+- Enhanced Main menu
+- Playtesting
 
 RedDragonMakesGames
 - Enemy AI
@@ -75,6 +77,7 @@ Pablo Wunderlich
 Gabriel Mielnik
 - composer
 - sound designer
+
 
 
 
