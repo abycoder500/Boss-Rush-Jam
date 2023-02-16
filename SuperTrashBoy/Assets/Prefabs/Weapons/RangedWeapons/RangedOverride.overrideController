@@ -8,8 +8,4 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: RangedOverride
   m_Controller: {fileID: 9100000, guid: 429fb487d6173fa4d95a0fe52cbb83d7, type: 2}
-  m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: 74c585f3758c7e04986bccd2964c5297, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 5067e02d8e112644cad5c82c0835ca1e, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 5067e02d8e112644cad5c82c0835ca1e, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 74c585f3758c7e04986bccd2964c5297, type: 2}
+  m_Clips: []
