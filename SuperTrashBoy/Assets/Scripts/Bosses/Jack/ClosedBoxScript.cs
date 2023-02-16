@@ -30,6 +30,7 @@ public class ClosedBoxScript : MonoBehaviour
     public void SetFinalBox()
     {
         isFinalBox = true;
+        isFake = false;
     }
 
     private void AwakeBoxes()
