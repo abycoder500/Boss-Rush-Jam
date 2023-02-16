@@ -64,8 +64,7 @@ public class Jack : MonoBehaviour
     //private bool mAnimationFinished = false;    //Set true when an animation has finished, set back to false
     //when that's handled
     private bool hammerDown = false;
-    private float mAttackStartTime;             //Emergancy timer to make sure we're not stuck in a state if the animations mess up
-    private float moveOnTime = 20f;
+    private float mAttackStartTime;
     private float barrelThrowStart = 0;
     private int barrelsThrown = 0;
     private float spitSpinStart = 0;

@@ -153,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hitbox
       objectReference: {fileID: 0}
+    - target: {fileID: 638865620051540535, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
+      propertyPath: collisionLayers.m_Bits
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c70b0bab880dc2429e7728b0eae2342, type: 3}
 --- !u!114 &427117533872341616 stripped

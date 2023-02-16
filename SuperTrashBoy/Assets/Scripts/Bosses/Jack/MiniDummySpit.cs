@@ -11,7 +11,6 @@ public class MiniDummySpit : MonoBehaviour
     public float bulletDamage = 5f;
     public float bulletSpeed = 1f;
     public float bulletLifetime = 1f;
-    private float spitTime = 0.5f;
     public Vector3 bulletOffset = new Vector3(0, -2);
 
     private float lastBulletTime = 0;

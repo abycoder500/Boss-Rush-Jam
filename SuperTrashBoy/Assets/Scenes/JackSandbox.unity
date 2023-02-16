@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jack: {fileID: 6323056993202153903, guid: 605a7f51e2535b44d9ae73e362a83994, type: 3}
   miniJack: {fileID: 3898210874214689899, guid: 48c2320e8cb7a8e43a9c5301944b964c, type: 3}
-  box: {fileID: 7453769819699037229, guid: 329b3c40c25717048b7ae24edd69d807, type: 3}
+  box: {fileID: 4705229102694255271, guid: a082e83756da6b344974a8770865374c, type: 3}
   startSpot: {fileID: 283407844}
   spawnSpots:
   - {fileID: 1749627091}
@@ -346,6 +346,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f791c4e2bc76c0b4290bf93e74c2699a, type: 2}
   - {fileID: 2100000, guid: 1beb81df69df6394f83100f94afad4c3, type: 2}
   finalAttackMaterial: {fileID: 2100000, guid: de9f89c5fec9b334da019b4e6536ff6d, type: 2}
+  miniMaterials:
+  - {fileID: 2100000, guid: d14ccdb67c340b5438a89badc80102b2, type: 2}
+  - {fileID: 2100000, guid: c616e8f0f7c26534a97a468ef75d7be4, type: 2}
+  - {fileID: 2100000, guid: 71a471ccf417bc0448c97c84b34357d7, type: 2}
+  finalMiniMaterial: {fileID: 2100000, guid: 83d8690fd34d0dc4fa89bd6955c710f9, type: 2}
   startingHealth: 200
 --- !u!4 &706745022
 Transform:
@@ -725,19 +730,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1627235813228088440, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.7381814
+      value: 3.8891866
       objectReference: {fileID: 0}
     - target: {fileID: 1627235813228088440, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.8862076
+      value: 5.7365184
       objectReference: {fileID: 0}
     - target: {fileID: 1627235813825106970, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.7381814
+      value: 3.8891866
       objectReference: {fileID: 0}
     - target: {fileID: 1627235813825106970, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.8862076
+      value: 5.7365184
       objectReference: {fileID: 0}
     - target: {fileID: 1627235813885527142, guid: a0f469eccdcb6e044b452c0c2f5bcf11, type: 3}
       propertyPath: m_LocalPosition.y

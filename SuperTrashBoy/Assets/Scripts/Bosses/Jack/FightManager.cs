@@ -15,6 +15,9 @@ public class FightManager : MonoBehaviour
     [SerializeField] public Material[] attackMaterials;
     [SerializeField] public Material finalAttackMaterial;
 
+    [SerializeField] public Material[] miniMaterials;   //Must be ordered the same as the attack materials
+    [SerializeField] public Material finalMiniMaterial;
+
     [SerializeField] private float startingHealth = 200;
     private float currentHealth;
 
@@ -34,6 +37,25 @@ public class FightManager : MonoBehaviour
 
     public void SeekPhase(Material lastAttack, float remainingHealth, bool isFinal)
     {
+        //Destroy all miniJacks
+        MiniDummySpit[] minis = FindObjectsOfType<MiniDummySpit>();
+        for (int i = 0; i < minis.Length; i++)
+        {
+            Destroy(minis[i].gameObject.transform.parent.gameObject);
+        }
+
+        int lastAttackIndex = -1;
+        if (!isFinal)
+        {
+            for (int i = 0; i < attackMaterials.Length; i++)
+            {
+                if (lastAttack == attackMaterials[i])
+                {
+                    lastAttackIndex = i;
+                    break;
+                }
+            }
+        }
 
         currentHealth = remainingHealth;
         //Spawn the correct box
@@ -43,15 +65,16 @@ public class FightManager : MonoBehaviour
             //Spawn the end box on finalSpot here
             randLocation = -1;  //Allow boxes to spawn in all other spots
             GameObject boxInst = Instantiate(box, finalSpot.position, finalSpot.rotation);
-            boxInst.GetComponent<ClosedBoxScript>().SetFinalBox();
-            boxInst.GetComponent<Renderer>().material = lastAttack;
+            boxInst.GetComponentInChildren<ClosedBoxScript>().SetFinalBox();
+            boxInst.GetComponentInChildren<Renderer>().material = finalMiniMaterial;
+            //To do: Make box smaller
         }
         else
         {
             randLocation = Random.Range(0, spawnSpots.Length);
             GameObject boxInst = Instantiate(box, spawnSpots[randLocation].position, spawnSpots[randLocation].rotation);
-            boxInst.GetComponent<ClosedBoxScript>().SetUpBox(false);
-            boxInst.GetComponent<Renderer>().material = lastAttack;
+            boxInst.GetComponentInChildren<ClosedBoxScript>().SetUpBox(false);
+            boxInst.GetComponentInChildren<Renderer>().material = miniMaterials[lastAttackIndex];
         }
 
         //Spawn the other boxes
@@ -68,8 +91,8 @@ public class FightManager : MonoBehaviour
                         valid = true;
                 }
                 GameObject fakeBoxInst = Instantiate(box, spawnSpots[i].position, spawnSpots[i].rotation);
-                fakeBoxInst.GetComponent<ClosedBoxScript>().SetUpBox(true);
-                fakeBoxInst.GetComponent<Renderer>().material = attackMaterials[j];
+                fakeBoxInst.GetComponentInChildren<ClosedBoxScript>().SetUpBox(true);
+                fakeBoxInst.GetComponentInChildren<Renderer>().material = miniMaterials[j];
             }
         }
     }

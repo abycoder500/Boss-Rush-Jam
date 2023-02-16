@@ -50,13 +50,13 @@ public class ClosedBoxScript : MonoBehaviour
     {
         if (isFake)
         {
-            manager.SpawnMiniJack(transform);
+            manager.SpawnMiniJack(transform.parent.transform);
         }
         else
         {
-            manager.SpawnJack(transform);
+            manager.SpawnJack(transform.parent.transform);
         }
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 
     private void HandleBattleEnd()
