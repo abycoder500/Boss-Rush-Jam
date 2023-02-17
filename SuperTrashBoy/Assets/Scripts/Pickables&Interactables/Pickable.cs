@@ -16,7 +16,7 @@ public abstract class Pickable : MonoBehaviour
     protected virtual void Start() 
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Debug.Log(player.name);
+        //Debug.Log(player.name);
         if (lifeTime > 0)
         {
             Destroy(this.gameObject, lifeTime);
@@ -25,11 +25,11 @@ public abstract class Pickable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("trigger");
+        //Debug.Log("trigger");
         if(interactWithPlayerOnly)
         {
-            Debug.Log(other.name);
-            Debug.Log(player.name);
+            //Debug.Log(other.name);
+            //Debug.Log(player.name);
             if (other.gameObject == player)
             {
                 Debug.Log("player");

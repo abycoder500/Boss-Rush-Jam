@@ -71,7 +71,6 @@ public class Jack : MonoBehaviour
     private float lastBulletTime = 0;
 
     private bool mNoHealth = false;
-    private bool oneLastAttack = false;         //Added to stop the boss transitioning without showing purple
     private bool oneLastAttackDone = false;
 
     private Material lastAttack;
@@ -176,8 +175,6 @@ public class Jack : MonoBehaviour
                 fightManager.SeekPhase(lastAttack, health.GetCurrentHealth(), mNoHealth);
                 Destroy(gameObject);
             }
-            else
-                oneLastAttack = true;
         }
         if (IsPlayerLOS())
         {

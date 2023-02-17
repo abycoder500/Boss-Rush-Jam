@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class KaijuController : MonoBehaviour
 {
+    [SerializeField] string bossName = "The Kaiju";
+    [SerializeField] Animator animator;
+
     private bool mInAttack = false;
 
     //GameObjects for attacks
@@ -34,6 +37,10 @@ public class KaijuController : MonoBehaviour
     public float windHeight = 9.5f;
     private GameObject windInst = null;
 
+    //Swipe variables
+    public float swipeDamage = 20f;
+
+
     //Reposition variables
     public float waitMaximum = 5.0f;
     public float withdrawSpeed = 1.0f;
@@ -47,7 +54,10 @@ public class KaijuController : MonoBehaviour
     private bool movingForward = false;
 
     //Variables for flow control
-    public float mCurrentAttackTime = 0;
+    private float mCurrentAttackTime = 0;
+    private float roarTime = 1.5f;
+    private float swipeTime = 4.5f;
+    private bool rotationSet = false;
 
     private GameObject player;
     public GameObject ground;
@@ -75,6 +85,8 @@ public class KaijuController : MonoBehaviour
         {
             Debug.LogError("No ground object specified");
         }
+        animator = GetComponentInChildren<Animator>();
+
         //Start by disarming the player
         ChangeState(states.disarmingRoar);
     }
@@ -88,9 +100,24 @@ public class KaijuController : MonoBehaviour
 
     private void LookAtCenter()
     {
-        transform.LookAt(ground.transform);
-        //Make sure Jack isn't tilting up or down
-        transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
+
+        if (mCurrentState == states.handSlam)
+        {
+            if (!rotationSet)
+            {
+                rotationSet = true;
+                transform.LookAt(player.transform);
+                //Make sure Jack isn't tilting up or down
+                transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y + 50);
+            }
+        }
+        else
+        {
+            transform.LookAt(ground.transform);
+            transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
+        }
+
+
     }
 
     // Update is called once per frame
@@ -112,8 +139,7 @@ public class KaijuController : MonoBehaviour
                 break;
 
             case states.handSlam:
-                //TODO
-                ChangeState(states.neutral);
+                HandSlam();
                 break;
 
             case states.roar:
@@ -263,10 +289,32 @@ public class KaijuController : MonoBehaviour
             mCurrentAttackTime = Time.time;
             windInst = Instantiate(wind, ground.transform.position, transform.rotation);
             windInst.transform.position = new Vector3(windInst.transform.position.x, windHeight, windInst.transform.position.z);
+            animator.SetTrigger("isSlowRoar");
         }
 
         if (Time.time > mCurrentAttackTime + windTime)
         {
+            animator.ResetTrigger("isSlowRoar");
+            Destroy(windInst);
+            mInAttack = false;
+            ChangeState(states.neutral);
+        }
+    }
+
+    private void HandSlam()
+    {
+        if (!mInAttack)
+        {
+            //We've hit this point for the first time
+            mInAttack = true;
+            mCurrentAttackTime = Time.time;
+            animator.SetTrigger("isSwipeL");
+            rotationSet = false;
+        }
+
+        if (Time.time > mCurrentAttackTime + swipeTime)
+        {
+            animator.ResetTrigger("isSwipeL");
             Destroy(windInst);
             mInAttack = false;
             ChangeState(states.neutral);
@@ -279,13 +327,15 @@ public class KaijuController : MonoBehaviour
         {
             mInAttack = true;
             player.GetComponent<Fighter>().UnequipWeapon();
+            animator.SetTrigger("isRoar");
+            //TODO: put sound here
+            mCurrentAttackTime = Time.time;
         }
 
-        //TODO: wait for animations here
-
-        // if animations are done
+        if (Time.time > mCurrentAttackTime + roarTime)
         {
             mInAttack = false;
+            animator.ResetTrigger("isRoar");
             ChangeState(states.neutral);
         }
     }
