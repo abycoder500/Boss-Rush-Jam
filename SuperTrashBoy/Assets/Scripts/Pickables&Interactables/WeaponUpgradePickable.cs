@@ -42,6 +42,7 @@ public class WeaponUpgradePickable : Pickable
         notificationUI.ShowNotification(notificationOnCollect);
         if (dialogueTrigger!= null)
             dialogueTrigger.StartDialogue();
+        player.GetComponent<Fighter>().UnequipWeapon();
         player.GetComponent<Fighter>().EquipWeapon(weapon);
         base.Collect();
     }

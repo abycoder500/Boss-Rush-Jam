@@ -64,6 +64,7 @@ public class KaijuController : MonoBehaviour
     private float swipeTime = 4.5f;
     private bool rotationSet = false;
     private int currentGemIndex = 0;
+    public float dieTime = 10.0f;
 
     private GameObject player;
     public GameObject ground;
@@ -77,6 +78,7 @@ public class KaijuController : MonoBehaviour
         roar,
         repositioning,
         disarmingRoar,
+        end,
         none
     }
 
@@ -160,6 +162,10 @@ public class KaijuController : MonoBehaviour
 
             case states.repositioning:
                 Reposition();
+                break;
+
+            case states.end:
+                End();
                 break;
 
             default:
@@ -416,6 +422,24 @@ public class KaijuController : MonoBehaviour
         }
     }
 
+    public void End()
+    {
+        if (!mInAttack)
+        {
+            mCurrentAttackTime = Time.time;
+            mInAttack = true;
+        }
+        transform.position -= transform.up * withdrawSpeed/3;
+
+        if (Time.time > mCurrentAttackTime + dieTime)
+        {
+            //You've beaten the kaiju, logic here
+            Debug.Log("A winner is you!");
+            MySceneManager mySceneManager = FindObjectOfType<MySceneManager>();
+            mySceneManager.NextScene();
+        }
+    }
+
     public void HandleGemDamage(GameObject gem)
     {
         if (gem == gems[currentGemIndex])
@@ -423,10 +447,10 @@ public class KaijuController : MonoBehaviour
             Destroy(gem);
             currentGemIndex++;
 
-            if (currentGemIndex > gems.Length)
+            if (currentGemIndex >= gems.Length)
             {
-                //You've beaten the kaiju, logic here
-                Debug.Log("A winner is you!");
+                mInAttack = false;
+                ChangeState(states.end);
             }
             else
                 ChangeState(states.disarmingRoar);

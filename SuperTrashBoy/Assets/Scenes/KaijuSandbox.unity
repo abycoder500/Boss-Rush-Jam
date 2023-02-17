@@ -2418,6 +2418,10 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8972140916363953756, guid: eec64c8be5fbdf247bc49629d988df63, type: 3}
+      propertyPath: noOfTrashPiles
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8972140916363953756, guid: eec64c8be5fbdf247bc49629d988df63, type: 3}
       propertyPath: retreatDistance
       value: 120
       objectReference: {fileID: 0}
