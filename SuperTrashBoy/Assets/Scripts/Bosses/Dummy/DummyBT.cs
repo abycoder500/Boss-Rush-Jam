@@ -406,7 +406,7 @@ public class DummyBT : BTUser
             upgrade.Spawn(Vector3.zero);
             Pickable gem = Instantiate(gemPickablePrefab, transform.position + transform.right * 0.5f, Quaternion.identity);
             gem.transform.parent = null;
-            audioManager.StopMusic();
+            audioManager.StopMusic(() => audioManager.PlayDummyWinMusic());
             firstSceneSuccessManager.SetGemAndWeapon(gem, upgrade);
             return Node.Status.SUCCESS;
         }

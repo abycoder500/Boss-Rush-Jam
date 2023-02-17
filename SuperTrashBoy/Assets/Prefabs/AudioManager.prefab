@@ -142,5 +142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   introMusic: {fileID: 8300000, guid: 66401739bb3fe22488e0b2c9042e93df, type: 3}
-  dummyMusic: {fileID: 8300000, guid: 60478c40845501b4588a2e0ff58a0e7e, type: 3}
+  dummyMusic: {fileID: 8300000, guid: 57d18d850ff09c346a6305693b068b27, type: 3}
+  dummyWinMusic: {fileID: 8300000, guid: 5ca0728f93c3f0a4180728ad563247e0, type: 3}
+  jackMusic: {fileID: 8300000, guid: e9250a77b1cc1cd4aa705bfe99110ad0, type: 3}
+  kaijuMusic: {fileID: 8300000, guid: c45af57f7bb6c7c4fb71546ecd42e462, type: 3}
   stopMusicTime: 1.5

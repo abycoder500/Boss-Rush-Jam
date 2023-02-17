@@ -106,7 +106,7 @@ public class MySceneManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         yield return fader.FadeOut(loadSceneFadeOutTime);
-        audioManager.StopMusic();
+        audioManager.StopMusic(null);
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         while (!asyncLoad.isDone)
         {
