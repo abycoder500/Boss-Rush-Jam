@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class ClosedBoxScript : MonoBehaviour
 {
+    [SerializeField] private Pickable gemPrefab;
     private bool isFake = true;
     private bool isFinalBox = false;
 
     private FightManager manager;
+    private DialogueTrigger endDialogue;
+    private NotificationUI notificationUI;
+    private AudioManager audioManager;
+
+    private void Awake() 
+    {
+        endDialogue = GameObject.FindGameObjectWithTag("EndDialogue").GetComponent<DialogueTrigger>();    
+        notificationUI = FindObjectOfType<NotificationUI>();
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +80,21 @@ public class ClosedBoxScript : MonoBehaviour
 
     private void HandleBattleEnd()
     {
+        if(gemPrefab != null) 
+        {
+            Pickable gem = Instantiate(gemPrefab, transform.position, Quaternion.identity);
+            gem.transform.parent = null;
+        }
         Debug.Log("A winner is you!");
+        endDialogue.StartDialogue();
+        StartCoroutine(SceneEnd());
+    }
+
+    private IEnumerator SceneEnd()
+    {
+        audioManager.StopMusic(null);
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => !notificationUI.IsShowing());
         MySceneManager mySceneManager = FindObjectOfType<MySceneManager>();
         mySceneManager.NextScene();
     }

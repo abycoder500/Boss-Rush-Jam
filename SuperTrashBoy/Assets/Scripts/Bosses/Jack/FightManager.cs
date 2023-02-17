@@ -110,8 +110,11 @@ public class FightManager : MonoBehaviour
         {
             randLocation = UnityEngine.Random.Range(0, spawnSpots.Length);
             GameObject boxInst = Instantiate(box, spawnSpots[randLocation].position, spawnSpots[randLocation].rotation);
-            boxInst.GetComponentInChildren<ClosedBoxScript>().SetUpBox(false);
-            boxInst.GetComponentInChildren<Renderer>().material = miniMaterials[lastAttackIndex];
+            if(boxInst!=null)
+            {   
+                boxInst.GetComponentInChildren<ClosedBoxScript>().SetUpBox(false);
+                boxInst.GetComponentInChildren<Renderer>().material = miniMaterials[lastAttackIndex];
+            }
         }
 
         //Spawn the other boxes
