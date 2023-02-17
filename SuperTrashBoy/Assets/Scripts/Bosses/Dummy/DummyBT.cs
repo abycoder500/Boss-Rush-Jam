@@ -323,7 +323,7 @@ public class DummyBT : BTUser
             isIdleSetUp = true;
             hitReceivedCounter.onHit += PlayHitAnimationAtIdle;
         }
-        Debug.Log(hitReceivedCounter.GetHitReceivedNumber());
+        //Debug.Log(hitReceivedCounter.GetHitReceivedNumber());
         if (hitReceivedCounter.GetHitReceivedNumber() < numberOfHitsToLeaveIdle)
         {
             return Node.Status.RUNNING;
