@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip dummyWinMusic = null;
     [SerializeField] AudioClip jackMusic = null;
     [SerializeField] AudioClip kaijuMusic = null;
+    [SerializeField] AudioClip outroMusic = null;
+
     [SerializeField] float stopMusicTime = 0.5f;
 
     AudioSource audioSource;
@@ -22,6 +24,11 @@ public class AudioManager : MonoBehaviour
     public void PlayMenuMusic()
     {
         PlayMusic(introMusic, true);
+    }
+
+    public void PlayOutroMusic()
+    {
+        PlayMusic(outroMusic, false);
     }
 
     public void StopMusic(Action AfterStop)

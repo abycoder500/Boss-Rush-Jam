@@ -29,6 +29,7 @@ public class CreditsRoll : MonoBehaviour
         Scrollbar vs = scrollerView.verticalScrollbar;
 
         Cursor.lockState = CursorLockMode.Locked;
+        yield return new WaitForSeconds(2); // Wait a bit for the music to start
         while (vs.value >= 0)
         {
             vs.value -= Time.deltaTime / scrollFactor;
