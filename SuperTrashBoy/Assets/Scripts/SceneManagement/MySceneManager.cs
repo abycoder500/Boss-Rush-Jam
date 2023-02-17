@@ -155,7 +155,7 @@ public class MySceneManager : MonoBehaviour
         switch (currentSceneIndex)
         {
             case 1: Debug.Log("LoadJack"); LoadJackScene(); break;
-            case 2: //Debug.Log("LoadKaiju"); LoadKaijuScene(); break;
+            case 2: Debug.Log("LoadKaiju"); LoadKaijuScene(); break;
             case 3: Debug.Log("LoadOutro"); LoadMenuScene(true); break;
             default: Debug.Log($"NextScene() has no known successor for {currentSceneIndex}"); break;
         }
