@@ -19,7 +19,7 @@ public class ClosedBoxScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetUpBox(bool isNotReal)
@@ -40,11 +40,17 @@ public class ClosedBoxScript : MonoBehaviour
             HandleBattleEnd();
             return;
         }
+
+        Activate();
+
         if (isFake == true)
+        {
             manager.AwakeBoxes();
+        }
         else
+        {
             manager.RemoveBoxes();
-            Activate();
+        }
     }
 
     public void Activate()
@@ -63,5 +69,7 @@ public class ClosedBoxScript : MonoBehaviour
     private void HandleBattleEnd()
     {
         Debug.Log("A winner is you!");
+        MySceneManager mySceneManager = FindObjectOfType<MySceneManager>();
+        mySceneManager.NextScene();
     }
 }

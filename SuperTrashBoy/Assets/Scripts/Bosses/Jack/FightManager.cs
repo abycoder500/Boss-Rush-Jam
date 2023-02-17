@@ -25,14 +25,22 @@ public class FightManager : MonoBehaviour
     void Start()
     {
         currentHealth = startingHealth;
-        GameObject jackInst = Instantiate(jack, startSpot.position, startSpot.rotation);
-        jackInst.GetComponent<Jack>().SetHealth(currentHealth);
+        Invoke(nameof(StartTheFight), 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    void StartTheFight()
+    {
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        Debug.Log($"FightManager got audioManager: {audioManager.name}");
+        audioManager.PlayJackBossMusic();
+        GameObject jackInst = Instantiate(jack, startSpot.position, startSpot.rotation);
+        jackInst.GetComponent<Jack>().SetHealth(currentHealth);
     }
 
     public void SeekPhase(Material lastAttack, float remainingHealth, bool isFinal)
@@ -82,7 +90,7 @@ public class FightManager : MonoBehaviour
         }
 
         //Spawn the other boxes
-        for (int i = 0; i< spawnSpots.Length; i++)
+        for (int i = 0; i < spawnSpots.Length; i++)
         {
             if (i != randLocation)
             {
