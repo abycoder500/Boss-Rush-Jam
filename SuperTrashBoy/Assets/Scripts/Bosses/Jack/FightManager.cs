@@ -63,6 +63,13 @@ public class FightManager : MonoBehaviour
 
     public void SeekPhase(Material lastAttack, float remainingHealth, bool isFinal)
     {
+        if (audioManager != null)
+        {
+            Debug.Log($"FightManager got audioManager: {audioManager.name}");
+            audioManager.StopMusic(null);
+            audioManager.PlayJackSeekMusic();
+        }
+
         //Destroy all miniJacks
         MiniDummySpit[] minis = FindObjectsOfType<MiniDummySpit>();
         for (int i = 0; i < minis.Length; i++)
@@ -134,6 +141,12 @@ public class FightManager : MonoBehaviour
 
     public void SpawnJack(Transform spot)
     {
+        if (audioManager != null)
+        {
+            Debug.Log($"FightManager got audioManager: {audioManager.name}");
+            audioManager.StopMusic(null);
+            audioManager.PlayJackBossMusic();
+        }
         GameObject jackInst = Instantiate(jack, spot.position, spot.rotation);
         jackInst.GetComponent<Jack>().SetHealth(currentHealth);
     }

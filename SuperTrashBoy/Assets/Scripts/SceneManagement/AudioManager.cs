@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip dummyMusic = null;
     [SerializeField] AudioClip dummyWinMusic = null;
     [SerializeField] AudioClip jackMusic = null;
+    [SerializeField] AudioClip jackSeekMusic = null;
     [SerializeField] AudioClip kaijuMusic = null;
     [SerializeField] AudioClip outroMusic = null;
 
@@ -48,6 +49,11 @@ public class AudioManager : MonoBehaviour
     {
         Debug.Log($"Audio: Jack Music started ({jackMusic.name})");
         PlayMusic(jackMusic, true);
+    }
+
+    public void PlayJackSeekMusic()
+    {
+        PlayMusic(jackSeekMusic, true);
     }
 
     public void PlayKaijuMusic()

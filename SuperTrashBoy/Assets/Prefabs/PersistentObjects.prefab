@@ -143,6 +143,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3537223447216267578}
     m_Modifications:
+    - target: {fileID: 5875941292701089984, guid: 1df613fd0b6bb1b4aac3ae3fd122a82a, type: 3}
+      propertyPath: jackSeekMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 09fafdc61d9517649b9e456a8008e0b2, type: 3}
     - target: {fileID: 5875941292701089985, guid: 1df613fd0b6bb1b4aac3ae3fd122a82a, type: 3}
       propertyPath: m_Name
       value: AudioManager
