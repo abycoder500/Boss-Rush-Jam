@@ -53,7 +53,7 @@ MonoBehaviour:
   OnPicked:
     m_PersistentCalls:
       m_Calls: []
-  weapon: {fileID: 1499170367665064610, guid: fb93667632085ac488ae6778b365eb72, type: 3}
+  weapon: {fileID: 1499170367665064610, guid: 85f72ad0d44d34146a9ebd77b92feb35, type: 3}
   notificationOnSpawn:
     text: Another stick! Time to use the gem from Jack!
     timeOnScreen: 0
