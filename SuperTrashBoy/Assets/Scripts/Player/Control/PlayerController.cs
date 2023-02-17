@@ -32,27 +32,16 @@ public class PlayerController : MonoBehaviour
     {
         inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
-        Debug.Log($"PlayerController.Start() im:{inputManager}");
     }
 
     private void OnEnable()
     {
         health.onTakeDamage += TakeKnockBack;
-        /*
-        Debug.Log($"PlayerController.OnEnable() im:{inputManager}");
-        if (null == inputManager)
-        {
-            inputManager = InputManager.Instance;
-            Debug.Log($"PlayerController.OnEnable() im assigned:{inputManager}");
-        }
-        inputManager.enabled = true;
-        */
     }
 
     private void OnDisable()
     {
         health.onTakeDamage -= TakeKnockBack;
-        //inputManager.enabled = false;
     }
 
     void Update()
