@@ -24,12 +24,14 @@ public class PausingManager : MonoBehaviour
     private void DoPause()
     {
         if (null != pausePanelUI) pausePanelUI.gameObject.SetActive(true);
+        inputManager.enabled = false;
         mySceneManager.PauseGame();
     }
 
     public void OnResumeButton()
     {
         if (null != pausePanelUI) pausePanelUI.gameObject.SetActive(false);
+        inputManager.enabled = true;
         mySceneManager.ResumeGame();
     }
 
@@ -37,4 +39,12 @@ public class PausingManager : MonoBehaviour
     {
         mySceneManager.LoadMenuScene();
     }
+
+    public void OnNextBossButton()
+    {
+        Debug.Log("Pause invokes next scene");
+        OnResumeButton();
+        mySceneManager.NextScene();
+    }
+
 }

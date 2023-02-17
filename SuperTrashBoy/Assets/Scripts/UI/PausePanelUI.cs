@@ -7,6 +7,7 @@ public class PausePanelUI : MonoBehaviour
 {
     [SerializeField] Button mainMenuButton;
     [SerializeField] Button resumeButton;
+    [SerializeField] Button nextBossButton;
 
     private PausingManager pausingManager = null;
 
@@ -21,12 +22,14 @@ public class PausePanelUI : MonoBehaviour
     {
         mainMenuButton.onClick.AddListener(() => pausingManager.OnMainMenuButton());
         resumeButton.onClick.AddListener(() => pausingManager.OnResumeButton());
+        nextBossButton.onClick.AddListener(() => pausingManager.OnNextBossButton());
     }
 
     private void OnDisable()
     {
         mainMenuButton.onClick.RemoveListener(() => pausingManager.OnMainMenuButton());
         resumeButton.onClick.RemoveListener(() => pausingManager.OnResumeButton());
+        nextBossButton.onClick.RemoveListener(() => pausingManager.OnNextBossButton());
     }
 
 }
