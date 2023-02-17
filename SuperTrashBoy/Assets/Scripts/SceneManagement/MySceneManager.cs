@@ -58,6 +58,10 @@ public class MySceneManager : MonoBehaviour
 
     public void PlayCredits()
     {
+        // We start the sound here because we want it to get reset when the outro transitions
+        // to the credits roll. We already have a reference to the AudioManager here already, too.
+        audioManager.StopMusic(() => audioManager.PlayOutroMusic());
+
         creditsRoll.gameObject.SetActive(enabled);
         creditsRoll.Begin(fader);
     }
@@ -65,6 +69,8 @@ public class MySceneManager : MonoBehaviour
     private void PlayOutro()
     {
         creditsRoll.gameObject.SetActive(enabled);
+        audioManager.StopMusic(() => audioManager.PlayOutroMusic());
+
         outro.gameObject.SetActive(enabled);
         outro.Begin(fader); // This includes the credits roll!
     }
