@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,15 +18,30 @@ public class FightManager : MonoBehaviour
 
     [SerializeField] public Material[] miniMaterials;   //Must be ordered the same as the attack materials
     [SerializeField] public Material finalMiniMaterial;
+    [SerializeField] public DialogueTrigger beforeFightDialogue;
 
     [SerializeField] private float startingHealth = 200;
     private float currentHealth;
+    private Jack jackInstance;
+    private AudioManager audioManager;
+
+    public event Action<string> onActivate;
+
+    private void Awake() 
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
-    {
+    {      
         currentHealth = startingHealth;
-        Invoke(nameof(StartTheFight), 2f);
+        GameObject jackInst = Instantiate(jack, startSpot.position, startSpot.rotation);
+        jackInstance = jackInst.GetComponent<Jack>();
+        jackInstance.SetHealth(currentHealth);
+        jackInstance.GetComponent<Health>().onDie += HandleEndOfFight;
+        jackInstance.enabled = false;
+        beforeFightDialogue.StartDialogue();
     }
 
     // Update is called once per frame
@@ -34,13 +50,16 @@ public class FightManager : MonoBehaviour
 
     }
 
-    void StartTheFight()
+    public void StartTheFight()
     {
-        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        jackInstance.enabled = true;
+        jackInstance.GetActivated();
+        onActivate?.Invoke(jackInstance.GetBossName());
+        
+        if(audioManager == null) return;
         Debug.Log($"FightManager got audioManager: {audioManager.name}");
         audioManager.PlayJackBossMusic();
-        GameObject jackInst = Instantiate(jack, startSpot.position, startSpot.rotation);
-        jackInst.GetComponent<Jack>().SetHealth(currentHealth);
+        
     }
 
     public void SeekPhase(Material lastAttack, float remainingHealth, bool isFinal)
@@ -83,7 +102,7 @@ public class FightManager : MonoBehaviour
         }
         else
         {
-            randLocation = Random.Range(0, spawnSpots.Length);
+            randLocation = UnityEngine.Random.Range(0, spawnSpots.Length);
             GameObject boxInst = Instantiate(box, spawnSpots[randLocation].position, spawnSpots[randLocation].rotation);
             boxInst.GetComponentInChildren<ClosedBoxScript>().SetUpBox(false);
             boxInst.GetComponentInChildren<Renderer>().material = miniMaterials[lastAttackIndex];
@@ -98,7 +117,7 @@ public class FightManager : MonoBehaviour
                 int j = 0;
                 while (valid == false)
                 {
-                    j = Random.Range(0, attackMaterials.Length);
+                    j = UnityEngine.Random.Range(0, attackMaterials.Length);
                     if (attackMaterials[j] != lastAttack)
                         valid = true;
                 }

@@ -115,8 +115,10 @@ public class Jack : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         health.onTakeDamage += SetDamageTaken;
+    }
 
-        //Todo: put this where it actually happens
+    public void GetActivated()
+    {
         onActivate?.Invoke(bossName);
     }
 
@@ -451,5 +453,10 @@ public class Jack : MonoBehaviour
             lastAttack = normalAttacks[i];
             return normalAttacks[i];
         }
+    }
+
+    public string GetBossName()
+    {
+        return bossName;
     }
 }
