@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerVelocity;
 
     private InputManager inputManager;
-    
+
     private bool isGrounded;
     private bool knocked = false;
 
@@ -27,33 +27,43 @@ public class PlayerController : MonoBehaviour
         fighter = GetComponent<Fighter>();
         health = GetComponent<Health>();
     }
-    
-    private void Start() 
+
+    private void Start()
     {
-        inputManager = InputManager.Instance;    
+        inputManager = InputManager.Instance;
         cameraTransform = Camera.main.transform;
+        Debug.Log($"PlayerController.Start() im:{inputManager}");
     }
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        health.onTakeDamage += TakeKnockBack;   
-        inputManager.enabled = true; 
+        health.onTakeDamage += TakeKnockBack;
+        /*
+        Debug.Log($"PlayerController.OnEnable() im:{inputManager}");
+        if (null == inputManager)
+        {
+            inputManager = InputManager.Instance;
+            Debug.Log($"PlayerController.OnEnable() im assigned:{inputManager}");
+        }
+        inputManager.enabled = true;
+        */
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
-        inputManager.enabled = false;
+        health.onTakeDamage -= TakeKnockBack;
+        //inputManager.enabled = false;
     }
 
     void Update()
     {
         mover.Move(inputManager, cameraTransform, knocked);
 
-        if(knocked) return;
-        if(inputManager.IsJumping()) mover.Jump();
-        if(inputManager.IsCrouching()) mover.Crouch();
-        if(inputManager.IsAttackingMelee()) fighter.Attack();
-        if(inputManager.IsAttackingRanged()) fighter.RangeAttack();
+        if (knocked) return;
+        if (inputManager.IsJumping()) mover.Jump();
+        if (inputManager.IsCrouching()) mover.Crouch();
+        if (inputManager.IsAttackingMelee()) fighter.Attack();
+        if (inputManager.IsAttackingRanged()) fighter.RangeAttack();
 
         mover.ApplyGravity();
     }
