@@ -337,6 +337,23 @@ public class KaijuController : MonoBehaviour
             animator.SetTrigger("isRoar");
             //TODO: put sound here
             mCurrentAttackTime = Time.time;
+
+            //Clear all story destructables
+            FallingTrash[] trash = FindObjectsOfType<FallingTrash>();
+            foreach (FallingTrash trashball in trash)
+            {
+                Destroy(trashball.gameObject);
+            }
+            TrashPile[] trashpile = FindObjectsOfType<TrashPile>();
+            foreach (TrashPile pile in trashpile)
+            {
+                Destroy(pile.gameObject);
+            }
+            WeaponUpgradePickable[] sticks = FindObjectsOfType<WeaponUpgradePickable>();
+            foreach (WeaponUpgradePickable stick in sticks)
+            {
+                Destroy(stick.gameObject);
+            }
         }
 
         if (Time.time > mCurrentAttackTime + roarTime)
