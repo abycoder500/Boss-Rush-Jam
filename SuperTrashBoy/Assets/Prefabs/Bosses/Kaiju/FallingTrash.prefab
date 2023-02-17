@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090803fc77b3f1542be5a1ae87d89bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructablePile: {fileID: 3587348593804440422, guid: 4ceafc50b0519ad41a1ef06d2188bdc1, type: 3}
+  destructablePile: {fileID: 3587348593804440422, guid: a2b53c8418db4914cbfacdc87ee88f08, type: 3}
   damage: 10
   spawnChance: 3
   cullingHeight: -20

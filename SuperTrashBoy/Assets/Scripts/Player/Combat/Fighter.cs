@@ -55,6 +55,7 @@ public class Fighter : MonoBehaviour
     public void UnequipWeapon()
     {
         if (equippedWeapon != null) Destroy(equippedWeapon.gameObject);
+        isAttacking = false;
     }
 
     public bool IsAttackingMelee()

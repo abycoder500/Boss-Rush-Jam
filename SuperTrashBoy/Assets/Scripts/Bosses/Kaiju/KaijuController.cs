@@ -11,8 +11,11 @@ public class KaijuController : MonoBehaviour
 
     private bool mInAttack = false;
 
+    //GameObjects for Gems
+    public GameObject[] gems;
+
     //GameObjects for attacks
-    public GameObject fallingTrash;
+    public GameObject[] fallingTrash;
     public GameObject wind;
 
     //Variables for choosing attacks
@@ -60,6 +63,7 @@ public class KaijuController : MonoBehaviour
     private float roarTime = 1.5f;
     private float swipeTime = 4.5f;
     private bool rotationSet = false;
+    private int currentGemIndex = 0;
 
     private GameObject player;
     public GameObject ground;
@@ -118,8 +122,6 @@ public class KaijuController : MonoBehaviour
             transform.LookAt(ground.transform);
             transform.eulerAngles = new Vector3(0, transform.rotation.eulerAngles.y);
         }
-
-
     }
 
     // Update is called once per frame
@@ -278,7 +280,7 @@ public class KaijuController : MonoBehaviour
     private void SpawnTrashPile()
     {
         Vector2 pos = Random.insideUnitCircle * ground.transform.localScale.x;
-        GameObject pile = Instantiate(fallingTrash, new Vector3(pos.x, trashSpawnHeight, pos.y), Quaternion.identity);
+        GameObject pile = Instantiate(fallingTrash[currentGemIndex], new Vector3(pos.x, trashSpawnHeight, pos.y), Quaternion.identity);
         pile.GetComponent<FallingTrash>().damage = trashDamage;
     }
 
@@ -394,6 +396,23 @@ public class KaijuController : MonoBehaviour
                 mInAttack = false;
                 ChangeState(states.neutral);
             }
+        }
+    }
+
+    public void HandleGemDamage(GameObject gem)
+    {
+        if (gem == gems[currentGemIndex])
+        {
+            Destroy(gem);
+            currentGemIndex++;
+
+            if (currentGemIndex > gems.Length)
+            {
+                //You've beaten the kaiju, logic here
+                Debug.Log("A winner is you!");
+            }
+            else
+                ChangeState(states.disarmingRoar);
         }
     }
 }
