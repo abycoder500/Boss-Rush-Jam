@@ -16,9 +16,11 @@ public class AudioManager : MonoBehaviour
 
     AudioSource audioSource;
 
-    private void Awake() 
+    Coroutine stopMusic;
+
+    private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();    
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void PlayMenuMusic()
@@ -34,7 +36,7 @@ public class AudioManager : MonoBehaviour
     public void StopMusic(Action AfterStop)
     {
         Debug.Log("music stop");
-        StartCoroutine(ChangeVolume(stopMusicTime, 0f, AfterStop));
+        stopMusic = StartCoroutine(ChangeVolume(stopMusicTime, 0f, AfterStop));
     }
 
     public void PlayDummyBossMusic()
@@ -44,6 +46,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayJackBossMusic()
     {
+        Debug.Log($"Audio: Jack Music started ({jackMusic.name})");
         PlayMusic(jackMusic, true);
     }
 
@@ -60,6 +63,11 @@ public class AudioManager : MonoBehaviour
     private void PlayMusic(AudioClip audio, bool loop)
     {
         if (audio == null) return;
+        if (null != stopMusic)
+        {
+            Debug.Log($"Nuking {stopMusic}");
+            StopCoroutine(stopMusic);
+        }
         audioSource.volume = 1f;
         audioSource.clip = audio;
         audioSource.loop = loop;
@@ -86,7 +94,8 @@ public class AudioManager : MonoBehaviour
             audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
             yield return null;
         }
-        if(AfterStop != null) AfterStop();
+        if (AfterStop != null) AfterStop();
+        Debug.Log("ChangeVolume is done");
         yield break;
     }
 }
