@@ -21,6 +21,8 @@ public class DummyBT : BTUser
     [Header("Other parameters")]
     [SerializeField] private string bossName = "The Dummy";
     [SerializeField] private WeaponUpgradePickable weaponUpgradePickablePrefab;
+    [SerializeField] private Pickable gemPickablePrefab;
+    [SerializeField] private FirstSceneSuccessManager firstSceneSuccessManager = null;
     [SerializeField] private ParticleSystem rageParticles = null;
     [SerializeField] private ParticleSystem aliveParticles = null;
     [SerializeField] private ParticleSystem weaponParticles = null;
@@ -402,7 +404,10 @@ public class DummyBT : BTUser
             WeaponUpgradePickable upgrade = Instantiate(weaponUpgradePickablePrefab, transform.position, Quaternion.identity);
             upgrade.transform.parent = null;
             upgrade.Spawn(Vector3.zero);
+            Pickable gem = Instantiate(gemPickablePrefab, transform.position + transform.right * 0.5f, Quaternion.identity);
+            gem.transform.parent = null;
             audioManager.StopMusic();
+            firstSceneSuccessManager.SetGemAndWeapon(gem, upgrade);
             return Node.Status.SUCCESS;
         }
         

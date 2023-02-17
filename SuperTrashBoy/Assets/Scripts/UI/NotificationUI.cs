@@ -24,6 +24,7 @@ public class NotificationUI : MonoBehaviour
 
     private Coroutine activeNotification = null;
     private AudioSource audioSource;
+    private bool isShowing = false;
 
     private List<Notification> notificationsOnQueue = new List<Notification>();
 
@@ -47,6 +48,7 @@ public class NotificationUI : MonoBehaviour
     {
         if(activeNotification == null)
         {
+            isShowing = true;
             activeNotification = StartCoroutine(ShowText(notification));
             if(notification.sound && notificationSound != null) audioSource.PlayOneShot(notificationSound);
         }
@@ -71,6 +73,10 @@ public class NotificationUI : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenNotifications);
             ShowNotification(notificationsOnQueue[0]);
         }
+        else
+        {
+            isShowing = false;
+        }
     }
 
     private IEnumerator ChangePanelAlpha(float target, float time)
@@ -91,6 +97,11 @@ public class NotificationUI : MonoBehaviour
             notificationText.alpha = a;
             yield return null;
         }
+    }
+
+    public bool IsShowing()
+    {
+        return isShowing;
     }
 
     

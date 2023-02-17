@@ -11,10 +11,12 @@ public class WeaponUpgradePickable : Pickable
     private Rigidbody rb;
 
     private NotificationUI notificationUI = null;
+    private DialogueTrigger dialogueTrigger;
 
     private void Awake() 
     {
         notificationUI = FindObjectOfType<NotificationUI>();
+        dialogueTrigger = GetComponent<DialogueTrigger>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -38,6 +40,7 @@ public class WeaponUpgradePickable : Pickable
     {
         if (player == null) return;
         notificationUI.ShowNotification(notificationOnCollect);
+        dialogueTrigger.StartDialogue();
         player.GetComponent<Fighter>().EquipWeapon(weapon);
         base.Collect();
     }

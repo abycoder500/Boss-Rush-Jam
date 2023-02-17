@@ -36,7 +36,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable() 
     {
-        health.onTakeDamage += TakeKnockBack;    
+        health.onTakeDamage += TakeKnockBack;   
+        inputManager.enabled = true; 
+    }
+
+    private void OnDisable() 
+    {
+        inputManager.enabled = false;
     }
 
     void Update()

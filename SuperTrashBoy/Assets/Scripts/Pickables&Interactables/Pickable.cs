@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Pickable : MonoBehaviour
+public class Pickable : MonoBehaviour
 {
     [SerializeField] private bool interactWithPlayerOnly = true;
     [SerializeField] private float lifeTime = -1;
 
-    
     public UnityEvent OnPicked;
+    public event Action onCollected;
 
     protected GameObject player;
 
@@ -45,6 +46,7 @@ public abstract class Pickable : MonoBehaviour
     protected virtual void Collect()
     {
         OnPicked?.Invoke();
+        onCollected?.Invoke();
         Destroy(this.gameObject);
     }
 

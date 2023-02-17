@@ -15657,6 +15657,7 @@ MonoBehaviour:
   preAttackSFXPrefab: {fileID: 7698837146834326729, guid: 0a60b3364535c8e41998b7d16acd2313, type: 3}
   bossName: The Dummy
   weaponUpgradePickablePrefab: {fileID: 3701322255831151566, guid: c2430795418c5f34e8b18a844b4a63b2, type: 3}
+  gemPickablePrefab: {fileID: 3333349791864708733, guid: 8fb2989c4922d6a4ab32056acc002565, type: 3}
   rageParticles: {fileID: 8400866889793175973}
   aliveParticles: {fileID: 8145989247587428842}
   weaponParticles: {fileID: 5973616910475382565}
