@@ -25,3 +25,9 @@ MonoBehaviour:
   - text: Use ctrl to crouch
     timeOnScreen: 2
     sound: 1
+  - text: Use p to pause the game
+    timeOnScreen: 2
+    sound: 1
+  - text: Advance to next boss from pause screen
+    timeOnScreen: 2
+    sound: 1

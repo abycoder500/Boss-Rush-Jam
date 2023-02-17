@@ -58,6 +58,10 @@ public class MySceneManager : MonoBehaviour
 
     public void PlayCredits()
     {
+        // We start the sound here because we want it to get reset when the outro transitions
+        // to the credits roll. We already have a reference to the AudioManager here already, too.
+        audioManager.StopMusic(() => audioManager.PlayOutroMusic());
+
         creditsRoll.gameObject.SetActive(enabled);
         creditsRoll.Begin(fader);
     }
@@ -65,6 +69,8 @@ public class MySceneManager : MonoBehaviour
     private void PlayOutro()
     {
         creditsRoll.gameObject.SetActive(enabled);
+        audioManager.StopMusic(() => audioManager.PlayOutroMusic());
+
         outro.gameObject.SetActive(enabled);
         outro.Begin(fader); // This includes the credits roll!
     }
@@ -138,4 +144,21 @@ public class MySceneManager : MonoBehaviour
         // Unlike intro/outro, creditsRoll disables itself, not its children
         creditsRoll = FindObjectOfType<CreditsRoll>(true);
     }
+
+
+    public void NextScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        Debug.Log($"Next Scene: now at {currentSceneIndex}: {currentSceneName}");
+
+        switch (currentSceneIndex)
+        {
+            case 1: Debug.Log("LoadJack"); LoadJackScene(); break;
+            case 2: //Debug.Log("LoadKaiju"); LoadKaijuScene(); break;
+            case 3: Debug.Log("LoadOutro"); LoadMenuScene(true); break;
+            default: Debug.Log($"NextScene() has no known successor for {currentSceneIndex}"); break;
+        }
+    }
+
 }
