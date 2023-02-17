@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8557677901042032374}
   - component: {fileID: 1499170367665064610}
   m_Layer: 0
-  m_Name: LaserWeapon
+  m_Name: LaserWeapon 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   weaponRange: 200
   weaponDamage: 10
-  gemPrefab: {fileID: 143445061942407999, guid: 59d15c9017743c84da99caed610e8b5e, type: 3}
+  gemPrefab: {fileID: 143445061942407999, guid: 11bdd7459714df74fbea4a44d740874a, type: 3}
   gemPosition: {fileID: 727180652661700263}
   laserPrefab: {fileID: -9210652945919252947, guid: 204273b492b02df41bca5979fe4fe782, type: 3}
   launchForce: 200
