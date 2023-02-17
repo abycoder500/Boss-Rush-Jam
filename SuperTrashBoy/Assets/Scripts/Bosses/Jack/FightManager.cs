@@ -39,7 +39,6 @@ public class FightManager : MonoBehaviour
         GameObject jackInst = Instantiate(jack, startSpot.position, startSpot.rotation);
         jackInstance = jackInst.GetComponent<Jack>();
         jackInstance.SetHealth(currentHealth);
-        jackInstance.GetComponent<Health>().onDie += HandleEndOfFight;
         jackInstance.enabled = false;
         beforeFightDialogue.StartDialogue();
     }

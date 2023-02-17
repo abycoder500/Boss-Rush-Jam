@@ -97,6 +97,13 @@ public class KaijuController : MonoBehaviour
 
         //Start by disarming the player
         ChangeState(states.disarmingRoar);
+
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null)
+        {
+            Debug.Log($"FightManager got audioManager: {audioManager.name}");
+            audioManager.PlayKaijuMusic();
+        }
     }
 
     private void FixedUpdate()
