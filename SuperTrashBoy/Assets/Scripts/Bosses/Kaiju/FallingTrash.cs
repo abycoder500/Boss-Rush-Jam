@@ -27,13 +27,6 @@ public class FallingTrash : MonoBehaviour
             Destroy(gameObject);
 
         return;
-        /*
-        //for turning into trash by height, not collision
-        if (transform.position.y < explodeHeight)
-        {
-            SpawnTrash();
-            Destroy(gameObject);
-        }*/
     }
 
     private void OnCollisionEnter(Collision collision)

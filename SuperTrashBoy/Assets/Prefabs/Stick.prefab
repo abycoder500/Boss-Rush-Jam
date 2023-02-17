@@ -59,7 +59,7 @@ MonoBehaviour:
     timeOnScreen: 0
     sound: 0
   notificationOnCollect:
-    text: Wow, with this stick combined with a gem I can shoot laser!
+    text: Wow, with this stick combined with a gem I can shoot laser blasts!
     timeOnScreen: 5
     sound: 1
 --- !u!65 &753339141

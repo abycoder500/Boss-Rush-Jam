@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 175b9b52e9594574fb5d4c948c49cf63, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -128,9 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090803fc77b3f1542be5a1ae87d89bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explodeHeight: 9
-  destructablePile: {fileID: 3587348593804440422, guid: ce9891893ab1e74418f02d35ce5ca1ed, type: 3}
+  destructablePile: {fileID: 3587348593804440422, guid: 4ceafc50b0519ad41a1ef06d2188bdc1, type: 3}
   damage: 10
+  spawnChance: 3
+  cullingHeight: -20
 --- !u!1001 &3541834821056135702
 PrefabInstance:
   m_ObjectHideFlags: 0

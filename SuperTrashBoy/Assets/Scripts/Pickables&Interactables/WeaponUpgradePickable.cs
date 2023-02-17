@@ -40,7 +40,8 @@ public class WeaponUpgradePickable : Pickable
     {
         if (player == null) return;
         notificationUI.ShowNotification(notificationOnCollect);
-        dialogueTrigger.StartDialogue();
+        if (dialogueTrigger!= null)
+            dialogueTrigger.StartDialogue();
         player.GetComponent<Fighter>().EquipWeapon(weapon);
         base.Collect();
     }

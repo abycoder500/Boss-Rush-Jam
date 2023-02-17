@@ -7,6 +7,8 @@ public class KaijuController : MonoBehaviour
     [SerializeField] string bossName = "The Kaiju";
     [SerializeField] Animator animator;
 
+    public HitBox armHitbox;
+
     private bool mInAttack = false;
 
     //GameObjects for attacks
@@ -38,7 +40,7 @@ public class KaijuController : MonoBehaviour
     private GameObject windInst = null;
 
     //Swipe variables
-    public float swipeDamage = 20f;
+    public float swipeDamage = 40f;
 
 
     //Reposition variables
@@ -307,6 +309,8 @@ public class KaijuController : MonoBehaviour
         {
             //We've hit this point for the first time
             mInAttack = true;
+            armHitbox.SetupHitBox(gameObject, swipeDamage);
+            armHitbox.gameObject.SetActive(true);
             mCurrentAttackTime = Time.time;
             animator.SetTrigger("isSwipeL");
             rotationSet = false;
@@ -314,6 +318,7 @@ public class KaijuController : MonoBehaviour
 
         if (Time.time > mCurrentAttackTime + swipeTime)
         {
+            armHitbox.gameObject.SetActive(false);
             animator.ResetTrigger("isSwipeL");
             Destroy(windInst);
             mInAttack = false;
