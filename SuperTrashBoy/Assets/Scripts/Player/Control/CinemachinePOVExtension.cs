@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using System;
+using Armageddump.Inputs;
 
 public class CinemachinePOVExtension : CinemachineExtension
 {

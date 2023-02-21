@@ -43,9 +43,13 @@ GameObject:
   - component: {fileID: 3154166895986605663}
   - component: {fileID: 1230060694310951527}
   - component: {fileID: 310604501573812720}
-  - component: {fileID: 1230060694310951526}
   - component: {fileID: 1230060694310951529}
+  - component: {fileID: 1230060694310951526}
   - component: {fileID: 2275845790867762976}
+  - component: {fileID: 5576058833721863252}
+  - component: {fileID: 31353363317935484}
+  - component: {fileID: 4345165275896389770}
+  - component: {fileID: 7696744914078369197}
   - component: {fileID: 1170508982}
   - component: {fileID: 9196044537811021962}
   m_Layer: 0
@@ -119,19 +123,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1230060694310951526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1230060694310951525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab97b51d31b0728458de02b9a42ec20f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  knockBackDuration: 0.4
 --- !u!114 &1230060694310951529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +155,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1230060694310951526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230060694310951525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab97b51d31b0728458de02b9a42ec20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockBackDuration: 0.4
 --- !u!114 &2275845790867762976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,17 +182,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1230060695433249724}
   maxMovementSpeed: 15
+  accelerationTime: 0.3
+  decelerationTime: 0.07
   maxCrouchSpeed: 7
-  acceleration: 5
-  deceleration: 10
-  jumpHeight: 15
-  jumpTimeLength: 0.5
   gravityValue: -29.43
   crouchAmountFraction: 0.5
   knockBackForce: 12
   knockBackAngle: 5
   bodyRotationVelocity: 2
   ext: {fileID: 0}
+  accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  decelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08795108
+    - serializedVersion: 3
+      time: 0.6667412
+      value: 0.79666615
+      inSlope: -1.1329327
+      outSlope: -1.1329327
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.100072004
+      outWeight: 0.1108818
+    - serializedVersion: 3
+      time: 1.0032959
+      value: 0
+      inSlope: -3.064458
+      outSlope: -3.064458
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10061842
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5576058833721863252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230060694310951525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7551c83d33e5eb439dea8bad31b7820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -222,6 +293,47 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  jumpTimeLength: 0.5
+  jumpVelocity: 15
+--- !u!114 &31353363317935484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230060694310951525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d451f6ff2ef7974bb7fcd3b5fe66ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crouchAmountFraction: 0.5
+  movementSpeedFractionWhenCrouched: 0.5
+--- !u!114 &4345165275896389770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230060694310951525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa3bad46bf696b4d9afbee9110ea24c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityValue: -29.43
+--- !u!114 &7696744914078369197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230060694310951525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d73a1dcf3ac6a94d8005535625073f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1170508982
 MonoBehaviour:
   m_ObjectHideFlags: 0
