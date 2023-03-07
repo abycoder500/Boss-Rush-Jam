@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Armageddump.Inputs;
 using UnityEngine;
 
 public class PausingManager : MonoBehaviour

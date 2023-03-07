@@ -22,14 +22,14 @@ public class Wind : MonoBehaviour
     {
         if (mCollider.bounds.Intersects(player.GetComponent<Collider>().bounds))
         {
-            Mover move = player.GetComponent<Mover>();
-            move.SetWindForce(new Vector2(transform.forward.x, transform.forward.z) * windForce);
+            ForceReceiver forceReceiver = player.GetComponent<ForceReceiver>();
+            forceReceiver.AddForce(new Vector3(transform.forward.x, 0f, transform.forward.z) * windForce);
             isKnockingBack = true;
         }
         else if (isKnockingBack)
         {
-            Mover move = player.GetComponent<Mover>();
-            move.ResetWindForce();
+            ForceReceiver forceReceiver = player.GetComponent<ForceReceiver>();
+            forceReceiver.RemoveForce(new Vector3(transform.forward.x, 0f, transform.forward.z) * windForce);
         }
     }
 
@@ -37,8 +37,8 @@ public class Wind : MonoBehaviour
     {
         if (player != null)
         {
-            Mover move = player.GetComponent<Mover>();
-            move.ResetWindForce();
+            ForceReceiver forceReceiver = player.GetComponent<ForceReceiver>();
+            forceReceiver.RemoveForce(new Vector3(transform.forward.x, 0f, transform.forward.z) * windForce);
         }
     }
 

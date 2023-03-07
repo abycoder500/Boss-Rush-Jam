@@ -15,12 +15,12 @@ public class FirstDialogue : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private IEnumerator Start() 
-    {
-        yield return new WaitForSeconds(0.1f);
-        player.GetComponent<PlayerController>().enabled = false;
-        dialogueTrigger.StartDialogue();    
-        yield return new WaitForSeconds(timeToGivePlayerControl);
-        player.GetComponent<PlayerController>().enabled = true;
-    }
+    // private IEnumerator Start() 
+    // {
+    //     yield return new WaitForSeconds(0.1f);
+    //     player.GetComponent<PlayerController>().enabled = false;
+    //     dialogueTrigger.StartDialogue();    
+    //     yield return new WaitForSeconds(timeToGivePlayerControl);
+    //     player.GetComponent<PlayerController>().enabled = true;
+    // }
 }
